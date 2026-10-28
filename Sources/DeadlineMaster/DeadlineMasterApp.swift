@@ -13,6 +13,8 @@ struct DeadlineMasterApp: App {
                 .task { if !model.ready { await model.load() } }
         }
         .defaultSize(width: 1240, height: 820)
+        // Keep the toolbar controls without a visible window title.
+        .windowToolbarStyle(.unified(showsTitle: false))
         .commands { CommandGroup(replacing: .newItem) {} }
     }
 }

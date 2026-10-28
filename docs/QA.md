@@ -47,3 +47,7 @@ Verified in the packaged release:
 - Optimized build and app signature verification passed.
 
 Data/audio code was unchanged in this repair; the earlier 11-test run remains its latest verification. This repair used native UI checks rather than additional data/audio tests.
+
+### Window title overlap — 2026-10-28
+
+Moved the visible title into a centered principal toolbar item and disabled the automatic leading title using the unified toolbar style. The sidebar divider no longer crosses the app name. Visually checked the packaged app at its restored window size and zoomed size; the Finder footer remains visible. Release packaging and signature verification passed.
