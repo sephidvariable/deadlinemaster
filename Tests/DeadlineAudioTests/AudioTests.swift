@@ -58,16 +58,15 @@ private func fixture(at url: URL) throws {
     #expect(throws: (any Error).self) { try AudioExporter.export(source: url, destination: url, spec: DeliverySpec()) }
 }
 
-@Test func successfulExportReplacesExistingOutput() throws {
+@Test func exportRefusesExistingOutput() throws {
     let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
     try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
     defer { try? FileManager.default.removeItem(at: root) }
     let source = root.appendingPathComponent("source.wav"), output = root.appendingPathComponent("existing.wav")
     try fixture(at: source)
     try Data("old output".utf8).write(to: output)
-    try AudioExporter.export(source: source, destination: output, spec: DeliverySpec())
-    let decoded = try AVAudioFile(forReading: output)
-    #expect(decoded.length > 0)
+    #expect(throws: (any Error).self) { try AudioExporter.export(source: source, destination: output, spec: DeliverySpec()) }
+    #expect(try Data(contentsOf: output) == Data("old output".utf8))
     #expect(try FileManager.default.contentsOfDirectory(atPath: root.path).allSatisfy { !$0.hasPrefix(".deadline-") })
 }
 

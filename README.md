@@ -34,7 +34,7 @@ A standard macOS dialog reminds you to back up your local library each time the 
 ## Your first project
 
 1. Click **New project**, enter a name and artist, then create it.
-2. Click **Add files**. Audio and documents are linked without copying. Keep originals in place and their drives connected.
+2. Click **Add files**. Audio and documents are read directly from their original paths. Keep originals in place and their drives connected.
 3. Play a mix with the play button. The folder button reveals its original in Finder.
 4. Add notes and click **Save notes**. Notes are not autosaved.
 5. Paste a brief, or import a UTF-8 `.txt` file. Click **Extract specs**.
@@ -71,7 +71,6 @@ By default, the app stores its library in:
 ```text
 ~/Library/Application Support/Deadline Master/
   library.json
-  References/<project UUID>/<shortcut tree>
   Files/<project UUID>/<legacy copied files>
 ```
 
@@ -88,10 +87,15 @@ The original web prototype remains in `../sidea/`. Its IndexedDB library is sepa
 - No loudness normalization, peak limiting, mastering, dither, batch delivery, MP3/FLAC output, PDF/Word briefs, AI parsing, folder watching, cloud sync, or version control.
 - The parser handles explicit numeric settings, not arbitrary prose. It warns on known unsupported requirements and conflicting settings; always review the original brief.
 - WAV INFO metadata uses UTF-8. Metadata visibility and Unicode handling vary across other audio apps.
-- New imports use symbolic links, including Pages document packages. Moving or deleting originals breaks their links; restore the path or add them again. Project deletion removes only shortcuts and their containers. Older copied assets are preserved because their original locations were not recorded.
 - Export runs in the background but currently has no percentage or cancel UI. Do not quit during conversion.
 - Development builds are ad-hoc signed and are not sandboxed or notarized. Developer ID signing, hardened runtime, sandbox/file access design, and notarization are future distribution work; don't disable Gatekeeper to distribute this build.
 
 This app has no networking code, web view, analytics, accounts, or online service dependency.
 
-New folder-created projects automatically refresh their shortcuts while the app is open (roughly every three seconds, plus scan time). Added/renamed/deleted supported files are reconciled using the same Ableton exclusions. ZIPs and other unsupported additions are ignored. A missing or disconnected root preserves the library and shows a warning until it returns. Older beta projects must be recreated to record their watched source folder.
+
+
+## Current storage behavior
+
+New projects store absolute original file paths in library.json (schema 3). No file copies or shortcuts are created. Creation scans immediately; after that, folder inventories refresh once at each app launch, with no timer or background polling. Project deletion only removes metadata. Original files remain untouched.
+
+Handoff is the only workflow that writes audio output. Choose a new filename, including in the original project directory: existing files cannot be overwritten. Recreate older beta projects to use direct-path records. Historical shortcut/copy folders are not automatically purged.

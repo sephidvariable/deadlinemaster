@@ -34,27 +34,19 @@ final class StudioModel {
         do { projects = try await repository.load(); ready = true }
         catch { self.error = "Could not read the library. No data has been overwritten. \(error.localizedDescription)" }
     }
-    func monitorFolders() async {
-        while !Task.isCancelled {
-            if ready && !busy {
-                busy = true
-                for id in projects.filter({ $0.sourceFolderPath != nil }).map(\.id) {
-                    if Task.isCancelled { break }
-                    do {
-                        let next = try await repository.refreshProject(id, existing: projects)
-                        folderRefreshIssues[id] = nil
-                        if next != projects {
-                            projects = next
-                            if let playingID, !projects.flatMap(\.assets).contains(where: { $0.id == playingID }) { stop() }
-                            status = "Project files refreshed from the original folder."
-                        }
-                    } catch is CancellationError { break }
-                    catch { folderRefreshIssues[id] = "Folder refresh paused: " + error.localizedDescription }
-                }
-                busy = false
+    private var refreshedAtLaunch = false
+    func refreshFoldersAtLaunch() async {
+        guard ready, !refreshedAtLaunch else { return }
+        refreshedAtLaunch = true
+        busy = true
+        defer { busy = false }
+        for id in projects.filter({ $0.sourceFolderPath != nil }).map(\.id) {
+            do {
+                projects = try await repository.refreshProject(id, existing: projects)
+                folderRefreshIssues[id] = nil
+            } catch {
+                folderRefreshIssues[id] = "Launch scan failed: " + error.localizedDescription + ". Reopen the app after restoring access."
             }
-            do { try await Task.sleep(for: .seconds(3)) }
-            catch { break }
         }
     }
     func create(name: String, artist: String, folder: URL) async {
@@ -64,7 +56,7 @@ final class StudioModel {
         busy = true; defer { busy = false }
         let project = MusicProject(name: name, artist: artist)
         error = nil
-        status = "Scanning and linking project folder…"
+        status = "Reading project folder…"
         do {
             let imported = try await repository.createFromFolder(folder, project: project, existing: projects)
             projects = [imported] + projects
@@ -85,7 +77,7 @@ final class StudioModel {
         guard ready, !busy else { return }
         let alert = NSAlert()
         alert.messageText = "Delete “\(project.name)”?"
-        alert.informativeText = "Remove this project, its notes, and its shortcuts. Original files are untouched. Any older copied files remain in the library’s Files folder."
+        alert.informativeText = "Remove this project and its notes from the library. No original files or folders will be changed or deleted."
         alert.alertStyle = .warning
         alert.addButton(withTitle: "Cancel")
         alert.addButton(withTitle: "Delete project")
@@ -100,7 +92,7 @@ final class StudioModel {
                 projects = next
                 folderRefreshIssues[project.id] = nil
                 if selectedID == project.id { selectedID = nil }
-                status = cleanupWarning ?? "Project and shortcuts deleted. Originals and older library copies are untouched."
+                status = cleanupWarning ?? "Project removed from the library. Original files are untouched."
             } catch { self.error = error.localizedDescription }
         }
     }
@@ -121,7 +113,7 @@ final class StudioModel {
         let panel = NSOpenPanel(); panel.allowsMultipleSelection = true
         panel.canChooseDirectories = false
         panel.allowedContentTypes = (ImportFileTypes.audio + ImportFileTypes.documents).compactMap { UTType(filenameExtension: $0) }
-        panel.message = "Choose audio or document files to link. Originals remain in their current location."
+        panel.message = "Choose audio or document files to read from their original location."
         guard panel.runModal() == .OK else { return }
         let urls = panel.urls
         busy = true

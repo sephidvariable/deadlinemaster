@@ -9,6 +9,9 @@ public enum AudioExporter {
         guard source.standardizedFileURL.resolvingSymlinksInPath() != destination.standardizedFileURL.resolvingSymlinksInPath() else {
             throw StudioError.message("Choose a destination different from the source audio.")
         }
+        guard (try? FileManager.default.attributesOfItem(atPath: destination.path)) == nil else {
+            throw StudioError.message("A file already exists at this destination. Choose a new filename; originals are never overwritten.")
+        }
         let input = try AVAudioFile(forReading: source)
         guard input.length > 0 else { throw StudioError.message("The source contains no audio frames.") }
         guard input.processingFormat.channelCount <= 2 else { throw StudioError.message("This prototype accepts mono or stereo sources, not surround audio.") }
@@ -44,9 +47,8 @@ public enum AudioExporter {
             case .endOfStream:
                 try writer.finish()
                 try Task.checkCancellation()
-                if FileManager.default.fileExists(atPath: destination.path) {
-                    _ = try FileManager.default.replaceItemAt(destination, withItemAt: temporary)
-                } else { try FileManager.default.moveItem(at: temporary, to: destination) }
+                // Move fails if another file appears at the destination during conversion.
+                try FileManager.default.moveItem(at: temporary, to: destination)
                 return
             case .error: throw StudioError.message("Audio conversion failed.")
             case .haveData, .inputRanDry: continue

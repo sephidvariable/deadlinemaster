@@ -10,7 +10,7 @@ enum BackupReminder {
         let alert = NSAlert()
         alert.alertStyle = .informational
         alert.messageText = "Your music stays on this Mac"
-        alert.informativeText = "Keep a separate backup of your library. Deadline Master stores project information and shortcuts locally. Back up your original audio and documents separately; shortcuts are not backups.\n\nYou can find your library using “Show library in Finder” in the sidebar."
+        alert.informativeText = "Keep a separate backup of your library. Deadline Master stores project information and file paths locally. Back up your original audio and documents separately; the library is not a backup of your files."
         alert.addButton(withTitle: "Got it")
         alert.showsSuppressionButton = true
         alert.suppressionButton?.title = "Don’t show this again"

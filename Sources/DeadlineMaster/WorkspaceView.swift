@@ -110,7 +110,7 @@ struct NewProjectView: View {
             Text("New project").font(.largeTitle.bold())
             Button(folder == nil ? "Choose project folder…" : "Change folder…") { chooseFolder() }.disabled(model.busy || scanning)
             if let folder { Text(folder.path).font(.caption).foregroundStyle(.secondary).textSelection(.enabled) }
-            Text("Live Sets, analysis files, production folders and nested Live projects are excluded. Audio and documents are linked without copying. Keep originals in place and connected.").font(.caption).foregroundStyle(.secondary)
+            Text("Live Sets, analysis files, production folders and nested Live projects are excluded. Audio and documents are read from their original paths. The file list refreshes when the app launches.").font(.caption).foregroundStyle(.secondary)
             if scanning { ProgressView("Checking folder…") }
             if !scanSummary.isEmpty { Text(scanSummary).font(.caption).foregroundStyle(.secondary) }
             TextField("Project name", text: $name)

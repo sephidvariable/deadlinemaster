@@ -40,14 +40,12 @@ struct WorkspaceSidebar: View {
             .frame(minHeight: 0, maxHeight: .infinity)
             .layoutPriority(-1)
 
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 10) {
                 Text("Less file hunting.\nMore music making.")
                     .font(.headline)
                     .fixedSize(horizontal: false, vertical: true)
                 Label("Offline · On this Mac", systemImage: "internaldrive")
                     .font(.caption).foregroundStyle(.secondary)
-                Button("Show library in Finder") { NSWorkspace.shared.open(model.libraryURL) }
-                    .font(.caption).buttonStyle(.bordered)
             }
             .padding(18)
             .fixedSize(horizontal: false, vertical: true)

@@ -12,7 +12,7 @@ struct DeadlineMasterApp: App {
                 .tint(Color(red: 0.36, green: 0.46, blue: 0.22))
                 .task {
                     if !model.ready { await model.load() }
-                    await model.monitorFolders()
+                    await model.refreshFoldersAtLaunch()
                 }
         }
         .defaultSize(width: 1240, height: 820)

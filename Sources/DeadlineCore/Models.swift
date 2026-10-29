@@ -19,6 +19,7 @@ public struct ProjectAsset: Codable, Identifiable, Equatable, Sendable {
     public var importedAt: Date
     public var isDirectory: Bool?
     public var isReference: Bool?
+    public var originalPath: String?
     public var sourceRelativePath: String?
     public var sourceIdentity: String?
     public var isAudio: Bool {

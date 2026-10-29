@@ -59,3 +59,7 @@ Moved the visible title into a centered principal toolbar item and disabled the 
 ## Folder refresh — 2026-10-29
 
 29 automated tests passed, including nested Ableton exclusion, ignored ZIP additions, audio add/rename/delete, Spotlight identity retention and deletion fallback, disconnected-root preservation and reconnection, independent manual links, and rollback after failed index save. Release compilation and signature checked. Native UI timer interaction remains a manual check: create a disposable linked project, add/rename/delete audio outside the app, and verify its file list/Spotlight/Handoff update after a few seconds.
+
+## Direct paths and launch-only refresh — 2026-10-29
+
+Supersedes shortcut and periodic-refresh behavior above. 27 tests passed, including original contents/modification-date preservation, metadata-only deletion, and existing-output export refusal. Release build and signature passed. Live UI verification remains pending.

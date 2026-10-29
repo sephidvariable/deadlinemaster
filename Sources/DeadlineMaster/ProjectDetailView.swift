@@ -33,7 +33,7 @@ struct ProjectDetailView: View {
                         GroupBox {
                             VStack(alignment: .leading, spacing: 14) {
                                 Text("Project files · \(project.assets.count)").font(.headline)
-                                Text("Linked audio and documents. Keep original files in place and their drive connected.").font(.caption).foregroundStyle(.secondary)
+                                Text("Original audio and documents · File list refreshed at app launch.").font(.caption).foregroundStyle(.secondary)
                                 if project.assets.isEmpty {
                                     ContentUnavailableView("Bring your files together", systemImage: "folder.badge.plus", description: Text("Add files to keep them with this project."))
                                 }
