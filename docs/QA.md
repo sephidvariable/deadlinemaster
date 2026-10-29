@@ -5,7 +5,7 @@ Use a disposable library for QA. Run the unit tests first.
 - Launch the packaged app from Finder. Confirm the correct name and timer/waveform icon.
 - Create a project, import an audio file and a non-audio asset, and add/save notes.
 - Quit and reopen. Confirm the project, files, and notes survive.
-- Rename or move the original imported file. Confirm the stored copy still plays.
+- Rename or move a linked original. Confirm playback reports it unavailable; restore the path and confirm playback works again.
 - Search projects, select a project, return to All projects, and create a second one.
 - Verify the layout at minimum window size and in dark mode.
 - Paste an explicit brief; check the selectors and metadata fields. Import the same brief as UTF-8 `.txt`.
@@ -51,3 +51,11 @@ Data/audio code was unchanged in this repair; the earlier 11-test run remains it
 ### Window title overlap — 2026-10-28
 
 Moved the visible title into a centered principal toolbar item and disabled the automatic leading title using the unified toolbar style. The sidebar divider no longer crosses the app name. Visually checked the packaged app at its restored window size and zoomed size; the Finder footer remains visible. Release packaging and signature verification passed.
+
+## Shortcut storage — 2026-10-29
+
+25 automated tests passed. Added coverage for live source edits, missing originals, deleting links without deleting original audio/document packages, preserving unexpected real files, broken-link deletion, and restoring links after index-save failure. Folder filters and automatic Spotlight remain covered. Native end-to-end playback/Finder/export UI with shortcuts has not yet been manually exercised. No old library migration or real user-file cleanup was performed.
+
+## Folder refresh — 2026-10-29
+
+29 automated tests passed, including nested Ableton exclusion, ignored ZIP additions, audio add/rename/delete, Spotlight identity retention and deletion fallback, disconnected-root preservation and reconnection, independent manual links, and rollback after failed index save. Release compilation and signature checked. Native UI timer interaction remains a manual check: create a disposable linked project, add/rename/delete audio outside the app, and verify its file list/Spotlight/Handoff update after a few seconds.

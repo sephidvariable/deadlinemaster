@@ -10,7 +10,10 @@ struct DeadlineMasterApp: App {
             WorkspaceView(model: model)
                 .frame(minWidth: 960, minHeight: 680)
                 .tint(Color(red: 0.36, green: 0.46, blue: 0.22))
-                .task { if !model.ready { await model.load() } }
+                .task {
+                    if !model.ready { await model.load() }
+                    await model.monitorFolders()
+                }
         }
         .defaultSize(width: 1240, height: 820)
         // Keep the toolbar controls without a visible window title.

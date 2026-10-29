@@ -24,13 +24,16 @@ struct ProjectDetailView: View {
                     Spacer()
                     Button { model.importFiles() } label: { Label("Add files", systemImage: "plus") }.disabled(model.busy).buttonStyle(.borderedProminent)
                 }
+                if let issue = model.folderRefreshIssues[project.id] {
+                    Label(issue, systemImage: "exclamationmark.triangle").font(.callout).foregroundStyle(.orange)
+                }
                 SpotlightView(model: model, project: project)
                 HStack(alignment: .top, spacing: 22) {
                     VStack(alignment: .leading, spacing: 20) {
                         GroupBox {
                             VStack(alignment: .leading, spacing: 14) {
                                 Text("Project files · \(project.assets.count)").font(.headline)
-                                Text("Local copies of your audio and documents. Folder paths are shown below.").font(.caption).foregroundStyle(.secondary)
+                                Text("Linked audio and documents. Keep original files in place and their drive connected.").font(.caption).foregroundStyle(.secondary)
                                 if project.assets.isEmpty {
                                     ContentUnavailableView("Bring your files together", systemImage: "folder.badge.plus", description: Text("Add files to keep them with this project."))
                                 }
@@ -75,6 +78,12 @@ struct ProjectDetailView: View {
         .onAppear {
             notes = project.notes; spec.artist = project.artist; spec.title = project.name
             if !sourceChosenManually { sourceID = spotlightSourceID }
+        }
+        .onChange(of: project.assets) { _, assets in
+            if let sourceID, !assets.contains(where: { $0.id == sourceID && $0.isAudio }) {
+                sourceChosenManually = false
+                self.sourceID = spotlightSourceID
+            }
         }
         .onChange(of: project.spotlightAssetID) { _, _ in
             if !sourceChosenManually { sourceID = spotlightSourceID }

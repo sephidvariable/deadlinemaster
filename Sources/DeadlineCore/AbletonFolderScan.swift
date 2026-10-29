@@ -8,6 +8,7 @@ public struct AbletonFolderScan: Sendable {
     public static func scan(_ root: URL) throws -> Self {
         var result = Self()
         func visit(_ directory: URL) throws {
+            try Task.checkCancellation()
             let children = try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isDirectoryKey, .isSymbolicLinkKey, .isRegularFileKey])
             var folders: [URL] = []
             var sets = 0

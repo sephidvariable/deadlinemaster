@@ -26,7 +26,7 @@ import Testing
     var spec = DeliverySpec(); spec.bitDepth = 32
     #expect(throws: (any Error).self) { try spec.validate() }
 }
-@Test func libraryRoundTripAndIndependentCopy() async throws {
+@Test func libraryRoundTripAndLiveReference() async throws {
     let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
     defer { try? FileManager.default.removeItem(at: root) }
     let repository = ProjectRepository(root: root.appendingPathComponent("Library"))
@@ -37,10 +37,12 @@ import Testing
     let asset = try await repository.importFile(source, projectID: project.id)
     project.assets.append(asset); project.notes = "Ready to master"
     try await repository.save([project])
-    try FileManager.default.removeItem(at: source)
+    try Data([4, 5]).write(to: source)
     let reopened = ProjectRepository(root: root.appendingPathComponent("Library"))
     #expect(try await reopened.load() == [project])
-    #expect(try Data(contentsOf: reopened.fileURL(asset, projectID: project.id)) == Data([1, 2, 3]))
+    #expect(try Data(contentsOf: reopened.fileURL(asset, projectID: project.id)) == Data([4, 5]))
+    try FileManager.default.removeItem(at: source)
+    #expect(throws: (any Error).self) { try reopened.availableFileURL(asset, projectID: project.id) }
 }
 @Test func corruptLibraryIsNotSilentlyReset() async throws {
     let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -117,7 +119,7 @@ import Testing
         Issue.record("Expected symbolic link rejection")
     } catch {}
     #expect(try await repository.load().isEmpty)
-    #expect(!FileManager.default.fileExists(atPath: root.appendingPathComponent("Files").appendingPathComponent(project.id.uuidString).path))
+    #expect(!FileManager.default.fileExists(atPath: root.appendingPathComponent("References").appendingPathComponent(project.id.uuidString).path))
     #expect(FileManager.default.fileExists(atPath: source.appendingPathComponent("a.wav").path))
 }
 
@@ -194,4 +196,194 @@ import Testing
     project.assets = [b, a]
     project.selectAutomaticMaster()
     #expect(project.spotlightAssetID == a.id)
+}
+
+@Test func deletingShortcutsPreservesOriginalsPackagesAndLegacyCopies() async throws {
+    let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: base) }
+    let source = base.appendingPathComponent("Song")
+    try FileManager.default.createDirectory(at: source.appendingPathComponent("Brief.pages"), withIntermediateDirectories: true)
+    try Data([1, 2]).write(to: source.appendingPathComponent("master.wav"))
+    try Data([3]).write(to: source.appendingPathComponent("Brief.pages/content"))
+    let root = base.appendingPathComponent("Library")
+    let repository = ProjectRepository(root: root)
+    let project = try await repository.createFromFolder(source, project: MusicProject(name: "Song"), existing: [])
+    let refs = root.appendingPathComponent("References").appendingPathComponent(project.id.uuidString)
+    #expect(try FileManager.default.attributesOfItem(atPath: refs.appendingPathComponent("master.wav").path)[.type] as? FileAttributeType == .typeSymbolicLink)
+    #expect(try Data(contentsOf: refs.appendingPathComponent("master.wav")) == Data([1, 2]))
+    let legacy = root.appendingPathComponent("Files").appendingPathComponent(project.id.uuidString)
+    try FileManager.default.createDirectory(at: legacy, withIntermediateDirectories: true)
+    try Data([9]).write(to: legacy.appendingPathComponent("old.wav"))
+    #expect(try await repository.deleteProject(project.id, existing: [project]) == nil)
+    #expect(!FileManager.default.fileExists(atPath: refs.path))
+    #expect(try Data(contentsOf: source.appendingPathComponent("master.wav")) == Data([1, 2]))
+    #expect(try Data(contentsOf: source.appendingPathComponent("Brief.pages/content")) == Data([3]))
+    #expect(try Data(contentsOf: legacy.appendingPathComponent("old.wav")) == Data([9]))
+    #expect(try await repository.load().isEmpty)
+}
+
+@Test func deletionRefusesUnexpectedRealFiles() async throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let repository = ProjectRepository(root: root)
+    let project = MusicProject(name: "Keep")
+    try await repository.save([project])
+    let refs = root.appendingPathComponent("References").appendingPathComponent(project.id.uuidString)
+    try FileManager.default.createDirectory(at: refs, withIntermediateDirectories: true)
+    let unexpected = refs.appendingPathComponent("important.wav")
+    try Data([42]).write(to: unexpected)
+    do {
+        _ = try await repository.deleteProject(project.id, existing: [project])
+        Issue.record("Expected protection of real files")
+    } catch {}
+    #expect(try await repository.load() == [project])
+    #expect(try Data(contentsOf: unexpected) == Data([42]))
+}
+
+@Test func legacyCopiedAssetStillResolves() async throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let project = MusicProject(name: "Legacy")
+    let asset = ProjectAsset(name: "mix.wav", storedName: "mix.wav", byteCount: 1)
+    let folder = root.appendingPathComponent("Files").appendingPathComponent(project.id.uuidString)
+    try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+    try Data([7]).write(to: folder.appendingPathComponent("mix.wav"))
+    let repository = ProjectRepository(root: root)
+    #expect(try Data(contentsOf: repository.availableFileURL(asset, projectID: project.id)) == Data([7]))
+}
+
+@Test func deletionOfBrokenShortcutDoesNotRequireSource() async throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let repository = ProjectRepository(root: root)
+    _ = try await repository.load()
+    let source = root.appendingPathComponent("source.wav")
+    try Data([1]).write(to: source)
+    var project = MusicProject(name: "Broken")
+    project.assets = [try await repository.importFile(source, projectID: project.id)]
+    try await repository.save([project])
+    try FileManager.default.removeItem(at: source)
+    #expect(try await repository.deleteProject(project.id, existing: [project]) == nil)
+    #expect(try await repository.load().isEmpty)
+}
+
+@Test func failedDeletionSaveRestoresShortcutTree() async throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let repository = ProjectRepository(root: root)
+    _ = try await repository.load()
+    let source = root.appendingPathComponent("source.wav")
+    try Data([1]).write(to: source)
+    var project = MusicProject(name: "Restore")
+    let asset = try await repository.importFile(source, projectID: project.id)
+    project.assets = [asset]
+    // A directory in place of the index forces atomic save to fail.
+    try FileManager.default.createDirectory(at: root.appendingPathComponent("library.json"), withIntermediateDirectories: true)
+    do {
+        _ = try await repository.deleteProject(project.id, existing: [project])
+        Issue.record("Expected save failure")
+    } catch {}
+    #expect(try Data(contentsOf: repository.availableFileURL(asset, projectID: project.id)) == Data([1]))
+    let link = root.appendingPathComponent("References").appendingPathComponent(project.id.uuidString).appendingPathComponent(asset.storedName)
+    #expect((try? FileManager.default.destinationOfSymbolicLink(atPath: link.path)) != nil)
+}
+
+@Test func refreshTracksAddRenameDeleteAndIgnoresZip() async throws {
+    let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: base) }
+    let source = base.appendingPathComponent("Song")
+    try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
+    let original = source.appendingPathComponent("master.wav")
+    try Data([1]).write(to: original)
+    let root = base.appendingPathComponent("Library")
+    let repository = ProjectRepository(root: root)
+    let project = try await repository.createFromFolder(source, project: MusicProject(name: "Song"), existing: [])
+    let masterID = try #require(project.spotlightAssetID)
+    try Data([9]).write(to: source.appendingPathComponent("ignored.zip"))
+    let untouched = try await repository.refreshProject(project.id, existing: [project])
+    #expect(untouched == [project])
+
+    try FileManager.default.moveItem(at: original, to: source.appendingPathComponent("master-renamed.wav"))
+    var next = try await repository.refreshProject(project.id, existing: untouched)
+    #expect(next[0].spotlightAssetID == masterID)
+    #expect(next[0].assets.first?.id == masterID)
+    #expect(next[0].assets.first?.name == "master-renamed.wav")
+    let refs = root.appendingPathComponent("References").appendingPathComponent(project.id.uuidString)
+    #expect(!FileManager.default.fileExists(atPath: refs.appendingPathComponent("master.wav").path))
+    #expect(try Data(contentsOf: refs.appendingPathComponent("master-renamed.wav")) == Data([1]))
+
+    try Data([2]).write(to: source.appendingPathComponent("new master.wav"))
+    try FileManager.default.removeItem(at: source.appendingPathComponent("master-renamed.wav"))
+    next = try await repository.refreshProject(project.id, existing: next)
+    #expect(next[0].assets.map(\.name) == ["new master.wav"])
+    #expect(next[0].spotlightAssetID == next[0].assets.first?.id)
+    try FileManager.default.removeItem(at: source.appendingPathComponent("new master.wav"))
+    next = try await repository.refreshProject(project.id, existing: next)
+    #expect(next[0].assets.isEmpty)
+    #expect(next[0].spotlightAssetID == nil)
+    #expect(try await repository.load() == next)
+}
+
+@Test func unavailableFolderPreservesLibraryAndResumesAfterReturn() async throws {
+    let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: base) }
+    let source = base.appendingPathComponent("Song")
+    try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
+    try Data([1]).write(to: source.appendingPathComponent("mix.wav"))
+    let repository = ProjectRepository(root: base.appendingPathComponent("Library"))
+    let project = try await repository.createFromFolder(source, project: MusicProject(name: "Song"), existing: [])
+    let away = base.appendingPathComponent("Disconnected")
+    try FileManager.default.moveItem(at: source, to: away)
+    do {
+        _ = try await repository.refreshProject(project.id, existing: [project])
+        Issue.record("Unavailable folder must not remove assets")
+    } catch {}
+    #expect(try await repository.load() == [project])
+    try FileManager.default.moveItem(at: away, to: source)
+    #expect(try await repository.refreshProject(project.id, existing: [project]) == [project])
+}
+
+@Test func refreshKeepsExternalManualImportsAndAbletonExclusions() async throws {
+    let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: base) }
+    let source = base.appendingPathComponent("Song")
+    for path in ["Ableton Project Info", "Samples"] {
+        try FileManager.default.createDirectory(at: source.appendingPathComponent(path), withIntermediateDirectories: true)
+    }
+    try Data([1]).write(to: source.appendingPathComponent("song.als"))
+    let repository = ProjectRepository(root: base.appendingPathComponent("Library"))
+    var project = try await repository.createFromFolder(source, project: MusicProject(name: "Song"), existing: [])
+    let external = base.appendingPathComponent("brief.txt")
+    try Data([2]).write(to: external)
+    let manual = try await repository.importFile(external, projectID: project.id)
+    project.assets.append(manual)
+    try await repository.save([project])
+    try Data([3]).write(to: source.appendingPathComponent("Samples/production.wav"))
+    try Data([4]).write(to: source.appendingPathComponent("master.wav"))
+    let next = try await repository.refreshProject(project.id, existing: [project])
+    #expect(Set(next[0].assets.map(\.name)) == ["master.wav", "brief.txt"])
+    #expect(next[0].assets.contains(manual))
+    #expect(try Data(contentsOf: repository.availableFileURL(manual, projectID: project.id)) == Data([2]))
+}
+
+@Test func refreshFailureRollsBackShortcutTreeAndIndex() async throws {
+    let base = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: base) }
+    let source = base.appendingPathComponent("Song")
+    try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
+    try Data([1]).write(to: source.appendingPathComponent("mix.wav"))
+    let root = base.appendingPathComponent("Library")
+    let repository = ProjectRepository(root: root)
+    let project = try await repository.createFromFolder(source, project: MusicProject(name: "Song"), existing: [])
+    try Data([2]).write(to: source.appendingPathComponent("new.wav"))
+    let index = root.appendingPathComponent("library.json")
+    try FileManager.default.removeItem(at: index)
+    try FileManager.default.createDirectory(at: index, withIntermediateDirectories: true)
+    do {
+        _ = try await repository.refreshProject(project.id, existing: [project])
+        Issue.record("Expected failed index save")
+    } catch {}
+    let refs = root.appendingPathComponent("References").appendingPathComponent(project.id.uuidString)
+    #expect(try Data(contentsOf: refs.appendingPathComponent("mix.wav")) == Data([1]))
+    #expect(!FileManager.default.fileExists(atPath: refs.appendingPathComponent("new.wav").path))
 }

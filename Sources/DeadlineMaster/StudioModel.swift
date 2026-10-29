@@ -15,6 +15,7 @@ final class StudioModel {
     var error: String?
     var status = ""
     var playingID: UUID?
+    var folderRefreshIssues: [UUID: String] = [:]
     private var player: AVAudioPlayer?
     let repository: ProjectRepository
     let libraryURL: URL
@@ -33,6 +34,29 @@ final class StudioModel {
         do { projects = try await repository.load(); ready = true }
         catch { self.error = "Could not read the library. No data has been overwritten. \(error.localizedDescription)" }
     }
+    func monitorFolders() async {
+        while !Task.isCancelled {
+            if ready && !busy {
+                busy = true
+                for id in projects.filter({ $0.sourceFolderPath != nil }).map(\.id) {
+                    if Task.isCancelled { break }
+                    do {
+                        let next = try await repository.refreshProject(id, existing: projects)
+                        folderRefreshIssues[id] = nil
+                        if next != projects {
+                            projects = next
+                            if let playingID, !projects.flatMap(\.assets).contains(where: { $0.id == playingID }) { stop() }
+                            status = "Project files refreshed from the original folder."
+                        }
+                    } catch is CancellationError { break }
+                    catch { folderRefreshIssues[id] = "Folder refresh paused: " + error.localizedDescription }
+                }
+                busy = false
+            }
+            do { try await Task.sleep(for: .seconds(3)) }
+            catch { break }
+        }
+    }
     func create(name: String, artist: String, folder: URL) async {
         guard ready, !busy else { return }
         let name = name.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -40,7 +64,7 @@ final class StudioModel {
         busy = true; defer { busy = false }
         let project = MusicProject(name: name, artist: artist)
         error = nil
-        status = "Scanning and copying project folder…"
+        status = "Scanning and linking project folder…"
         do {
             let imported = try await repository.createFromFolder(folder, project: project, existing: projects)
             projects = [imported] + projects
@@ -61,7 +85,7 @@ final class StudioModel {
         guard ready, !busy else { return }
         let alert = NSAlert()
         alert.messageText = "Delete “\(project.name)”?"
-        alert.informativeText = "Remove this project and its notes from the library. Imported files remain in the library’s Files folder. Original files are untouched."
+        alert.informativeText = "Remove this project, its notes, and its shortcuts. Original files are untouched. Any older copied files remain in the library’s Files folder."
         alert.alertStyle = .warning
         alert.addButton(withTitle: "Cancel")
         alert.addButton(withTitle: "Delete project")
@@ -71,11 +95,12 @@ final class StudioModel {
             defer { busy = false }
             let next = projects.filter { $0.id != project.id }
             do {
-                try await repository.save(next)
+                let cleanupWarning = try await repository.deleteProject(project.id, existing: projects)
                 stop()
                 projects = next
+                folderRefreshIssues[project.id] = nil
                 if selectedID == project.id { selectedID = nil }
-                status = "Project deleted. Imported files retained."
+                status = cleanupWarning ?? "Project and shortcuts deleted. Originals and older library copies are untouched."
             } catch { self.error = error.localizedDescription }
         }
     }
@@ -96,7 +121,7 @@ final class StudioModel {
         let panel = NSOpenPanel(); panel.allowsMultipleSelection = true
         panel.canChooseDirectories = false
         panel.allowedContentTypes = (ImportFileTypes.audio + ImportFileTypes.documents).compactMap { UTType(filenameExtension: $0) }
-        panel.message = "Choose audio or document files to copy into your local library."
+        panel.message = "Choose audio or document files to link. Originals remain in their current location."
         guard panel.runModal() == .OK else { return }
         let urls = panel.urls
         busy = true
@@ -116,7 +141,7 @@ final class StudioModel {
     func play(_ asset: ProjectAsset, projectID: UUID) {
         if playingID == asset.id { stop(); return }
         stop()
-        do { player = try AVAudioPlayer(contentsOf: fileURL(asset, projectID: projectID)); player?.play(); playingID = asset.id }
+        do { player = try AVAudioPlayer(contentsOf: repository.availableFileURL(asset, projectID: projectID)); player?.play(); playingID = asset.id }
         catch { self.error = "Playback unavailable: \(error.localizedDescription)" }
     }
     func stop() { player?.stop(); player = nil; playingID = nil }
@@ -126,7 +151,9 @@ final class StudioModel {
         let title = spec.title.isEmpty ? "Deliverable" : spec.title
         panel.nameFieldStringValue = title.replacingOccurrences(of: "/", with: "-") + "_\(Int(spec.sampleRate))_\(spec.bitDepth)bit.wav"
         guard panel.runModal() == .OK, let destination = panel.url else { return }
-        let source = fileURL(asset, projectID: projectID)
+        let source: URL
+        do { source = try repository.availableFileURL(asset, projectID: projectID) }
+        catch { self.error = error.localizedDescription; return }
         busy = true; status = "Converting audio on your Mac…"
         Task {
             do {

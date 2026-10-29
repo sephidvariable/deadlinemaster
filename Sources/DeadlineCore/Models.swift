@@ -18,6 +18,9 @@ public struct ProjectAsset: Codable, Identifiable, Equatable, Sendable {
     public var byteCount: Int64
     public var importedAt: Date
     public var isDirectory: Bool?
+    public var isReference: Bool?
+    public var sourceRelativePath: String?
+    public var sourceIdentity: String?
     public var isAudio: Bool {
         if isDirectory == true { return false }
         return ImportFileTypes.audio.contains(URL(fileURLWithPath: name).pathExtension.lowercased())
@@ -35,6 +38,7 @@ public struct MusicProject: Codable, Identifiable, Equatable, Sendable {
     public var notes: String
     public var createdAt: Date
     public var spotlightAssetID: UUID?
+    public var sourceFolderPath: String?
     public var assets: [ProjectAsset]
     /// Use the filename, not its parent folders, when choosing a final master.
     public mutating func selectAutomaticMaster() {

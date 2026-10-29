@@ -24,7 +24,7 @@ Avoid changing a parser rule and the audio writer at the same time while learnin
 
 Run `./scripts/dev.sh test`. Tests use temporary directories and synthetic audio; they do not touch your real projects. A passing run ends with Swift Testing summaries for both targets.
 
-The tests cover project round-trip persistence, copied-file independence, corrupt-library refusal, exact/ambiguous/unspecified brief values, invalid settings, source overwrite refusal, failed-export preservation, and 12 actual audio conversion combinations.
+The tests cover project round-trip persistence, reference persistence and original-file preservation, corrupt-library refusal, exact/ambiguous/unspecified brief values, invalid settings, source overwrite refusal, failed-export preservation, and 12 actual audio conversion combinations.
 
 To add behavior, first add an example to the relevant test file. Run tests and confirm your new expectation fails before implementing the change. Then implement it and rerun. Avoid tests that merely repeat internal implementation details; test outcomes a user relies on.
 
