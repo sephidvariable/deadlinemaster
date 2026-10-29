@@ -72,7 +72,7 @@ struct WorkspaceView: View {
                 if model.filtered.isEmpty {
                     ContentUnavailableView {
                         Label(model.projects.isEmpty ? "Your next release starts here" : "No matching projects", systemImage: "waveform")
-                    } description: { Text("Create a project and import your mixes, sessions, and artwork.") }
+                    } description: { Text("Create a project and import your audio and documents.") }
                     actions: { Button("Create project") { creating = true }.disabled(!model.ready || model.busy) }
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 230))], spacing: 18) {
@@ -85,6 +85,9 @@ struct WorkspaceView: View {
                                     HStack { Text("\(project.assets.count) files"); Spacer(); Text(project.createdAt, style: .date) }.font(.caption).foregroundStyle(.secondary)
                                 }.padding(16).background(.background, in: RoundedRectangle(cornerRadius: 14))
                             }.buttonStyle(.plain)
+                            .contextMenu {
+                                Button("Delete project…", role: .destructive) { model.deleteProject(project) }.disabled(model.busy)
+                            }
                         }
                     }
                 }
@@ -98,13 +101,63 @@ struct NewProjectView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var name = ""
     @State private var artist = ""
+    @State private var folder: URL?
+    @State private var scanning = false
+    @State private var scanSummary = ""
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text("A fresh start").font(.caption).foregroundStyle(.secondary)
             Text("New project").font(.largeTitle.bold())
+            Button(folder == nil ? "Choose project folder…" : "Change folder…") { chooseFolder() }.disabled(model.busy || scanning)
+            if let folder { Text(folder.path).font(.caption).foregroundStyle(.secondary).textSelection(.enabled) }
+            Text("Live Sets, analysis files, production folders and nested Live projects are excluded. Only audio and document files are copied into your library.").font(.caption).foregroundStyle(.secondary)
+            if scanning { ProgressView("Checking folder…") }
+            if !scanSummary.isEmpty { Text(scanSummary).font(.caption).foregroundStyle(.secondary) }
             TextField("Project name", text: $name)
             TextField("Artist or band", text: $artist)
-            HStack { Spacer(); Button("Cancel") { dismiss() }; Button("Create project") { Task { await model.create(name: name, artist: artist); if model.error == nil { dismiss() } } }.buttonStyle(.borderedProminent).disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || model.busy) }
+            HStack { Spacer(); Button("Cancel") { dismiss() }.disabled(model.busy); Button("Create project") { Task { guard let folder else { return }; await model.create(name: name, artist: artist, folder: folder); if model.error == nil { dismiss() } } }.buttonStyle(.borderedProminent).disabled(scanning || folder == nil || name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || model.busy) }
+                    if model.busy { ProgressView("Importing folder…") }
         }.textFieldStyle(.roundedBorder).padding(30).frame(width: 420)
+        .interactiveDismissDisabled(model.busy || scanning)
+        .onAppear { chooseFolder() }
+    }
+    private func chooseFolder() {
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.allowsMultipleSelection = false
+        panel.prompt = "Choose folder"
+        if panel.runModal() == .OK, let url = panel.url {
+            folder = nil
+            name = url.lastPathComponent
+            scanSummary = ""
+            scanning = true
+            Task {
+                defer { scanning = false }
+                do {
+                    let result = try await Task.detached(priority: .userInitiated) {
+                        try AbletonFolderScan.scan(url.resolvingSymlinksInPath())
+                    }.value
+                    if !result.resemblesProject {
+                        let alert = NSAlert()
+                        alert.messageText = "This doesn’t seem like a project folder"
+                        alert.informativeText = "No Ableton Live project structure was found. Look for Live Set (.als) files alongside Ableton Project Info or Samples. You can choose another folder or import this folder anyway."
+                        alert.alertStyle = .warning
+                        alert.addButton(withTitle: "Choose another folder")
+                        alert.addButton(withTitle: "Import anyway")
+                        guard alert.runModal() == .alertSecondButtonReturn else { return }
+                    }
+                    folder = url
+                    scanSummary = result.resemblesProject
+                        ? "Found \(result.projectPaths.count) Live project folder(s) and \(result.setCount) Live Set file(s). Production material will be excluded."
+                        : "Unrecognized folder. Live Set and analysis files will still be excluded."
+                } catch {
+                    let alert = NSAlert()
+                    alert.messageText = "Could not scan this folder"
+                    alert.informativeText = error.localizedDescription
+                    alert.runModal()
+                }
+            }
+        }
     }
 }

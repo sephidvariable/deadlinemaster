@@ -1,0 +1,9 @@
+# Swift build products and local compiler/package caches
+/.build/
+/.cache/
+
+# Packaged app, generated icons, and local QA fixtures
+/build/
+
+# Finder metadata
+.DS_Store

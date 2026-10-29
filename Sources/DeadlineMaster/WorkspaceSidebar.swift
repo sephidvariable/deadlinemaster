@@ -30,6 +30,9 @@ struct WorkspaceSidebar: View {
             List(selection: $model.selectedID) {
                 ForEach(model.filtered) { project in
                     Label(project.name, systemImage: "waveform").tag(project.id)
+                        .contextMenu {
+                            Button("Delete project…", role: .destructive) { model.deleteProject(project) }.disabled(model.busy)
+                        }
                 }
             }
             .listStyle(.sidebar)

@@ -1,6 +1,7 @@
 import SwiftUI
 import AppKit
 import AVFoundation
+import UniformTypeIdentifiers
 import DeadlineCore
 import DeadlineAudio
 
@@ -32,14 +33,20 @@ final class StudioModel {
         do { projects = try await repository.load(); ready = true }
         catch { self.error = "Could not read the library. No data has been overwritten. \(error.localizedDescription)" }
     }
-    func create(name: String, artist: String) async {
+    func create(name: String, artist: String, folder: URL) async {
         guard ready, !busy else { return }
         let name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !name.isEmpty else { return }
         busy = true; defer { busy = false }
         let project = MusicProject(name: name, artist: artist)
-        let next = [project] + projects
-        do { try await repository.save(next); projects = next; selectedID = project.id }
+        error = nil
+        status = "Scanning and copying project folder…"
+        do {
+            let imported = try await repository.createFromFolder(folder, project: project, existing: projects)
+            projects = [imported] + projects
+            selectedID = imported.id
+            status = "Project created with \(imported.assets.count) files and folders."
+        }
         catch { self.error = error.localizedDescription }
     }
     func saveNotes(_ notes: String, id: UUID) async {
@@ -49,10 +56,47 @@ final class StudioModel {
         do { try await repository.save(next); projects = next; status = "Notes saved." }
         catch { self.error = error.localizedDescription }
     }
+
+    func deleteProject(_ project: MusicProject) {
+        guard ready, !busy else { return }
+        let alert = NSAlert()
+        alert.messageText = "Delete “\(project.name)”?"
+        alert.informativeText = "Remove this project and its notes from the library. Imported files remain in the library’s Files folder. Original files are untouched."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Cancel")
+        alert.addButton(withTitle: "Delete project")
+        guard alert.runModal() == .alertSecondButtonReturn else { return }
+        busy = true
+        Task {
+            defer { busy = false }
+            let next = projects.filter { $0.id != project.id }
+            do {
+                try await repository.save(next)
+                stop()
+                projects = next
+                if selectedID == project.id { selectedID = nil }
+                status = "Project deleted. Imported files retained."
+            } catch { self.error = error.localizedDescription }
+        }
+    }
+    func pinMaster(_ assetID: UUID?, projectID: UUID) async {
+        guard ready, !busy, let index = projects.firstIndex(where: { $0.id == projectID }) else { return }
+        guard assetID == nil || projects[index].assets.contains(where: { $0.id == assetID && $0.isAudio }) else { return }
+        busy = true; defer { busy = false }
+        var next = projects
+        next[index].spotlightAssetID = assetID
+        do {
+            try await repository.save(next)
+            projects = next
+            status = assetID == nil ? "Spotlight cleared." : "Final master pinned."
+        } catch { self.error = error.localizedDescription }
+    }
     func importFiles() {
         guard ready, !busy, let projectID = selectedID else { return }
         let panel = NSOpenPanel(); panel.allowsMultipleSelection = true
-        panel.canChooseDirectories = false; panel.message = "Files are copied into your local library. Zip package-based DAW sessions first."
+        panel.canChooseDirectories = false
+        panel.allowedContentTypes = (ImportFileTypes.audio + ImportFileTypes.documents).compactMap { UTType(filenameExtension: $0) }
+        panel.message = "Choose audio or document files to copy into your local library."
         guard panel.runModal() == .OK else { return }
         let urls = panel.urls
         busy = true

@@ -10,6 +10,7 @@ struct ProjectDetailView: View {
     @State private var brief = ""
     @State private var spec = DeliverySpec()
     @State private var sourceID: UUID?
+    @State private var sourceChosenManually = false
     @State private var scanMessage = "Offline text matching. Review every setting before exporting."
     var body: some View {
         ScrollView {
@@ -23,18 +24,19 @@ struct ProjectDetailView: View {
                     Spacer()
                     Button { model.importFiles() } label: { Label("Add files", systemImage: "plus") }.disabled(model.busy).buttonStyle(.borderedProminent)
                 }
+                SpotlightView(model: model, project: project)
                 HStack(alignment: .top, spacing: 22) {
                     VStack(alignment: .leading, spacing: 20) {
                         GroupBox {
                             VStack(alignment: .leading, spacing: 14) {
                                 Text("Project files · \(project.assets.count)").font(.headline)
-                                Text("Copies of your mixes, sessions, and artwork.").font(.caption).foregroundStyle(.secondary)
+                                Text("Local copies of your audio and documents. Folder paths are shown below.").font(.caption).foregroundStyle(.secondary)
                                 if project.assets.isEmpty {
                                     ContentUnavailableView("Bring your files together", systemImage: "folder.badge.plus", description: Text("Add files to keep them with this project."))
                                 }
                                 ForEach(project.assets) { asset in
                                     HStack {
-                                        Image(systemName: asset.isAudio ? "waveform" : "doc")
+                                        Image(systemName: asset.isDirectory == true ? "folder" : (asset.isAudio ? "waveform" : "doc"))
                                         VStack(alignment: .leading, spacing: 4) {
                                             Text(asset.name).lineLimit(2)
                                             Text(ByteCountFormatter.string(fromByteCount: asset.byteCount, countStyle: .file)).font(.caption).foregroundStyle(.secondary)
@@ -44,6 +46,15 @@ struct ProjectDetailView: View {
                                             Button { model.play(asset, projectID: project.id) } label: { Image(systemName: model.playingID == asset.id ? "stop.fill" : "play.fill") }.help("Play or stop audio")
                                         }
                                         Button { NSWorkspace.shared.activateFileViewerSelecting([model.fileURL(asset, projectID: project.id)]) } label: { Image(systemName: "folder") }.help("Reveal file in Finder")
+                                    }
+                                    .onDrag {
+                                        guard asset.isAudio else { return NSItemProvider() }
+                                        return NSItemProvider(object: "\(project.id.uuidString)/\(asset.id.uuidString)" as NSString)
+                                    }
+                                    .contextMenu {
+                                        if asset.isAudio {
+                                            Button("Pin as final master") { Task { await model.pinMaster(asset.id, projectID: project.id) } }.disabled(model.busy)
+                                        }
                                     }
                                     Divider()
                                 }
@@ -61,7 +72,16 @@ struct ProjectDetailView: View {
                 }
             }.padding(28)
         }
-        .onAppear { notes = project.notes; spec.artist = project.artist; spec.title = project.name }
+        .onAppear {
+            notes = project.notes; spec.artist = project.artist; spec.title = project.name
+            if !sourceChosenManually { sourceID = spotlightSourceID }
+        }
+        .onChange(of: project.spotlightAssetID) { _, _ in
+            if !sourceChosenManually { sourceID = spotlightSourceID }
+        }
+    }
+    private var spotlightSourceID: UUID? {
+        project.assets.first { $0.id == project.spotlightAssetID && $0.isAudio }?.id
     }
     private var delivery: some View {
         GroupBox {
@@ -78,7 +98,10 @@ struct ProjectDetailView: View {
                 }
                 Text(scanMessage).font(.caption).foregroundStyle(.secondary).textSelection(.enabled)
                 Divider()
-                Picker("Source", selection: $sourceID) {
+                Picker("Source", selection: Binding(get: { sourceID }, set: {
+                    sourceID = $0
+                    sourceChosenManually = true
+                })) {
                     Text("Choose a mix or master").tag(nil as UUID?)
                     ForEach(project.assets.filter(\.isAudio)) { Text($0.name).tag(Optional($0.id)) }
                 }
