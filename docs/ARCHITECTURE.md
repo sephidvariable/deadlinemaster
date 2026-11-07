@@ -15,7 +15,7 @@ The UI can depend on the domain/storage and audio modules. Neither lower-level m
 - **ProjectRepository** is an actor: disk operations are serialized. Library JSON has an explicit schema version and is atomically replaced on save. Invalid or future-version libraries fail to load; UI mutations remain disabled instead of silently replacing data.
 - **BriefParser** is a pure deterministic function. It takes a brief and current settings, returns settings plus detection/warning messages, and never accesses files or the network.
 - **StudioModel** is an observable main-actor coordinator. It manages selection, UI errors, disk operations, playback, and export. A busy flag disables overlapping mutations. UI snapshots change only after persistence succeeds.
-- **AudioExporter** runs on a detached task. AVAudioConverter resamples and maps mono/stereo channels into float buffers. WAVWriter quantizes each chunk to integer PCM and writes RIFF INFO tags. It stages output in a hidden sibling and commits the result only after the file is complete. Existing destination replacement is requested via NSSavePanel first.
+- **AudioExporter** runs on a detached task. Bundled FFmpeg decodes, uses SoX resampling, and writes integer PCM WAV with metadata. It stages output in a hidden sibling and commits the result only after the file is complete. Existing destinations are refused.
 - **WAVWriter** handles byte layout, signed PCM scaling, RIFF padding, metadata, and size limits. It is internal to the audio module.
 
 ## Local storage decisions
@@ -28,7 +28,7 @@ The prototype is a local development app without App Sandbox entitlements. A san
 
 ## Audio decisions
 
-Chunked conversion bounds memory independently of song duration. Apple's native decoder and sample-rate converter handle input formats; our writer gives explicit control of output bit depth and metadata. Integer conversion clips out-of-range samples and maps nonfinite samples to silence. This is not a mastering pipeline. There is no dither or loudness adjustment, and no promise of delivery compliance beyond the selected encoding settings.
+Chunked conversion bounds memory independently of song duration. FFmpeg handles input formats and libsoxr resampling; command arguments select output bit depth and metadata. WAVWriter remains an isolated legacy utility; Handoff uses FFmpeg. This is not a mastering pipeline. There is no dither or loudness adjustment, and no promise of delivery compliance beyond the selected encoding settings.
 
 ## Growth path
 
@@ -49,4 +49,4 @@ ProjectAsset.originalPath is the source URL path. Creation and manual import rea
 
 The window task loads the index and calls refreshFoldersAtLaunch once per process. There is no repeating task, timer, or filesystem watcher. Source inventories apply the same Ableton and extension rules and preserve IDs where filesystem identity matches. Failed scans preserve old metadata and show a warning. Newly created projects scan immediately, then refresh on the next launch.
 
-AudioExporter reads the source through AVAudioFile. It refuses existing destinations, writes to a unique temporary sibling, and commits with a move that cannot replace an existing destination. Users may export new deliverables into the original source directory. The app is not OS-sandboxed as read-only; protection is enforced by these code paths. Finder actions reveal files but do not edit them.
+AudioExporter reads the source through a bundled FFmpeg subprocess. It refuses existing destinations, writes to a unique temporary sibling, and commits with a move that cannot replace an existing destination. Users may export new deliverables into the original source directory. The app is not OS-sandboxed as read-only; protection is enforced by these code paths. Finder actions reveal files but do not edit them.

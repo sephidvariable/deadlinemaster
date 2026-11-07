@@ -120,7 +120,7 @@ struct ProjectDetailView: View {
                 Picker("Channels", selection: $spec.channels) { Text("Stereo").tag(2); Text("Mono (downmix)").tag(1) }
                 TextField("Artist metadata", text: $spec.artist).textFieldStyle(.roundedBorder)
                 TextField("Track title metadata", text: $spec.title).textFieldStyle(.roundedBorder)
-                Text("Artist and title are written as WAV INFO tags. No mastering, loudness normalization, or dither. MP3/FLAC output and PDF briefs are not supported yet.").font(.caption).foregroundStyle(.secondary)
+                Text("FFmpeg converts locally using SoX resampling. Artist and title are written as WAV INFO tags. No mastering, loudness normalization, or dither. MP3/FLAC output and PDF briefs are not supported yet.").font(.caption).foregroundStyle(.secondary)
                 Button {
                     if let asset = project.assets.first(where: { $0.id == sourceID }) { model.export(asset, projectID: project.id, spec: spec) }
                 } label: { Label("Convert & save WAV", systemImage: "arrow.down.doc").frame(maxWidth: .infinity) }

@@ -23,7 +23,7 @@ open "build/Deadline Master.app"
 - `package.sh` compiles an optimized arm64 release, generates the icon, builds a real `.app` bundle, and applies a local ad-hoc signature.
 - `open` launches the finished app. Quit a running copy before packaging a replacement.
 
-The scripts work from any current directory and put compiler/build caches in `.cache/` and `.build/`. The bundle and generated icons go into `build/`. No npm, Python, third-party Swift packages, remote fonts, API keys, or package downloads are required.
+The scripts work from any current directory and put compiler/build caches in `.cache/` and `.build/`. The bundle and generated icons go into `build/`. The developer build uses Python 3 to vendor an installed ffmpeg-full build. The packaged app includes FFmpeg and its libraries; end users need no separate installation. See docs/FFMPEG.md for the current development-only distribution status.
 
 Prerequisites: Apple silicon, macOS 27+, Xcode with the macOS 27 SDK and a Swift 6.2+ compiler. Validated here with Xcode 27.1, Swift 6.4, and SDK 27.0. Xcode and Apple's SDKs are system tools, not copied into this repository. Xcode may maintain its own system caches and preferences.
 
@@ -90,7 +90,7 @@ The original web prototype remains in `../sidea/`. Its IndexedDB library is sepa
 - Export runs in the background but currently has no percentage or cancel UI. Do not quit during conversion.
 - Development builds are ad-hoc signed and are not sandboxed or notarized. Developer ID signing, hardened runtime, sandbox/file access design, and notarization are future distribution work; don't disable Gatekeeper to distribute this build.
 
-This app has no networking code, web view, analytics, accounts, or online service dependency.
+The app requires no online service. Handoff restricts FFmpeg inputs to local files; the full bundled FFmpeg runtime retains its upstream network capabilities for potential future features.
 
 
 

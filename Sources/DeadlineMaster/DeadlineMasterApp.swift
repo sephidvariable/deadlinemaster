@@ -18,7 +18,16 @@ struct DeadlineMasterApp: App {
         .defaultSize(width: 1240, height: 820)
         // Keep the toolbar controls without a visible window title.
         .windowToolbarStyle(.unified(showsTitle: false))
-        .commands { CommandGroup(replacing: .newItem) {} }
+        .commands {
+            CommandGroup(replacing: .newItem) {}
+            CommandGroup(after: .appInfo) {
+                Button("FFmpeg Licenses & Notices") {
+                    if let url = Bundle.main.resourceURL?.appendingPathComponent("FFmpegFull/NOTICE.txt") {
+                        NSWorkspace.shared.open(url)
+                    }
+                }
+            }
+        }
     }
 }
 final class AppDelegate: NSObject, NSApplicationDelegate {

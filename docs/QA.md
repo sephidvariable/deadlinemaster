@@ -63,3 +63,14 @@ Moved the visible title into a centered principal toolbar item and disabled the 
 ## Direct paths and launch-only refresh — 2026-10-29
 
 Supersedes shortcut and periodic-refresh behavior above. 27 tests passed, including original contents/modification-date preservation, metadata-only deletion, and existing-output export refusal. Release build and signature passed. Live UI verification remains pending.
+
+## FFmpeg full — 2026-11-08
+
+28 tests passed with bundled FFmpeg, including all 12 WAV encoding combinations,
+metadata, source preservation, existing-output refusal and Vorbis-to-WAV conversion.
+The final app passed codesign --verify --deep --strict. All 281 embedded Mach-O
+hashes matched the generated manifest. The packaged FFmpeg successfully ran SoX
+resampling and Rubber Band with network access and /opt/homebrew reads denied.
+No clean second Mac or full native UI export test was performed. This does not
+validate every retained codec/filter or establish redistribution compliance.
+See FFMPEG.md and NETWORK-DIAGNOSTICS.md for the remaining source/license work.

@@ -7,3 +7,6 @@
 
 # Finder metadata
 .DS_Store
+
+# Python developer-tool bytecode
+__pycache__/

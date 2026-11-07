@@ -85,3 +85,18 @@ private func fixture(at url: URL) throws {
     #expect(String(data: bytes[48..<52], encoding: .utf8) == "LIST")
     #expect(bytes[40] == 3)
 }
+
+@Test func bundledFFmpegConvertsVorbisAndPreservesOriginal() throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let wav = root.appendingPathComponent("original.wav")
+    try fixture(at: wav)
+    let ogg = root.appendingPathComponent("master with spaces.ogg")
+    _ = try FFmpegRuntime.run("ffmpeg", arguments: ["-nostdin", "-n", "-i", wav.path, "-c:a", "libvorbis", ogg.path])
+    let original = try Data(contentsOf: ogg)
+    let output = root.appendingPathComponent("deliverable.wav")
+    try AudioExporter.export(source: ogg, destination: output, spec: DeliverySpec())
+    #expect(try AVAudioFile(forReading: output).length > 0)
+    #expect(try Data(contentsOf: ogg) == original)
+}

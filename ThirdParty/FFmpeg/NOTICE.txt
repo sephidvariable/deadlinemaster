@@ -1,0 +1,13 @@
+Deadline Master uses FFmpeg, Copyright (c) 2000-2026 the FFmpeg developers.
+The bundled Homebrew ffmpeg-full configuration uses GPL version 3 or later.
+See licenses/ for preserved notices and license texts, provenance/ for installed
+formulas, receipts, SBOMs, configuration and checksums, and capabilities/ for
+actual enabled functionality. FFmpeg is a trademark of Fabrice Bellard.
+This software is based in part on the work of the Independent JPEG Group.
+FFmpeg source code is not modified here; Mach-O load paths are relocated and
+binaries ad-hoc signed by scripts/bundle-ffmpeg.py. No warranty is provided.
+
+DEVELOPMENT BUNDLE: corresponding source archive collection and dependency
+license review are not yet complete. Do not distribute this bundle until the
+release requirements in docs/FFMPEG.md have been completed. Source URLs alone
+are not a substitute for providing Corresponding Source.

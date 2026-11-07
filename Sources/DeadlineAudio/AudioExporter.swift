@@ -1,5 +1,4 @@
 import Foundation
-import AVFoundation
 import DeadlineCore
 
 public enum AudioExporter {
@@ -12,48 +11,35 @@ public enum AudioExporter {
         guard (try? FileManager.default.attributesOfItem(atPath: destination.path)) == nil else {
             throw StudioError.message("A file already exists at this destination. Choose a new filename; originals are never overwritten.")
         }
-        let input = try AVAudioFile(forReading: source)
-        guard input.length > 0 else { throw StudioError.message("The source contains no audio frames.") }
-        guard input.processingFormat.channelCount <= 2 else { throw StudioError.message("This prototype accepts mono or stereo sources, not surround audio.") }
-        guard let format = AVAudioFormat(standardFormatWithSampleRate: spec.sampleRate, channels: AVAudioChannelCount(spec.channels)),
-              let converter = AVAudioConverter(from: input.processingFormat, to: format),
-              let output = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 8192) else {
-            throw StudioError.message("Cannot convert this audio format.")
+        let probe = try FFmpegRuntime.run("ffprobe", arguments: [
+            "-v", "error", "-protocol_whitelist", "file", "-select_streams", "a:0",
+            "-show_entries", "stream=channels", "-of", "json", source.path
+        ])
+        struct Probe: Decodable { struct Stream: Decodable { let channels: Int; let duration_ts: Int64? }; let streams: [Stream] }
+        let info = try JSONDecoder().decode(Probe.self, from: probe)
+        guard let stream = info.streams.first, (1...2).contains(stream.channels) else {
+            throw StudioError.message("Choose a mono or stereo audio source.")
         }
-        converter.downmix = true
-        converter.sampleRateConverterQuality = AVAudioQuality.max.rawValue
         let temporary = destination.deletingLastPathComponent().appendingPathComponent(".deadline-\(UUID().uuidString).wav")
         defer { try? FileManager.default.removeItem(at: temporary) }
-        let writer = try WAVWriter(url: temporary, spec: spec)
-        var readingError: Error?
-        while true {
-            try Task.checkCancellation()
-            var conversionError: NSError?
-            let status = converter.convert(to: output, error: &conversionError) { requested, state in
-                guard input.framePosition < input.length else { state.pointee = .endOfStream; return nil }
-                guard let buffer = AVAudioPCMBuffer(pcmFormat: input.processingFormat, frameCapacity: requested) else {
-                    readingError = StudioError.message("Could not allocate an audio buffer."); state.pointee = .endOfStream; return nil
-                }
-                do {
-                    try input.read(into: buffer, frameCount: requested)
-                    state.pointee = buffer.frameLength > 0 ? .haveData : .endOfStream
-                    return buffer.frameLength > 0 ? buffer : nil
-                } catch { readingError = error; state.pointee = .endOfStream; return nil }
-            }
-            if let readingError { throw readingError }
-            if let conversionError { throw conversionError }
-            if output.frameLength > 0 { try writer.append(output) }
-            switch status {
-            case .endOfStream:
-                try writer.finish()
-                try Task.checkCancellation()
-                // Move fails if another file appears at the destination during conversion.
-                try FileManager.default.moveItem(at: temporary, to: destination)
-                return
-            case .error: throw StudioError.message("Audio conversion failed.")
-            case .haveData, .inputRanDry: continue
-            @unknown default: throw StudioError.message("Unknown audio converter result.")
-            }
+        _ = try FFmpegRuntime.run("ffmpeg", arguments: [
+            "-hide_banner", "-loglevel", "error", "-nostdin", "-n", "-protocol_whitelist", "file",
+            "-i", source.path, "-map", "0:a:0", "-vn", "-sn", "-dn", "-map_metadata", "-1",
+            "-af", "aresample=resampler=soxr:precision=28:dither_method=none",
+            "-ar", String(Int(spec.sampleRate)), "-ac", String(spec.channels),
+            "-c:a", spec.bitDepth == 16 ? "pcm_s16le" : "pcm_s24le",
+            "-metadata", "artist=" + spec.artist, "-metadata", "title=" + spec.title,
+            "-f", "wav", temporary.path
+        ])
+        let rendered = try FFmpegRuntime.run("ffprobe", arguments: [
+            "-v", "error", "-protocol_whitelist", "file", "-select_streams", "a:0",
+            "-show_entries", "stream=channels,duration_ts", "-of", "json", temporary.path
+        ])
+        let renderedInfo = try JSONDecoder().decode(Probe.self, from: rendered)
+        guard (renderedInfo.streams.first?.duration_ts ?? 0) > 0 else {
+            throw StudioError.message("The source contains no audio frames.")
         }
+        try Task.checkCancellation()
+        try FileManager.default.moveItem(at: temporary, to: destination)
     }
 }
