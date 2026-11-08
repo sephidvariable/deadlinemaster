@@ -74,3 +74,23 @@ resampling and Rubber Band with network access and /opt/homebrew reads denied.
 No clean second Mac or full native UI export test was performed. This does not
 validate every retained codec/filter or establish redistribution compliance.
 See FFMPEG.md and NETWORK-DIAGNOSTICS.md for the remaining source/license work.
+
+## Batch Handoff checks
+
+Automated: multi-line source/format identification, ambiguous sources, duplicate
+version filenames, separate WAVs and extracted ZIP contents, output sample
+rate/depth, existing destination rejection, failed-batch cleanup, original bytes
+unchanged. Manual UI follow-up: add/edit/remove rows, export one row, export both
+batch modes, cancel native destination panels, switch projects (list resets).
+
+## Document brief import
+
+Automated fixtures cover DOC, DOCX, RTF, ODT, UTF-16 text, embedded-text PDF,
+image-only PDF OCR, encrypted PDF with missing/wrong/correct password, malformed
+PDF, empty text, and preservation of original bytes. An opt-in integration test
+creates current and Pages ’09 fixtures through installed Pages, imports both,
+and compares their originals with saved copies. Run it with:
+`DEADLINE_TEST_PAGES=1 ./scripts/dev.sh test` (may prompt for Automation permission).
+All 39 tests, including this Pages integration, passed during implementation.
+Manual follow-up: native import picker, first-run Automation consent in the
+packaged app, secure password dialog, complex Word templates and mixed-layout PDFs.

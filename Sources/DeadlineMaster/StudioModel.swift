@@ -96,16 +96,17 @@ final class StudioModel {
             } catch { self.error = error.localizedDescription }
         }
     }
-    func pinMaster(_ assetID: UUID?, projectID: UUID) async {
+    func pinMaster(_ assetID: UUID?, projectID: UUID, premaster: Bool = false) async {
         guard ready, !busy, let index = projects.firstIndex(where: { $0.id == projectID }) else { return }
         guard assetID == nil || projects[index].assets.contains(where: { $0.id == assetID && $0.isAudio }) else { return }
         busy = true; defer { busy = false }
         var next = projects
-        next[index].spotlightAssetID = assetID
+        if premaster { next[index].premasterAssetID = assetID }
+        else { next[index].spotlightAssetID = assetID }
         do {
             try await repository.save(next)
             projects = next
-            status = assetID == nil ? "Spotlight cleared." : "Final master pinned."
+            status = assetID == nil ? "Spotlight cleared." : (premaster ? "Premaster 2mix pinned." : "Final master pinned.")
         } catch { self.error = error.localizedDescription }
     }
     func importFiles() {
@@ -136,7 +137,58 @@ final class StudioModel {
         do { player = try AVAudioPlayer(contentsOf: repository.availableFileURL(asset, projectID: projectID)); player?.play(); playingID = asset.id }
         catch { self.error = "Playback unavailable: \(error.localizedDescription)" }
     }
+    var playbackProgress: Double {
+        guard let player, player.duration > 0 else { return 0 }
+        return min(1, max(0, player.currentTime / player.duration))
+    }
+    func seekPlayback(to fraction: Double) {
+        guard fraction.isFinite, let player, player.duration > 0 else { return }
+        player.currentTime = min(1, max(0, fraction)) * player.duration
+        // A seek after natural completion should start previewing again.
+        if fraction < 1 && !player.isPlaying { player.play() }
+    }
     func stop() { player?.stop(); player = nil; playingID = nil }
+    func exportBatch(_ items: [HandoffItem], project: MusicProject, zip: Bool) {
+        guard !busy, !items.isEmpty else { return }
+        let exports: [BatchExportItem]
+        do {
+            exports = try items.map { item in
+                guard let asset = project.assets.first(where: { $0.id == item.sourceID && $0.isAudio }) else {
+                    throw StudioError.message("Choose an available audio source for every version.")
+                }
+                return BatchExportItem(source: try repository.availableFileURL(asset, projectID: project.id), spec: item.spec)
+            }
+        } catch { self.error = error.localizedDescription; return }
+        let destination: URL
+        if zip {
+            let panel = NSSavePanel(); panel.allowedContentTypes = [.zip]
+            panel.nameFieldStringValue = project.name.replacingOccurrences(of: "/", with: "-") + " Deliverables.zip"
+            guard panel.runModal() == .OK, let url = panel.url else { return }
+            destination = url
+        } else {
+            let panel = NSOpenPanel(); panel.canChooseDirectories = true; panel.canChooseFiles = false
+            panel.prompt = "Export here"; panel.message = "A new Deliverables folder will be created here."
+            guard panel.runModal() == .OK, let url = panel.url else { return }
+            let stem = project.name.replacingOccurrences(of: "/", with: "-") + " Deliverables"
+            var candidate = url.appendingPathComponent(stem, isDirectory: true)
+            var suffix = 2
+            while FileManager.default.fileExists(atPath: candidate.path) {
+                candidate = url.appendingPathComponent("\(stem) \(suffix)", isDirectory: true); suffix += 1
+            }
+            destination = candidate
+        }
+        busy = true; status = "Preparing \(exports.count) delivery versions…"
+        Task {
+            defer { busy = false }
+            do {
+                try await Task.detached(priority: .userInitiated) {
+                    try BatchExporter.export(exports, destination: destination, zip: zip)
+                }.value
+                status = "Exported \(exports.count) versions: \(destination.lastPathComponent)"
+                NSWorkspace.shared.activateFileViewerSelecting([destination])
+            } catch { self.error = error.localizedDescription; status = "Batch export failed. Originals are unchanged." }
+        }
+    }
     func export(_ asset: ProjectAsset, projectID: UUID, spec: DeliverySpec) {
         guard !busy else { return }
         let panel = NSSavePanel(); panel.allowedContentTypes = [.wav]

@@ -11,5 +11,6 @@
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>LSMinimumSystemVersion</key><string>27.0</string>
 <key>NSHighResolutionCapable</key><true/>
+<key>NSAppleEventsUsageDescription</key><string>Deadline Master uses Pages to read a temporary copy of a Pages delivery brief. Your original document is not edited.</string>
 <key>NSPrincipalClass</key><string>NSApplication</string>
 </dict></plist>

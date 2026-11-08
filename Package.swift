@@ -7,8 +7,10 @@ let package = Package(
     products: [.executable(name: "DeadlineMaster", targets: ["DeadlineMaster"])],
     targets: [
         .target(name: "DeadlineCore"),
+        .target(name: "DeadlineDocuments"),
+        .testTarget(name: "DeadlineDocumentsTests", dependencies: ["DeadlineDocuments"]),
         .target(name: "DeadlineAudio", dependencies: ["DeadlineCore"]),
-        .executableTarget(name: "DeadlineMaster", dependencies: ["DeadlineCore", "DeadlineAudio"]),
+        .executableTarget(name: "DeadlineMaster", dependencies: ["DeadlineCore", "DeadlineAudio", "DeadlineDocuments"]),
         .testTarget(name: "DeadlineCoreTests", dependencies: ["DeadlineCore"]),
         .testTarget(name: "DeadlineAudioTests", dependencies: ["DeadlineAudio", "DeadlineCore"])
     ]

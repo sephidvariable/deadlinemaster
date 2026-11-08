@@ -56,7 +56,9 @@ public actor ProjectRepository {
         if !updated.assets.contains(where: { $0.id == updated.spotlightAssetID && $0.isAudio }) {
             updated.spotlightAssetID = nil
         }
+        if !updated.assets.contains(where: { $0.id == updated.premasterAssetID && $0.isAudio }) { updated.premasterAssetID = nil }
         if updated.assets != old.assets { updated.selectAutomaticMaster() }
+        else if old.premasterAssetID == nil { updated.selectAutomaticPremaster() }
         guard updated != old else { return existing }
         try Task.checkCancellation()
         var next = existing

@@ -349,3 +349,35 @@ import Testing
     #expect(try Data(contentsOf: source.appendingPathComponent("mix.wav")) == Data([1]))
     #expect(try Data(contentsOf: source.appendingPathComponent("new.wav")) == Data([2]))
 }
+
+@Test func handoffBriefBuildsSeparateVersionsAndFlagsAmbiguousSources() {
+    let master = ProjectAsset(name: "master.wav", storedName: "master.wav", byteCount: 0)
+    let mix = ProjectAsset(name: "mix.wav", storedName: "mix.wav", byteCount: 0)
+    let result = HandoffBriefParser.parse("master.wav 16-bit 44.1 kHz\nmix.wav 32-bit float 192 kHz\nmaster.wav and mix.wav 24-bit 48 kHz", assets: [master, mix], defaultSource: master.id, base: DeliverySpec())
+    #expect(result.items.count == 3)
+    #expect(result.items[0].sourceID == master.id)
+    #expect(result.items[0].spec.bitDepth == 16)
+    #expect(result.items[0].spec.sampleRate == 44100)
+    #expect(result.items[1].sourceID == mix.id)
+    #expect(result.items[1].spec.bitDepth == 32)
+    #expect(result.items[1].spec.sampleRate == 192000)
+    #expect(result.items[2].sourceID == nil)
+    #expect(result.warnings.contains { $0.contains("multiple source filenames") })
+}
+
+@Test func premasterSelectionIsIndependentAndPersists() throws {
+    var project = MusicProject(name: "Song")
+    let master = ProjectAsset(name: "master.wav", storedName: "master.wav", byteCount: 0)
+    let long = ProjectAsset(name: "final MIX.wav", storedName: "long.wav", byteCount: 0)
+    let short = ProjectAsset(name: "2MiX.wav", storedName: "short.wav", byteCount: 0)
+    project.assets = [master, long, short, ProjectAsset(name: "mix.txt", storedName: "mix.txt", byteCount: 0)]
+    project.selectAutomaticMaster()
+    #expect(project.spotlightAssetID == master.id)
+    #expect(project.premasterAssetID == short.id)
+    project.premasterAssetID = long.id
+    project.selectAutomaticMaster()
+    #expect(project.premasterAssetID == long.id)
+    let restored = try JSONDecoder().decode(MusicProject.self, from: JSONEncoder().encode(project))
+    #expect(restored.premasterAssetID == long.id)
+    #expect(restored.spotlightAssetID == master.id)
+}

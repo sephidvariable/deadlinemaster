@@ -2,6 +2,7 @@ import SwiftUI
 import AppKit
 import UniformTypeIdentifiers
 import DeadlineCore
+import DeadlineDocuments
 
 struct ProjectDetailView: View {
     @Bindable var model: StudioModel
@@ -9,6 +10,8 @@ struct ProjectDetailView: View {
     @State private var notes = ""
     @State private var brief = ""
     @State private var spec = DeliverySpec()
+    @State private var deliveries: [HandoffItem] = []
+    @State private var editingID: UUID?
     @State private var showDitherExplanation = false
     @State private var sourceID: UUID?
     @State private var sourceChosenManually = false
@@ -29,6 +32,7 @@ struct ProjectDetailView: View {
                     Label(issue, systemImage: "exclamationmark.triangle").font(.callout).foregroundStyle(.orange)
                 }
                 SpotlightView(model: model, project: project)
+                SpotlightView(model: model, project: project, premaster: true)
                 HStack(alignment: .top, spacing: 22) {
                     VStack(alignment: .leading, spacing: 20) {
                         GroupBox {
@@ -57,9 +61,11 @@ struct ProjectDetailView: View {
                                     }
                                     .contextMenu {
                                         if asset.isAudio {
+                                            Button("Pin as premaster 2mix") { Task { await model.pinMaster(asset.id, projectID: project.id, premaster: true) } }.disabled(model.busy)
                                             Button("Pin as final master") { Task { await model.pinMaster(asset.id, projectID: project.id) } }.disabled(model.busy)
                                         }
                                     }
+                                    if model.playingID == asset.id { PlaybackProgressView(model: model) }
                                     Divider()
                                 }
                             }.padding(10).frame(maxWidth: .infinity, alignment: .leading)
@@ -98,16 +104,18 @@ struct ProjectDetailView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text("THE HANDOFF").font(.caption.bold()).tracking(2).foregroundStyle(.secondary)
                 Text("Prepare deliverables").font(.title2.bold())
-                Text("Paste the delivery brief, then check the extracted settings.").foregroundStyle(.secondary)
+                Text("One version per line: include a source filename, sample rate and bit depth. Review each version before export.").foregroundStyle(.secondary)
                 TextEditor(text: $brief).frame(height: 100).font(.body).overlay(RoundedRectangle(cornerRadius: 6).stroke(.quaternary))
                     .accessibilityLabel("Delivery brief")
                 HStack {
-                    Button("Import .txt") { importBrief() }
+                    Button("Import document") { importBrief() }
                     Spacer()
-                    Button("Extract specs") { scan() }.disabled(brief.isEmpty)
+                    Button("Add from brief") { scan() }.disabled(brief.isEmpty)
                 }
                 Text(scanMessage).font(.caption).foregroundStyle(.secondary).textSelection(.enabled)
                 Divider()
+                if !deliveries.isEmpty { deliveryList }
+                Text(editingID == nil ? "New version" : "Edit version").font(.headline)
                 Picker("Source", selection: Binding(get: { sourceID }, set: {
                     sourceID = $0
                     sourceChosenManually = true
@@ -131,22 +139,85 @@ struct ProjectDetailView: View {
                 Picker("Channels", selection: $spec.channels) { Text("Stereo").tag(2); Text("Mono (downmix)").tag(1) }
                 TextField("Artist metadata", text: $spec.artist).textFieldStyle(.roundedBorder)
                 TextField("Track title metadata", text: $spec.title).textFieldStyle(.roundedBorder)
-                Text("FFmpeg converts locally using SoX resampling. Artist and title are written as WAV INFO tags. TPDF dither is applied when reducing source bit depth or converting float to integer, after any resampling. Resampling alone does not add dither. Matching formats bypass processing. No mastering or loudness normalization. MP3/FLAC output and PDF briefs are not supported yet.").font(.caption).foregroundStyle(.secondary)
+                Text("FFmpeg converts locally using SoX resampling. Artist and title are written as WAV INFO tags. TPDF dither is applied when reducing source bit depth or converting float to integer, after any resampling. Resampling alone does not add dither. Matching formats bypass processing. No mastering or loudness normalization. MP3/FLAC output is not supported yet.").font(.caption).foregroundStyle(.secondary)
                 Button {
-                    if let asset = project.assets.first(where: { $0.id == sourceID }) { model.export(asset, projectID: project.id, spec: spec) }
-                } label: { Label("Convert & save WAV", systemImage: "arrow.down.doc").frame(maxWidth: .infinity) }
-                    .buttonStyle(.borderedProminent).controlSize(.large).disabled(sourceID == nil || model.busy)
-            }.padding(12)
+                    if let editingID, let index = deliveries.firstIndex(where: { $0.id == editingID }) {
+                        deliveries[index].sourceID = sourceID; deliveries[index].spec = spec
+                    } else { deliveries.append(HandoffItem(sourceID: sourceID, spec: spec)) }
+                    editingID = nil
+                } label: { Label(editingID == nil ? "Add version" : "Save version", systemImage: "plus.circle").frame(maxWidth: .infinity) }
+                    .buttonStyle(.borderedProminent).disabled(sourceID == nil || model.busy)
+                if editingID != nil {
+                    Button("Cancel edit") { editingID = nil }
+                }
+            }.padding(12).disabled(model.busy)
         }
     }
+    private var deliveryList: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Delivery list · \(deliveries.count)").font(.headline)
+            ForEach(deliveries) { item in
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(project.assets.first(where: { $0.id == item.sourceID })?.name ?? "Choose a source").font(.subheadline.bold()).lineLimit(2)
+                    Text("\(item.spec.sampleRate / 1000, specifier: "%g") kHz · \(item.spec.bitDepth)-bit\(item.spec.bitDepth == 32 ? " float" : "") · \(item.spec.channels == 1 ? "Mono" : "Stereo")").font(.caption).foregroundStyle(.secondary)
+                    HStack {
+                        Button("Edit") { editingID = item.id; sourceID = item.sourceID; sourceChosenManually = true; spec = item.spec }
+                        Button("Export WAV") {
+                            if let asset = project.assets.first(where: { $0.id == item.sourceID }) { model.export(asset, projectID: project.id, spec: item.spec) }
+                        }.disabled(!project.assets.contains(where: { $0.id == item.sourceID && $0.isAudio }) || editingID != nil)
+                        Spacer()
+                        Button { deliveries.removeAll { $0.id == item.id }; if editingID == item.id { editingID = nil } } label: { Image(systemName: "trash") }.help("Remove version from delivery list")
+                    }
+                }
+                Divider()
+            }
+            Button { model.exportBatch(deliveries, project: project, zip: false) } label: {
+                Label("Export all as WAV files", systemImage: "folder").frame(maxWidth: .infinity)
+            }.disabled(!canExportBatch)
+            Button { model.exportBatch(deliveries, project: project, zip: true) } label: {
+                Label("Export all as ZIP", systemImage: "archivebox").frame(maxWidth: .infinity)
+            }.buttonStyle(.borderedProminent).disabled(!canExportBatch)
+            Text("Separate WAVs go into a new folder. Save any edits before exporting. This delivery list lasts while the workspace is open.").font(.caption).foregroundStyle(.secondary)
+            Divider()
+        }
+    }
+    private var canExportBatch: Bool {
+        editingID == nil && !deliveries.isEmpty && deliveries.allSatisfy { item in project.assets.contains { $0.id == item.sourceID && $0.isAudio } }
+    }
     private func scan() {
-        let result = BriefParser.parse(brief, base: spec); spec = result.spec
-        scanMessage = (result.detected.isEmpty ? "No supported specs detected." : "Detected: " + result.detected.joined(separator: ", ") + ".") + "\n" + result.warnings.joined(separator: "\n")
+        let result = HandoffBriefParser.parse(brief, assets: project.assets, defaultSource: sourceID, base: spec)
+        deliveries += result.items
+        scanMessage = "Added \(result.items.count) versions. Review sources and settings.\n" + result.warnings.joined(separator: "\n")
     }
     private func importBrief() {
-        let panel = NSOpenPanel(); panel.allowedContentTypes = [.plainText]
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = BriefDocumentReader.extensions.compactMap { UTType(filenameExtension: $0) }
+        panel.message = "Import a text, Word, Pages or PDF brief. Pages files require Apple Pages; scanned PDFs use offline OCR."
+        panel.allowsMultipleSelection = false
         guard panel.runModal() == .OK, let url = panel.url else { return }
-        do { brief = try String(contentsOf: url, encoding: .utf8); scan() }
-        catch { model.error = "Could not read UTF-8 text: \(error.localizedDescription)" }
+        model.busy = true; model.status = "Reading delivery brief… Scanned PDFs may take longer."
+        Task {
+            defer { model.busy = false }
+            do {
+                let result: BriefDocumentText
+                do {
+                    result = try await Task.detached(priority: .userInitiated) { try BriefDocumentReader.read(url) }.value
+                } catch BriefDocumentError.passwordRequired {
+                    let alert = NSAlert(); alert.messageText = "PDF password required"
+                    alert.informativeText = "Enter the password to read this brief. It will not be saved."
+                    let field = NSSecureTextField(frame: NSRect(x: 0, y: 0, width: 280, height: 24))
+                    alert.accessoryView = field; alert.addButton(withTitle: "Unlock"); alert.addButton(withTitle: "Cancel")
+                    alert.window.initialFirstResponder = field
+                    guard alert.runModal() == .alertFirstButtonReturn else { model.status = "Brief import cancelled."; return }
+                    let password = field.stringValue
+                    result = try await Task.detached(priority: .userInitiated) { try BriefDocumentReader.read(url, password: password) }.value
+                }
+                brief = result.text; scanMessage = result.notes
+                model.status = "Brief imported. Review the text, then choose Add from brief."
+            } catch {
+                model.error = error.localizedDescription
+                model.status = "Brief import failed. Your existing brief and delivery list are unchanged."
+            }
+        }
     }
 }

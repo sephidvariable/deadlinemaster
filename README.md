@@ -37,17 +37,42 @@ A standard macOS dialog reminds you to back up your local library each time the 
 2. Click **Add files**. Audio and documents are read directly from their original paths. Keep originals in place and their drives connected.
 3. Play a mix with the play button. The folder button reveals its original in Finder.
 4. Add notes and click **Save notes**. Notes are not autosaved.
-5. Paste a brief, or import a UTF-8 `.txt` file. Click **Extract specs**.
-6. Review every setting. Choose a source audio file and click **Convert & save WAV**.
-7. Choose a destination in the standard macOS save panel. The app reveals the finished export in Finder.
+5. Choose a source and settings in Handoff, then click **Add version**. Repeat for each source/format combination.
+6. Alternatively paste a brief or use **Import document** for TXT, Word, Pages or PDF with **one version per line**, then click **Add from brief**. Include the source filename to identify it; unmatched filenames use the selected source with a warning. Ambiguous sources must be selected manually.
+7. Review the delivery list. **Edit** loads a version into the editor; **Save version** applies your changes. **Export WAV** exports just that item.
+8. **Export all as WAV files** creates a new delivery folder in your chosen directory. **Export all as ZIP** saves a single archive. Existing files are never replaced; a failed batch leaves no partial delivery.
 
-Example brief (metadata labels use separate lines or semicolons):
+The delivery list is temporary and resets when you leave the workspace. Additions from briefs append to the list. Metadata belongs on each version's line, separated by semicolons, or can be edited using the metadata fields.
 
 ```text
-Stereo WAV, 24-bit, 48 kHz
-Artist: Luna Park
-Title: Night Drive
+master.wav; Stereo WAV, 24-bit, 48 kHz; Artist: Luna Park; Title: Night Drive
+master.wav; Stereo WAV, 16-bit, 44.1 kHz; Artist: Luna Park; Title: Night Drive
+instrumental.wav; Stereo WAV, 32-bit float, 192 kHz; Title: Night Drive Instrumental
 ```
+
+## Document briefs
+
+**Import document** reads text locally into the editor; review it and arrange one
+version per line, then press **Add from brief**. Importing does not automatically
+create delivery rows or modify the source document.
+
+| Format | Import behavior |
+| --- | --- |
+| TXT | macOS encoding detection, including UTF-8 and UTF-16 |
+| DOC / DOT | Legacy Word reader provided by macOS |
+| DOCX / DOCM / DOTX / DOTM | macOS Office Open XML text reader; macros are not executed |
+| RTF / RTFD / ODT | Native formatted-text reader |
+| Pages / Pages templates | Requires installed Apple Pages and Automation permission; reads a disposable copy via PDF export. Current and Pages ’09 tested. Older versions depend on what installed Pages can open. |
+| PDF | PDFKit embedded text, or offline Vision OCR on pages without text; supports unlocking with a supplied password. PDF/A and PDF/X use the same PDF reader. |
+
+Scanned PDFs may take longer on first use. Check OCR numbers, table reading
+order, filenames and line breaks. On mixed pages with embedded text and scanned
+images, only the embedded text is read. PDF portfolio attachments are not
+imported, and copy-restricted PDFs are rejected. Password-protected Word/Pages
+files must first be exported unlocked; passwords supplied for PDFs are not saved.
+Unreadable or empty imports leave the existing brief and delivery list unchanged.
+PDF briefs are limited to 300 pages. Complex documents are not guaranteed to
+extract with perfect layout or completeness.
 
 ## Read and change the code
 
@@ -84,7 +109,7 @@ The original web prototype remains in `../sidea/`. Its IndexedDB library is sepa
 
 - Outputs WAV at 16/24-bit integer PCM or 32-bit float, 44.1/48/96/192 kHz, mono/stereo. Resampling precedes TPDF dithering and integer quantization; matching rate/channel/codec exports preserve audio samples via stream copy. Standard RIFF WAV is limited to 4 GB; oversized exports fail without replacing the destination.
 - Inputs depend on AVFoundation's installed decoders. Mono and stereo only; surround input is explicitly rejected. A file extension indicates a candidate audio file, not guaranteed decoder support.
-- No loudness normalization, peak limiting, mastering, noise-shaped dither, batch delivery, MP3/FLAC output, PDF/Word briefs, AI parsing, folder watching, cloud sync, or version control.
+- No loudness normalization, peak limiting, mastering, noise-shaped dither, MP3/FLAC output, AI parsing, folder watching, cloud sync, or version control.
 - The parser handles explicit numeric settings, not arbitrary prose. It warns on known unsupported requirements and conflicting settings; always review the original brief.
 - WAV INFO metadata uses UTF-8. Metadata visibility and Unicode handling vary across other audio apps.
 - Export runs in the background but currently has no percentage or cancel UI. Do not quit during conversion.

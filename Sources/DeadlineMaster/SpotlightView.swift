@@ -5,13 +5,15 @@ import DeadlineCore
 struct SpotlightView: View {
     @Bindable var model: StudioModel
     let project: MusicProject
+    var premaster = false
+    private var pinnedID: UUID? { premaster ? project.premasterAssetID : project.spotlightAssetID }
     @State private var targeted = false
 
     var body: some View {
         GroupBox {
             VStack(alignment: .leading, spacing: 12) {
-                Label("Spotlight · Final master", systemImage: "star.fill").font(.headline)
-                if let asset = project.assets.first(where: { $0.id == project.spotlightAssetID && $0.isAudio }) {
+                Label(premaster ? "Spotlight · Premaster 2mix" : "Spotlight · Final master", systemImage: "star.fill").font(.headline)
+                if let asset = project.assets.first(where: { $0.id == pinnedID && $0.isAudio }) {
                     HStack {
                         Image(systemName: "waveform").font(.largeTitle)
                         Text(asset.name).font(.title3.bold()).lineLimit(2)
@@ -20,12 +22,13 @@ struct SpotlightView: View {
                             Label(model.playingID == asset.id ? "Stop" : "Play", systemImage: model.playingID == asset.id ? "stop.fill" : "play.fill")
                         }
                         Button("Reveal in Finder") { NSWorkspace.shared.activateFileViewerSelecting([model.fileURL(asset, projectID: project.id)]) }
-                        Button("Unpin") { Task { await model.pinMaster(nil, projectID: project.id) } }.disabled(model.busy)
+                        Button("Unpin") { Task { await model.pinMaster(nil, projectID: project.id, premaster: premaster) } }.disabled(model.busy)
                     }
-                    Text("Your completed song. Drop another project audio file here to replace it.").font(.caption).foregroundStyle(.secondary)
+                    Text(premaster ? "Your premaster 2mix. Drop another project audio file here to replace it." : "Your completed song. Drop another project audio file here to replace it.").font(.caption).foregroundStyle(.secondary)
+                    if model.playingID == asset.id { PlaybackProgressView(model: model) }
                 } else {
-                    Text("Drag your finished master here from Project files.").font(.title3)
-                    Text("Or right-click an audio file and choose Pin as final master.").font(.caption).foregroundStyle(.secondary)
+                    Text(premaster ? "Drag your premaster 2mix here from Project files." : "Drag your finished master here from Project files.").font(.title3)
+                    Text(premaster ? "Or right-click an audio file and choose Pin as premaster 2mix." : "Or right-click an audio file and choose Pin as final master.").font(.caption).foregroundStyle(.secondary)
                 }
             }.padding(14).frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -36,7 +39,7 @@ struct SpotlightView: View {
             guard parts.count == 2, String(parts[0]) == project.id.uuidString,
                   let id = UUID(uuidString: String(parts[1])),
                   project.assets.contains(where: { $0.id == id && $0.isAudio }) else { return false }
-            Task { await model.pinMaster(id, projectID: project.id) }
+            Task { await model.pinMaster(id, projectID: project.id, premaster: premaster) }
             return true
         } isTargeted: { targeted = $0 }
     }

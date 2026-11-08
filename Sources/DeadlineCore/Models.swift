@@ -39,13 +39,20 @@ public struct MusicProject: Codable, Identifiable, Equatable, Sendable {
     public var notes: String
     public var createdAt: Date
     public var spotlightAssetID: UUID?
+    public var premasterAssetID: UUID?
     public var sourceFolderPath: String?
     public var assets: [ProjectAsset]
     /// Use the filename, not its parent folders, when choosing a final master.
     public mutating func selectAutomaticMaster() {
-        guard spotlightAssetID == nil else { return }
-        spotlightAssetID = assets.filter {
-            $0.isAudio && URL(fileURLWithPath: $0.name).lastPathComponent.range(of: "master", options: .caseInsensitive) != nil
+        if spotlightAssetID == nil { spotlightAssetID = automaticAudio(containing: "master") }
+        selectAutomaticPremaster()
+    }
+    public mutating func selectAutomaticPremaster() {
+        if premasterAssetID == nil { premasterAssetID = automaticAudio(containing: "mix") }
+    }
+    private func automaticAudio(containing keyword: String) -> UUID? {
+        assets.filter {
+            $0.isAudio && URL(fileURLWithPath: $0.name).lastPathComponent.range(of: keyword, options: .caseInsensitive) != nil
         }.sorted {
             let left = URL(fileURLWithPath: $0.name).lastPathComponent
             let right = URL(fileURLWithPath: $1.name).lastPathComponent

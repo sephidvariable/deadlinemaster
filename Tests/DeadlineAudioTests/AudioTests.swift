@@ -176,3 +176,47 @@ private func fixture(at url: URL) throws {
         }
     }
 }
+
+@Test func batchFolderAndZIPContainEveryVersionAndPreserveSources() throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let source = root.appendingPathComponent("master.wav")
+    try fixture(at: source)
+    let original = try Data(contentsOf: source)
+    var cd = DeliverySpec(); cd.sampleRate = 44100; cd.bitDepth = 16
+    var high = DeliverySpec(); high.sampleRate = 192000; high.bitDepth = 32
+    let items = [BatchExportItem(source: source, spec: cd), BatchExportItem(source: source, spec: high), BatchExportItem(source: source, spec: cd)]
+    for zip in [false, true] {
+        let destination = root.appendingPathComponent(zip ? "delivery.zip" : "delivery")
+        try BatchExporter.export(items, destination: destination, zip: zip)
+        var folder = destination
+        if zip {
+            folder = root.appendingPathComponent("unpacked")
+            let process = Process(); process.executableURL = URL(fileURLWithPath: "/usr/bin/ditto")
+            process.arguments = ["-x", "-k", destination.path, folder.path]
+            try process.run(); process.waitUntilExit()
+            #expect(process.terminationStatus == 0)
+        }
+        let files = try FileManager.default.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil).sorted { $0.lastPathComponent < $1.lastPathComponent }
+        #expect(files.count == 3)
+        for (url, item) in Swift.zip(files, items) {
+            let audio = try AVAudioFile(forReading: url)
+            #expect(audio.fileFormat.sampleRate == item.spec.sampleRate)
+            #expect(audio.fileFormat.settings[AVLinearPCMBitDepthKey] as? Int == item.spec.bitDepth)
+        }
+        #expect(throws: (any Error).self) { try BatchExporter.export(items, destination: destination, zip: zip) }
+    }
+    #expect(try Data(contentsOf: source) == original)
+}
+
+@Test func failedBatchCommitsNothingAndCleansStaging() throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let source = root.appendingPathComponent("source.wav"); try fixture(at: source)
+    let output = root.appendingPathComponent("delivery.zip")
+    let items = [BatchExportItem(source: source, spec: DeliverySpec()), BatchExportItem(source: root.appendingPathComponent("missing.wav"), spec: DeliverySpec())]
+    #expect(throws: (any Error).self) { try BatchExporter.export(items, destination: output, zip: true) }
+    #expect(try FileManager.default.contentsOfDirectory(atPath: root.path) == ["source.wav"])
+}

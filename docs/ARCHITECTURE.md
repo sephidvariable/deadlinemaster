@@ -50,3 +50,29 @@ ProjectAsset.originalPath is the source URL path. Creation and manual import rea
 The window task loads the index and calls refreshFoldersAtLaunch once per process. There is no repeating task, timer, or filesystem watcher. Source inventories apply the same Ableton and extension rules and preserve IDs where filesystem identity matches. Failed scans preserve old metadata and show a warning. Newly created projects scan immediately, then refresh on the next launch.
 
 AudioExporter reads the source through a bundled FFmpeg subprocess. It refuses existing destinations, writes to a unique temporary sibling, and commits with a move that cannot replace an existing destination. Users may export new deliverables into the original source directory. The app is not OS-sandboxed as read-only; protection is enforced by these code paths. Finder actions reveal files but do not edit them.
+
+## Batch Handoff
+
+`HandoffItem` holds a source asset ID and independent encoding/metadata settings.
+`HandoffBriefParser` parses one version per line, matching source filenames and
+surfacing ambiguity for review. The workspace keeps an editable, temporary list.
+`BatchExporter` converts sequentially into a private staging directory beside
+the destination, keeping memory bounded and original files read-only. Numbered,
+format-labelled filenames prevent version collisions. Folder output commits a
+new directory; ZIP output uses macOS `/usr/bin/ditto` with shell-free arguments.
+Only after every conversion (and ZIP creation) succeeds does a no-replace move
+publish the result. Errors remove staging; existing destinations are rejected.
+
+## Document brief import
+
+`DeadlineDocuments` isolates AppKit attributed-text import, PDFKit extraction,
+Vision OCR, and Pages Automation from audio processing and brief interpretation.
+The UI runs extraction off the main actor, handles PDF passwords with a secure
+field, and requires review before parsing delivery rows. Pages receives only a
+temporary copy, which is exported to a temporary PDF and closed without saving;
+its original file is never opened by Automation. No document macros are run.
+The app declares its Apple Events purpose in Info.plist. Pages needs the user's
+macOS Automation permission and an installed compatible Pages version.
+
+References: [Apple document types](https://developer.apple.com/documentation/foundation/nsattributedstring/documenttype/opendocument),
+[Pages export formats](https://support.apple.com/en-euro/guide/pages/tance1161f26/mac).
