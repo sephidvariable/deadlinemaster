@@ -8,7 +8,14 @@ is no runtime download or Homebrew lookup inside the packaged app.
 
 Handoff invokes ffprobe and ffmpeg as separate subprocesses, using argument
 arrays (no shell), local-file-only input protocols and no stdin. WAV export
-uses libsoxr at precision 28, explicitly no dither, and 16/24-bit integer PCM.
+supports 16/24-bit integer PCM and 32-bit float through 192 kHz. When needed,
+libsoxr at precision 28 resamples in double precision before a separate
+ordinary triangular TPDF quantization stage. Float output is not dithered.
+Integer output is dithered when reducing source precision, converting float
+to integer, or when source precision is unknown. Unchanged or increased
+integer source depth skips dither, even after rate/channel processing.
+Matching sample rates skip resampling. Matching rate, channels and codec use
+stream copy, preserving PCM samples while allowing updated metadata.
 Source files and existing destinations cannot be overwritten. Successful
 output is committed from a temporary sibling. UI export choices remain WAV;
 other compiled codecs and filters are available for future features.

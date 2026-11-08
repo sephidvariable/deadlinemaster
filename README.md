@@ -82,9 +82,9 @@ The original web prototype remains in `../sidea/`. Its IndexedDB library is sepa
 
 ## Prototype limits
 
-- Outputs integer PCM WAV at 16/24-bit, 44.1/48/96 kHz, mono/stereo. Standard RIFF WAV is limited to 4 GB; oversized exports fail without replacing the destination.
+- Outputs WAV at 16/24-bit integer PCM or 32-bit float, 44.1/48/96/192 kHz, mono/stereo. Resampling precedes TPDF dithering and integer quantization; matching rate/channel/codec exports preserve audio samples via stream copy. Standard RIFF WAV is limited to 4 GB; oversized exports fail without replacing the destination.
 - Inputs depend on AVFoundation's installed decoders. Mono and stereo only; surround input is explicitly rejected. A file extension indicates a candidate audio file, not guaranteed decoder support.
-- No loudness normalization, peak limiting, mastering, dither, batch delivery, MP3/FLAC output, PDF/Word briefs, AI parsing, folder watching, cloud sync, or version control.
+- No loudness normalization, peak limiting, mastering, noise-shaped dither, batch delivery, MP3/FLAC output, PDF/Word briefs, AI parsing, folder watching, cloud sync, or version control.
 - The parser handles explicit numeric settings, not arbitrary prose. It warns on known unsupported requirements and conflicting settings; always review the original brief.
 - WAV INFO metadata uses UTF-8. Metadata visibility and Unicode handling vary across other audio apps.
 - Export runs in the background but currently has no percentage or cancel UI. Do not quit during conversion.

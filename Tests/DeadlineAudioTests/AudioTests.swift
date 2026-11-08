@@ -100,3 +100,79 @@ private func fixture(at url: URL) throws {
     #expect(try AVAudioFile(forReading: output).length > 0)
     #expect(try Data(contentsOf: ogg) == original)
 }
+
+@Test func highRateFloatAndTPDFReduction() throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let source = root.appendingPathComponent("silence-float.wav")
+    _ = try FFmpegRuntime.run("ffmpeg", arguments: ["-nostdin", "-n", "-f", "lavfi", "-i", "anullsrc=r=192000:cl=stereo", "-t", "0.1", "-c:a", "pcm_f32le", source.path])
+    let original = try Data(contentsOf: source)
+    for rate in [44100.0, 48000.0, 96000.0, 192000.0] {
+        for bits in [16, 24, 32] {
+            var spec = DeliverySpec(); spec.sampleRate = rate; spec.bitDepth = bits
+            let output = root.appendingPathComponent("\(rate)-\(bits).wav")
+            try AudioExporter.export(source: source, destination: output, spec: spec)
+            let file = try AVAudioFile(forReading: output)
+            #expect(file.fileFormat.sampleRate == rate)
+            #expect(file.fileFormat.settings[AVLinearPCMBitDepthKey] as? Int == bits)
+            #expect(file.fileFormat.settings[AVLinearPCMIsFloatKey] as? Bool == (bits == 32))
+            let buffer = try #require(AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length)))
+            try file.read(into: buffer)
+            let samples = try #require(buffer.floatChannelData)
+            let values = (0..<Int(buffer.frameLength)).map { samples[0][$0] }
+            if bits == 32 { #expect(values.allSatisfy { $0 == 0 }) }
+            else {
+                #expect(values.contains { $0 != 0 })
+                let lsb = Float(pow(2.0, Double(1 - bits)))
+                #expect(values.allSatisfy { abs($0) <= lsb * 2 })
+            }
+        }
+    }
+    #expect(try Data(contentsOf: source) == original)
+}
+
+@Test func matchingWAVPreservesPCMExactly() throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: root) }
+    for codec in ["pcm_s16le", "pcm_s24le", "pcm_f32le"] {
+        let source = root.appendingPathComponent(codec + ".wav")
+        _ = try FFmpegRuntime.run("ffmpeg", arguments: ["-nostdin", "-n", "-f", "lavfi", "-i", "sine=frequency=997:sample_rate=48000:duration=0.1", "-ac", "2", "-c:a", codec, source.path])
+        var spec = DeliverySpec()
+        spec.bitDepth = codec == "pcm_s16le" ? 16 : (codec == "pcm_s24le" ? 24 : 32)
+        let output = root.appendingPathComponent(codec + "-out.wav")
+        try AudioExporter.export(source: source, destination: output, spec: spec)
+        func checksum(_ url: URL) throws -> Data {
+            try FFmpegRuntime.run("ffmpeg", arguments: ["-v", "error", "-i", url.path, "-map", "0:a:0", "-c:a", "copy", "-f", "hash", "-hash", "sha256", "-"])
+        }
+        #expect(try checksum(source) == checksum(output))
+    }
+}
+
+@Test func integerResamplingOnlyDithersWhenSourceDepthIsReduced() throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: root) }
+    for sourceBits in [16, 24] {
+        let source = root.appendingPathComponent("silence-\(sourceBits).wav")
+        _ = try FFmpegRuntime.run("ffmpeg", arguments: ["-nostdin", "-n", "-f", "lavfi", "-i", "anullsrc=r=96000:cl=stereo", "-t", "0.1", "-c:a", "pcm_s\(sourceBits)le", source.path])
+        for targetBits in [16, 24] {
+            for channels in [1, 2] {
+                var spec = DeliverySpec(); spec.sampleRate = 48000; spec.bitDepth = targetBits; spec.channels = channels
+                let output = root.appendingPathComponent("\(sourceBits)-\(targetBits)-\(channels).wav")
+                try AudioExporter.export(source: source, destination: output, spec: spec)
+                let file = try AVAudioFile(forReading: output)
+                #expect(file.fileFormat.sampleRate == 48000)
+                #expect(file.fileFormat.channelCount == AVAudioChannelCount(channels))
+                let buffer = try #require(AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length)))
+                try file.read(into: buffer)
+                let samples = try #require(buffer.floatChannelData)
+                let values = (0..<Int(buffer.frameLength)).map { samples[0][$0] }
+                #expect(!values.isEmpty)
+                if sourceBits > targetBits { #expect(values.contains { $0 != 0 }) }
+                else { #expect(values.allSatisfy { $0 == 0 }) }
+            }
+        }
+    }
+}

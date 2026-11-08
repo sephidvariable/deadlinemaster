@@ -18,11 +18,19 @@ public enum BriefParser {
                 ns.substring(with: $0.range(at: $0.numberOfRanges > 1 ? 1 : 0))
             }
         }
-        let depths = Set(captures(#"\b(16|24)\s*[- ]?bit\b"#).compactMap(Int.init))
+        var depths = Set(captures(#"\b(16|24)\s*[- ]?bit\b"#).compactMap(Int.init))
+        let float32 = !captures(#"\b32\s*[- ]?bit\s*(?:float|floating)"#).isEmpty
+        if float32 { depths.insert(32) }
+        if !float32 && !captures(#"\b32\s*[- ]?bit\b"#).isEmpty {
+            warnings.append("32-bit WAV output is floating point only. Specify 32-bit float to select it automatically.")
+        }
         if depths.count == 1, let value = depths.first { spec.bitDepth = value; detected.append("\(value)-bit") }
         if depths.count > 1 { warnings.append("Multiple bit depths requested. Export each deliverable separately.") }
-        let rates = captures(#"\b(44[.,]1|48|96)\s*k(?:hz)?\b"#).compactMap { Double($0.replacingOccurrences(of: ",", with: ".")).map { $0 * 1000 } }
-            + captures(#"\b(44100|48000|96000)\s*(?:hz)?\b"#).compactMap(Double.init)
+        let rates = captures(#"\b(44[.,]1|48|96|192)\s*k(?:hz)?\b"#).compactMap { Double($0.replacingOccurrences(of: ",", with: ".")).map { $0 * 1000 } }
+            + captures(#"\b(44100|48000|96000|192000)\s*(?:hz)?\b"#).compactMap(Double.init)
+        if !captures(#"\b(?:88[.,]2|176[.,]4)\s*k(?:hz)?\b|\b(?:88200|176400)\s*(?:hz)?\b"#).isEmpty {
+            warnings.append("88.2 and 176.4 kHz exports are not supported. Choose 44.1, 48, 96, or 192 kHz.")
+        }
         let uniqueRates = Set(rates)
         if uniqueRates.count == 1, let value = uniqueRates.first { spec.sampleRate = value; detected.append("\(value / 1000) kHz") }
         if uniqueRates.count > 1 { warnings.append("Multiple sample rates requested. Choose one for this export.") }
@@ -32,7 +40,7 @@ public enum BriefParser {
         if let artist = captures(#"(?:^|[\n;])\s*artist\s*:\s*([^\n;]+)"#).first { spec.artist = artist.trimmingCharacters(in: .whitespaces); detected.append("Artist") }
         if let title = captures(#"(?:^|[\n;])\s*title\s*:\s*([^\n;]+)"#).first { spec.title = title.trimmingCharacters(in: .whitespaces); detected.append("Title") }
         if !captures(#"\bwav\b"#).isEmpty { detected.append("WAV") }
-        if !captures(#"\b(mp3|flac|aiff|aac|lufs|dither|normalize|normalise|32\s*[- ]?bit|192\s*k|88[.,]2\s*k)\b|true[ -]?peak"#).isEmpty {
+        if !captures(#"\b(mp3|flac|aiff|aac|lufs|dither|normalize|normalise)\b|true[ -]?peak"#).isEmpty {
             warnings.append("This brief includes unsupported formats or processing. WAV export alone may not satisfy it.")
         }
         warnings.append("Review every setting. Unspecified or ambiguous settings retain their previous values. This parser does not interpret arbitrary instructions.")

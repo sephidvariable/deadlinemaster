@@ -28,7 +28,7 @@ The prototype is a local development app without App Sandbox entitlements. A san
 
 ## Audio decisions
 
-Chunked conversion bounds memory independently of song duration. FFmpeg handles input formats and libsoxr resampling; command arguments select output bit depth and metadata. WAVWriter remains an isolated legacy utility; Handoff uses FFmpeg. This is not a mastering pipeline. There is no dither or loudness adjustment, and no promise of delivery compliance beyond the selected encoding settings.
+Chunked conversion bounds memory independently of song duration. FFmpeg handles input formats and libsoxr resampling; command arguments select output bit depth and metadata. WAVWriter remains an isolated legacy utility; Handoff uses FFmpeg. This is not a mastering pipeline. Resampling and channel processing precede ordinary TPDF dither and integer quantization. Float output skips dither; matching rate/channel/codec uses stream copy. There is no loudness adjustment or promise of delivery compliance beyond the selected encoding settings.
 
 ## Growth path
 

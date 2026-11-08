@@ -9,6 +9,7 @@ struct ProjectDetailView: View {
     @State private var notes = ""
     @State private var brief = ""
     @State private var spec = DeliverySpec()
+    @State private var showDitherExplanation = false
     @State private var sourceID: UUID?
     @State private var sourceChosenManually = false
     @State private var scanMessage = "Offline text matching. Review every setting before exporting."
@@ -114,13 +115,23 @@ struct ProjectDetailView: View {
                     Text("Choose a mix or master").tag(nil as UUID?)
                     ForEach(project.assets.filter(\.isAudio)) { Text($0.name).tag(Optional($0.id)) }
                 }
-                LabeledContent("Format", value: "WAV · Integer PCM")
-                Picker("Bit depth", selection: $spec.bitDepth) { Text("16-bit").tag(16); Text("24-bit").tag(24) }
-                Picker("Sample rate", selection: $spec.sampleRate) { Text("44.1 kHz").tag(44_100.0); Text("48 kHz").tag(48_000.0); Text("96 kHz").tag(96_000.0) }
+                LabeledContent("Format", value: spec.bitDepth == 32 ? "WAV · 32-bit floating point" : "WAV · Integer PCM")
+                HStack {
+                    Picker("Bit depth", selection: $spec.bitDepth) { Text("16-bit").tag(16); Text("24-bit").tag(24); Text("32-bit float").tag(32) }
+                    Button { showDitherExplanation = true } label: { Image(systemName: "questionmark.circle") }
+                        .buttonStyle(.plain)
+                        .help("why can't I choose dithering algorithms?")
+                        .accessibilityLabel("why can't I choose dithering algorithms?")
+                        .popover(isPresented: $showDitherExplanation) {
+                            Text("Deadline Master only allows TPDF white noise dithering. It is true that noise-shaping algorithms may be superior, but remember: your audio will be normalised again for streaming platforms, get compressed when being uploaded to YouTube, or event get shamelessly ripped into 96kbps bootleg MP3 files by random internet strangers. These are all scenarios when noise-shaping may cause more trouble than it solves.")
+                                .padding(20).frame(width: 360).fixedSize(horizontal: false, vertical: true)
+                        }
+                }
+                Picker("Sample rate", selection: $spec.sampleRate) { Text("44.1 kHz").tag(44_100.0); Text("48 kHz").tag(48_000.0); Text("96 kHz").tag(96_000.0); Text("192 kHz").tag(192_000.0) }
                 Picker("Channels", selection: $spec.channels) { Text("Stereo").tag(2); Text("Mono (downmix)").tag(1) }
                 TextField("Artist metadata", text: $spec.artist).textFieldStyle(.roundedBorder)
                 TextField("Track title metadata", text: $spec.title).textFieldStyle(.roundedBorder)
-                Text("FFmpeg converts locally using SoX resampling. Artist and title are written as WAV INFO tags. No mastering, loudness normalization, or dither. MP3/FLAC output and PDF briefs are not supported yet.").font(.caption).foregroundStyle(.secondary)
+                Text("FFmpeg converts locally using SoX resampling. Artist and title are written as WAV INFO tags. TPDF dither is applied when reducing source bit depth or converting float to integer, after any resampling. Resampling alone does not add dither. Matching formats bypass processing. No mastering or loudness normalization. MP3/FLAC output and PDF briefs are not supported yet.").font(.caption).foregroundStyle(.secondary)
                 Button {
                     if let asset = project.assets.first(where: { $0.id == sourceID }) { model.export(asset, projectID: project.id, spec: spec) }
                 } label: { Label("Convert & save WAV", systemImage: "arrow.down.doc").frame(maxWidth: .infinity) }

@@ -68,9 +68,9 @@ public struct DeliverySpec: Equatable, Sendable {
     public var title: String = ""
     public init() {}
     public func validate() throws {
-        guard [44_100.0, 48_000, 96_000].contains(sampleRate),
-              [16, 24].contains(bitDepth), [1, 2].contains(channels) else {
-            throw StudioError.message("Choose 44.1, 48, or 96 kHz; 16 or 24-bit; and mono or stereo.")
+        guard [44_100.0, 48_000, 96_000, 192_000].contains(sampleRate),
+              [16, 24, 32].contains(bitDepth), [1, 2].contains(channels) else {
+            throw StudioError.message("Choose 44.1, 48, 96, or 192 kHz; 16/24-bit integer or 32-bit float; and mono or stereo.")
         }
     }
 }

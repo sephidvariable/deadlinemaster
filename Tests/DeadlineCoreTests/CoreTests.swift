@@ -23,7 +23,7 @@ import Testing
     #expect(result.detected.isEmpty)
 }
 @Test func rejectsInvalidExportSettings() {
-    var spec = DeliverySpec(); spec.bitDepth = 32
+    var spec = DeliverySpec(); spec.bitDepth = 20
     #expect(throws: (any Error).self) { try spec.validate() }
 }
 @Test func libraryRoundTripAndLiveReference() async throws {
