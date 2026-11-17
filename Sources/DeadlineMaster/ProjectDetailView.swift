@@ -82,6 +82,22 @@ struct ProjectDetailView: View {
                 }
             }.padding(28)
         }
+        .safeAreaInset(edge: .top, spacing: 0) {
+            HStack {
+                Button {
+                    model.stop()
+                    model.selectedID = nil
+                } label: {
+                    Label("Back to Your projects", systemImage: "chevron.left")
+                }
+                .keyboardShortcut("[", modifiers: .command)
+                .help("Return to Your projects")
+                Spacer()
+            }
+            .padding(.horizontal, 28)
+            .padding(.vertical, 10)
+            .background(.bar)
+        }
         .onAppear {
             notes = project.notes; spec.artist = project.artist; spec.title = project.name
             if !sourceChosenManually { sourceID = spotlightSourceID }

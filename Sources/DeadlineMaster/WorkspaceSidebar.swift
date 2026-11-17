@@ -22,7 +22,7 @@ struct WorkspaceSidebar: View {
                 Button { model.selectedID = nil; model.stop() } label: {
                     Label("All projects · \(model.projects.count)", systemImage: "square.grid.2x2")
                 }.buttonStyle(.bordered)
-                TextField("Search projects", text: $model.search).textFieldStyle(.roundedBorder)
+                TextField("Search projects and albums", text: $model.search).textFieldStyle(.roundedBorder)
             }
             .padding(18)
             .fixedSize(horizontal: false, vertical: true)

@@ -76,3 +76,21 @@ macOS Automation permission and an installed compatible Pages version.
 
 References: [Apple document types](https://developer.apple.com/documentation/foundation/nsattributedstring/documenttype/opendocument),
 [Pages export formats](https://support.apple.com/en-euro/guide/pages/tance1161f26/mac).
+
+## Album membership
+
+`MusicAlbum` stores an ordered list of project UUIDs. Schema 4 stores albums and
+projects in the same atomic JSON library; older schemas decode with no albums.
+Every project write retains albums and removes dangling memberships in the same
+commit. Album writes validate references and preserve projects. `StudioModel`
+updates observable state only after successful persistence. No audio is copied
+or moved by album operations.
+
+## Cover artwork
+
+Optional `CoverArtwork` records reference UUID directories inside `Covers`.
+ImageIO reads oriented dimensions without eagerly decoding the full image and
+creates a bounded thumbnail. Repository cover imports stage a copied original
+and preview before committing metadata; failures roll back new files. Successful
+library writes remove artwork no longer referenced by projects or albums. UI
+thumbnail reads run off the main actor; cards fit artwork rather than crop it.

@@ -124,3 +124,29 @@ The app requires no online service. Handoff restricts FFmpeg inputs to local fil
 New projects store absolute original file paths in library.json (schema 3). No file copies or shortcuts are created. Creation scans immediately; after that, folder inventories refresh once at each app launch, with no timer or background polling. Project deletion only removes metadata. Original files remain untouched.
 
 Handoff is the only workflow that writes audio output. Choose a new filename, including in the original project directory: existing files cannot be overwritten. Recreate older beta projects to use direct-path records. Historical shortcut/copy folders are not automatically purged.
+
+## Albums
+
+On the main library screen, choose **New album**, name it, and select existing
+projects as tracks. Expand an album card to see its singles; click a track to
+open its workspace. **Manage tracks** lets you rename the album and add/remove
+members. The minus button removes one membership, and the album menu offers
+**Delete album**. Projects may appear in multiple albums. Removing an album or
+membership never deletes projects or original files. Deleting a project removes
+its memberships from all albums. Album names and memberships persist locally;
+search matches album names as well as their tracks.
+
+## Covers
+
+Use the photo menu on a project card, or the album card’s menu, to add, replace,
+or remove a cover. Covers are independent for each project and album. Images
+must have a displayed width-to-height ratio from **9:16 through 2.39:1**, inclusive;
+EXIF orientation is respected. There is no app-imposed resolution or file-size
+limit. The image must still be decodable by macOS ImageIO and fit available
+system/disk resources. Animated images use their first frame.
+
+Cards fit the full cover without cropping. Uploaded originals are copied into
+the private library with a 1200-pixel display preview; this preview size does not
+limit accepted image resolution. Removing/replacing artwork or deleting its
+project/album cleans up only the app-owned copy after metadata saves. Source
+images are never changed. Include the Covers folder when backing up the library.

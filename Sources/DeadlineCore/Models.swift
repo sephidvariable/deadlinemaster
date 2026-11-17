@@ -33,6 +33,7 @@ public struct ProjectAsset: Codable, Identifiable, Equatable, Sendable {
 }
 
 public struct MusicProject: Codable, Identifiable, Equatable, Sendable {
+    public var cover: CoverArtwork?
     public var id: UUID
     public var name: String
     public var artist: String
@@ -86,5 +87,16 @@ public enum StudioError: LocalizedError {
     case message(String)
     public var errorDescription: String? {
         switch self { case .message(let text): return text }
+    }
+}
+
+/// Albums reference projects; membership never owns or duplicates their files.
+public struct MusicAlbum: Codable, Identifiable, Equatable, Sendable {
+    public var cover: CoverArtwork?
+    public var id: UUID
+    public var name: String
+    public var projectIDs: [UUID]
+    public init(id: UUID = UUID(), name: String, projectIDs: [UUID] = []) {
+        self.id = id; self.name = name; self.projectIDs = projectIDs
     }
 }

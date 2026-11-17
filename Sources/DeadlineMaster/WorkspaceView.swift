@@ -68,6 +68,7 @@ struct WorkspaceView: View {
                     Spacer()
                     Image(systemName: "opticaldisc").font(.system(size: 130, weight: .ultraLight))
                 }.padding(30).foregroundStyle(Color.black.opacity(0.85)).frame(maxWidth: .infinity).background(lime, in: RoundedRectangle(cornerRadius: 18))
+                AlbumLibraryView(model: model)
                 Text("Project library · \(model.filtered.count)").font(.headline)
                 if model.filtered.isEmpty {
                     ContentUnavailableView {
@@ -79,13 +80,23 @@ struct WorkspaceView: View {
                         ForEach(model.filtered) { project in
                             Button { model.selectedID = project.id } label: {
                                 VStack(alignment: .leading, spacing: 12) {
-                                    Image(systemName: "waveform").font(.system(size: 52, weight: .light)).frame(maxWidth: .infinity).frame(height: 100).background(lime.opacity(0.35), in: RoundedRectangle(cornerRadius: 10))
+                                    CoverArtworkView(model: model, cover: project.cover, symbol: "waveform")
                                     Text(project.name).font(.headline).lineLimit(2)
                                     Text(project.artist.isEmpty ? "Independent release" : project.artist).foregroundStyle(.secondary)
                                     HStack { Text("\(project.assets.count) files"); Spacer(); Text(project.createdAt, style: .date) }.font(.caption).foregroundStyle(.secondary)
                                 }.padding(16).background(.background, in: RoundedRectangle(cornerRadius: 14))
                             }.buttonStyle(.plain)
+                            .overlay(alignment: .topTrailing) {
+                                Menu {
+                                    Button(project.cover == nil ? "Add cover…" : "Replace cover…") { model.chooseCover(for: .project(project.id)) }
+                                    if project.cover != nil { Button("Remove cover", role: .destructive) { model.updateCover(nil, for: .project(project.id)) } }
+                                } label: { Image(systemName: "photo.badge.plus").padding(6).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 6)) }
+                                .menuStyle(.borderlessButton).fixedSize().padding(22).disabled(model.busy)
+                                .accessibilityLabel("Cover for \(project.name)")
+                            }
                             .contextMenu {
+                                Button(project.cover == nil ? "Add cover…" : "Replace cover…") { model.chooseCover(for: .project(project.id)) }
+                                if project.cover != nil { Button("Remove cover", role: .destructive) { model.updateCover(nil, for: .project(project.id)) } }
                                 Button("Delete project…", role: .destructive) { model.deleteProject(project) }.disabled(model.busy)
                             }
                         }

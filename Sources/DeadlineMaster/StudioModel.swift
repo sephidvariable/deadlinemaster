@@ -8,6 +8,7 @@ import DeadlineAudio
 @MainActor @Observable
 final class StudioModel {
     var projects: [MusicProject] = []
+    var albums: [MusicAlbum] = []
     var selectedID: UUID?
     var search = ""
     var busy = false
@@ -31,7 +32,7 @@ final class StudioModel {
         repository = ProjectRepository(root: libraryURL)
     }
     func load() async {
-        do { projects = try await repository.load(); ready = true }
+        do { projects = try await repository.load(); albums = try await repository.loadAlbums(); ready = true }
         catch { self.error = "Could not read the library. No data has been overwritten. \(error.localizedDescription)" }
     }
     private var refreshedAtLaunch = false
@@ -90,11 +91,60 @@ final class StudioModel {
                 let cleanupWarning = try await repository.deleteProject(project.id, existing: projects)
                 stop()
                 projects = next
+                albums = albums.map { album in var updated = album; updated.projectIDs.removeAll { $0 == project.id }; return updated }
                 folderRefreshIssues[project.id] = nil
                 if selectedID == project.id { selectedID = nil }
                 status = cleanupWarning ?? "Project removed from the library. Original files are untouched."
             } catch { self.error = error.localizedDescription }
         }
+    }
+    func chooseCover(for owner: CoverOwner) {
+        guard ready, !busy else { return }
+        let panel = NSOpenPanel(); panel.allowedContentTypes = [.image]
+        panel.allowsMultipleSelection = false
+        panel.message = "Choose a cover between 9:16 and 2.39:1. Any image resolution is accepted."
+        guard panel.runModal() == .OK, let source = panel.url else { return }
+        updateCover(source, for: owner)
+    }
+    func updateCover(_ source: URL?, for owner: CoverOwner) {
+        guard ready, !busy else { return }
+        busy = true; status = source == nil ? "Removing cover…" : "Importing cover…"
+        Task {
+            defer { busy = false }
+            do {
+                try await repository.setCover(from: source, for: owner)
+                projects = try await repository.load(); albums = try await repository.loadAlbums()
+                status = source == nil ? "Cover removed. Original image retained." : "Cover saved."
+            } catch { self.error = error.localizedDescription; status = "Cover unchanged." }
+        }
+    }
+    func saveAlbum(_ album: MusicAlbum) async -> Bool {
+        guard ready, !busy else { return false }
+        busy = true; defer { busy = false }
+        var next = albums
+        if let index = next.firstIndex(where: { $0.id == album.id }) { next[index] = album }
+        else { next.append(album) }
+        do {
+            try await repository.saveAlbums(next); albums = next; status = "Album saved."; return true
+        } catch { self.error = error.localizedDescription; return false }
+    }
+    func deleteAlbum(_ album: MusicAlbum) {
+        guard ready, !busy else { return }
+        let alert = NSAlert(); alert.messageText = "Delete “\(album.name)”?"
+        alert.informativeText = "Only this album grouping will be removed. Its projects and original files will remain."
+        alert.addButton(withTitle: "Cancel"); alert.addButton(withTitle: "Delete album")
+        guard alert.runModal() == .alertSecondButtonReturn else { return }
+        busy = true
+        Task {
+            defer { busy = false }
+            let next = albums.filter { $0.id != album.id }
+            do { try await repository.saveAlbums(next); albums = next; status = "Album deleted. Projects retained." }
+            catch { self.error = error.localizedDescription }
+        }
+    }
+    func removeTrack(_ projectID: UUID, from album: MusicAlbum) async {
+        var updated = album; updated.projectIDs.removeAll { $0 == projectID }
+        _ = await saveAlbum(updated)
     }
     func pinMaster(_ assetID: UUID?, projectID: UUID, premaster: Bool = false) async {
         guard ready, !busy, let index = projects.firstIndex(where: { $0.id == projectID }) else { return }

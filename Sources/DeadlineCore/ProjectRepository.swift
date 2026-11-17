@@ -1,24 +1,91 @@
 import Foundation
 
-/// Actor serializes disk access. JSON is committed atomically; original files are read only; only the library index is written.
+/// Actor serializes disk access. JSON is committed atomically; original files are read only; library metadata and imported cover artwork are stored separately from original project files.
 public actor ProjectRepository {
     public let root: URL
     private let fm = FileManager.default
     public init(root: URL) { self.root = root }
     private var index: URL { root.appendingPathComponent("library.json") }
-    private struct Library: Codable { var schemaVersion = 3; var projects: [MusicProject] }
+    private struct Library: Codable { var schemaVersion = 4; var projects: [MusicProject]; var albums: [MusicAlbum]? = nil }
 
+    private func readLibrary() throws -> Library {
+        guard fm.fileExists(atPath: index.path) else { return Library(projects: []) }
+        let library = try JSONDecoder().decode(Library.self, from: Data(contentsOf: index))
+        guard [1, 2, 3, 4].contains(library.schemaVersion) else { throw StudioError.message("This library was created by a newer app. It has not been changed.") }
+        return library
+    }
     public func load() throws -> [MusicProject] {
         try fm.createDirectory(at: root, withIntermediateDirectories: true)
-        guard fm.fileExists(atPath: index.path) else { return [] }
-        let library = try JSONDecoder().decode(Library.self, from: Data(contentsOf: index))
-        guard [1, 2, 3].contains(library.schemaVersion) else { throw StudioError.message("This library was created by a newer app. It has not been changed.") }
-        return library.projects
+        return try readLibrary().projects
+    }
+    public func loadAlbums() throws -> [MusicAlbum] { try readLibrary().albums ?? [] }
+
+    private func writeLibrary(_ library: Library) throws {
+        try fm.createDirectory(at: root, withIntermediateDirectories: true)
+        let old = try readLibrary()
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        try encoder.encode(library).write(to: index, options: .atomic)
+        let retained = Set(library.projects.compactMap { $0.cover?.id } + (library.albums ?? []).compactMap { $0.cover?.id })
+        let previous = Set(old.projects.compactMap { $0.cover?.id } + (old.albums ?? []).compactMap { $0.cover?.id })
+        for id in previous.subtracting(retained) { try? fm.removeItem(at: coverDirectory(id)) }
     }
     public func save(_ projects: [MusicProject]) throws {
-        try fm.createDirectory(at: root, withIntermediateDirectories: true)
-        let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        try encoder.encode(Library(projects: projects)).write(to: index, options: .atomic)
+        var library = try readLibrary()
+        library.schemaVersion = 4
+        library.projects = projects
+        let valid = Set(projects.map(\.id))
+        library.albums = library.albums?.map { album in
+            var updated = album; updated.projectIDs.removeAll { !valid.contains($0) }; return updated
+        }
+        try writeLibrary(library)
+    }
+    public func saveAlbums(_ albums: [MusicAlbum]) throws {
+        var library = try readLibrary()
+        let valid = Set(library.projects.map(\.id))
+        guard Set(albums.map(\.id)).count == albums.count else { throw StudioError.message("Duplicate album identifiers.") }
+        for album in albums {
+            guard !album.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                  Set(album.projectIDs).count == album.projectIDs.count,
+                  album.projectIDs.allSatisfy({ valid.contains($0) }) else {
+                throw StudioError.message("Choose an album name and existing projects, without duplicate tracks.")
+            }
+        }
+        library.schemaVersion = 4; library.albums = albums
+        try writeLibrary(library)
+    }
+    private func coverDirectory(_ id: UUID) -> URL { root.appendingPathComponent("Covers", isDirectory: true).appendingPathComponent(id.uuidString, isDirectory: true) }
+    public nonisolated func coverThumbnailURL(_ cover: CoverArtwork) -> URL {
+        root.appendingPathComponent("Covers").appendingPathComponent(cover.id.uuidString).appendingPathComponent("preview.png")
+    }
+    public func setCover(from source: URL?, for owner: CoverOwner) throws {
+        var library = try readLibrary()
+        switch owner {
+        case .project(let id): guard library.projects.contains(where: { $0.id == id }) else { throw StudioError.message("Project no longer exists.") }
+        case .album(let id): guard (library.albums ?? []).contains(where: { $0.id == id }) else { throw StudioError.message("Album no longer exists.") }
+        }
+        var cover: CoverArtwork?
+        var created: URL?
+        do {
+            if let source {
+                let id = UUID(); let directory = coverDirectory(id)
+                try fm.createDirectory(at: directory, withIntermediateDirectories: true)
+                created = directory
+                let original = directory.appendingPathComponent("original").appendingPathExtension(source.pathExtension)
+                try fm.copyItem(at: source, to: original)
+                let size = try CoverImage.dimensions(at: original)
+                try CoverImage.writeThumbnail(from: original, to: directory.appendingPathComponent("preview.png"))
+                cover = CoverArtwork(id: id, width: size.width, height: size.height)
+            }
+            switch owner {
+            case .project(let id): library.projects[library.projects.firstIndex { $0.id == id }!].cover = cover
+            case .album(let id):
+                if let index = library.albums?.firstIndex(where: { $0.id == id }) { library.albums?[index].cover = cover }
+            }
+            try writeLibrary(library)
+        } catch {
+            if let created { try? fm.removeItem(at: created) }
+            throw error
+        }
     }
     public func importFile(_ source: URL, projectID: UUID) throws -> ProjectAsset {
         let values = try source.resourceValues(forKeys: [.isRegularFileKey, .isDirectoryKey, .fileSizeKey])
