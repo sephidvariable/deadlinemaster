@@ -51,6 +51,12 @@ The window task loads the index and calls refreshFoldersAtLaunch once per proces
 
 AudioExporter reads the source through a bundled FFmpeg subprocess. It refuses existing destinations, writes to a unique temporary sibling, and commits with a move that cannot replace an existing destination. Users may export new deliverables into the original source directory. The app is not OS-sandboxed as read-only; protection is enforced by these code paths. Finder actions reveal files but do not edit them.
 
+## Batch project setup
+
+`ProjectFolderDiscovery` walks folders iteratively on a detached task, using the same local Ableton recognition predicate as `AbletonFolderScan`. It identifies actual project roots rather than every ancestor containing a set. It does not follow links or enter packages, hidden directories, library storage or recognized production folders. Cancellation propagates from the sheet to the scanner. Unreadable subtrees become visible issues while accessible siblings are still searched.
+
+`BatchProjectImportView` presents editable folder-based names, selection checkboxes and one shared artist field. Existing source paths are disabled in the review. `ProjectRepository.createBatchFromFolders` independently rechecks duplicates against the current on-disk index, stages successful inventories using the existing filtering/spotlight code, and commits them in one atomic library write while preserving albums. Per-folder errors do not discard other successes; cancellation before the commit saves nothing. Source files are only read.
+
 ## Batch Handoff
 
 `HandoffItem` holds a source asset ID and independent encoding/metadata settings.

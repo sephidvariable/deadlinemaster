@@ -8,6 +8,7 @@ private let statusBarHeight: CGFloat = 34
 struct WorkspaceView: View {
     @Bindable var model: StudioModel
     @State private var creating = false
+    @State private var batchCreating = false
     @State private var sidebarVisible = true
     var body: some View {
         VStack(spacing: 0) {
@@ -41,11 +42,16 @@ struct WorkspaceView: View {
                     .accessibilityLabel(sidebarVisible ? "Hide Sidebar" : "Show Sidebar")
             }
             ToolbarItem {
-                Button { creating = true } label: { Label("New project", systemImage: "plus") }
+                Menu {
+                    Button("Add project…") { creating = true }
+                    Button("Add projects from folder…") { batchCreating = true }
+                } label: { Label("Add projects", systemImage: "plus") }
+                    .help("Add one project or find projects in a folder")
                     .disabled(!model.ready || model.busy)
             }
         }
         .sheet(isPresented: $creating) { NewProjectView(model: model) }
+        .sheet(isPresented: $batchCreating) { BatchProjectImportView(model: model) }
         .alert("Something needs attention", isPresented: Binding(get: { model.error != nil }, set: { if !$0 { model.error = nil } })) {
             Button("OK") { model.error = nil }
         } message: { Text(model.error ?? "") }
@@ -74,7 +80,10 @@ struct WorkspaceView: View {
                     ContentUnavailableView {
                         Label(model.projects.isEmpty ? "Your next release starts here" : "No matching projects", systemImage: "waveform")
                     } description: { Text("Create a project and import your audio and documents.") }
-                    actions: { Button("Create project") { creating = true }.disabled(!model.ready || model.busy) }
+                    actions: {
+                        Button("Create project") { creating = true }.disabled(!model.ready || model.busy)
+                        Button("Add projects from folder…") { batchCreating = true }.disabled(!model.ready || model.busy)
+                    }
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 230))], spacing: 18) {
                         ForEach(model.filtered) { project in

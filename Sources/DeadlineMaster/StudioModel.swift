@@ -74,6 +74,23 @@ final class StudioModel {
         catch { self.error = error.localizedDescription }
     }
 
+    func createBatch(_ choices: [ProjectFolderChoice], artist: String) async throws -> BatchProjectImportResult {
+        guard ready, !busy else { throw StudioError.message("Wait for the current library operation to finish.") }
+        busy = true; defer { busy = false }
+        status = "Reading \(choices.count) project folders…"
+        do {
+            let result = try await repository.createBatchFromFolders(choices, artist: artist)
+            projects = try await repository.load()
+            selectedID = nil
+            search = ""
+            status = "Added \(result.added.count) projects · \(result.skipped.count) already added · \(result.failed.count) could not be added."
+            return result
+        } catch {
+            status = "Batch import could not finish."
+            throw error
+        }
+    }
+
     func deleteProject(_ project: MusicProject) {
         guard ready, !busy else { return }
         let alert = NSAlert()

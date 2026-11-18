@@ -33,14 +33,18 @@ A standard macOS dialog reminds you to back up your local library each time the 
 
 ## Your first project
 
-1. Click **New project**, enter a name and artist, then create it.
-2. Click **Add files**. Audio and documents are read directly from their original paths. Keep originals in place and their drives connected.
+1. Click **+ → Add project…**, choose a folder, review its automatically filled name and enter an artist, then create it.
+2. Supported audio and documents in that folder are added automatically. Use **Add files** for additional files. Originals stay in place; keep their drives connected.
 3. Play a mix with the play button. The folder button reveals its original in Finder.
 4. Add notes and click **Save notes**. Notes are not autosaved.
 5. Choose a source and settings in Handoff, then click **Add version**. Repeat for each source/format combination.
 6. Alternatively paste a brief or use **Import document** for TXT, Word, Pages or PDF with **one version per line**, then click **Add from brief**. Include the source filename to identify it; unmatched filenames use the selected source with a warning. Ambiguous sources must be selected manually.
 7. Review the delivery list. **Edit** loads a version into the editor; **Save version** applies your changes. **Export WAV** exports just that item.
 8. **Export all as WAV files** creates a new delivery folder in your chosen directory. **Export all as ZIP** saves a single archive. Existing files are never replaced; a failed batch leaves no partial delivery.
+
+For first-time setup, choose **+ → Add projects from folder…** (also available in an empty library). Choose a parent music folder and enter one artist name. The app searches recursively for Ableton Live project folders: `.als` files alongside `Ableton Project Info` or `Samples`. Review the list, deselect unwanted folders, and optionally edit the folder-based project names before adding them together. Multiple sets in one folder become one project. Existing source folders are skipped; separate folders with the same name remain separate projects. Other folder structures can still be added individually.
+
+Discovery skips symbolic links, hidden folders, document/app packages, the app library and a recognized project's production folders. Import uses the same file filters and master/2mix selection as single import, without copying or modifying originals. Unreadable projects are reported individually; successful imports are saved together.
 
 The delivery list is temporary and resets when you leave the workspace. Additions from briefs append to the list. Metadata belongs on each version's line, separated by semicolons, or can be edited using the metadata fields.
 

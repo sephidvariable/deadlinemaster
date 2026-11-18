@@ -97,6 +97,13 @@ public actor ProjectRepository {
 
     /// Read a source inventory before committing the library entry.
     public func createFromFolder(_ source: URL, project: MusicProject, existing: [MusicProject]) throws -> MusicProject {
+        let source = try validatedSource(source)
+        let result = try projectFromFolder(source, project: project)
+        try save([result] + existing)
+        return result
+    }
+
+    private func validatedSource(_ source: URL) throws -> URL {
         let source = source.resolvingSymlinksInPath().standardizedFileURL
         let library = root.resolvingSymlinksInPath().standardizedFileURL
         guard source.path != library.path,
@@ -104,11 +111,49 @@ public actor ProjectRepository {
               !source.path.hasPrefix(library.path + "/") else {
             throw StudioError.message("Choose a source folder outside the Deadline Master library.")
         }
+        guard try source.resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true else {
+            throw StudioError.message("Choose a project folder.")
+        }
+        return source
+    }
+
+    private func projectFromFolder(_ source: URL, project: MusicProject) throws -> MusicProject {
         var result = project
         result.sourceFolderPath = source.path
         result.assets = try folderAssets(source, previous: [])
         result.selectAutomaticMaster()
-        try save([result] + existing)
+        return result
+    }
+
+    /// Stage every successful inventory, then commit once. Cancellation saves nothing.
+    /// Recheck duplicates against the on-disk library, including projects added since discovery.
+    public func createBatchFromFolders(_ choices: [ProjectFolderChoice], artist: String) throws -> BatchProjectImportResult {
+        var library = try readLibrary()
+        var known = Set(library.projects.compactMap { project -> String? in
+            project.sourceFolderPath.map { URL(fileURLWithPath: $0).resolvingSymlinksInPath().standardizedFileURL.path }
+        })
+        var result = BatchProjectImportResult()
+        for choice in choices {
+            try Task.checkCancellation()
+            do {
+                let source = try validatedSource(choice.folder)
+                guard !known.contains(source.path) else {
+                    result.skipped.append(.init(folder: choice.folder, message: "Already in your library.")); continue
+                }
+                let name = choice.name.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !name.isEmpty else { throw StudioError.message("Enter a project name.") }
+                let project = try projectFromFolder(source, project: MusicProject(name: name, artist: artist))
+                result.added.append(project)
+                known.insert(source.path)
+            } catch is CancellationError { throw CancellationError() }
+            catch { result.failed.append(.init(folder: choice.folder, message: error.localizedDescription)) }
+        }
+        try Task.checkCancellation()
+        if !result.added.isEmpty {
+            library.schemaVersion = 4
+            library.projects = result.added + library.projects
+            try writeLibrary(library)
+        }
         return result
     }
 
