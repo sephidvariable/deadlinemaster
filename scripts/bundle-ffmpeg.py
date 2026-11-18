@@ -33,6 +33,13 @@ def add(src, dest=None):
     return dest
 for p in (prefix/'bin').iterdir():
     if p.is_file() and is_macho(p): add(p,out/'bin'/p.name)
+# SDL2-compat dlopens SDL3: it is absent from the Mach-O load-command graph.
+# Vendor the installed library, without compiling or downloading anything.
+if (prefix/'bin/ffplay').exists():
+    sdl3 = Path('/opt/homebrew/opt/sdl3/lib/libSDL3.dylib')
+    if not sdl3.is_file(): raise RuntimeError('Installed SDL3 is required by bundled ffplay/SDL2-compat')
+    packaged_sdl3 = add(sdl3)
+    (out/'lib/libSDL3.dylib').symlink_to(packaged_sdl3.name)
 # Runtime-loaded frei0r plugins are part of the full formula, not in otool's graph.
 plugins=Path('/opt/homebrew/opt/frei0r/lib/frei0r-1')
 if plugins.exists():
@@ -96,5 +103,20 @@ for dest in locations.values():
     assert all(not d.startswith('/opt/homebrew') for d in dependencies(dest)), str(dest)
 manifest={str(d.relative_to(out)):hashlib.sha256(d.read_bytes()).hexdigest() for d in locations.values()}
 (out/'provenance/binary-sha256.json').write_text(json.dumps(manifest,indent=2))
+origins = {}
+for src, dest in locations.items():
+    parts = src.parts
+    i = parts.index('Cellar')
+    origins[str(dest.relative_to(out))] = {
+        'package': parts[i+1] + '-' + parts[i+2],
+        'installed_relative_path': str(Path(*parts[i+3:])),
+        'installed_sha256': hashlib.sha256(src.read_bytes()).hexdigest(),
+        'bundled_sha256': manifest[str(dest.relative_to(out))]
+    }
+(out/'provenance/binary-origins.json').write_text(json.dumps(origins,indent=2)+'\n')
+# Source notices supplement notices omitted by some installed bottles.
+source_notices=root/'build/FFmpegSources/source-notices'
+if (source_notices/'index.json').exists():
+    shutil.copytree(source_notices,out/'licenses/source-notices')
 shutil.copy2(root/'ThirdParty/FFmpeg/NOTICE.txt',out/'NOTICE.txt')
 print(f'Bundled {len(locations)} Mach-O files from {len(packages)} packages at {out}')

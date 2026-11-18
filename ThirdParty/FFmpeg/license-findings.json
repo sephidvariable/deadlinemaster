@@ -1,0 +1,84 @@
+{
+  "libomp-23.1.4": {
+    "status": "metadata-corrected-in-notice-index",
+    "note": "OpenMP source specifies Apache-2.0 WITH LLVM-exception, not the SBOM's MIT label. Preserve openmp/LICENSE.TXT and runtime/src/thirdparty/ittnotify/LICENSE.txt; source includes legacy notices as well.",
+    "evidence": [
+      "llvm-project-23.1.4.src/openmp/LICENSE.TXT",
+      "llvm-project-23.1.4.src/openmp/runtime/src/thirdparty/ittnotify/LICENSE.txt"
+    ]
+  },
+  "svt-av1-4.2.0": {
+    "status": "metadata-corrected-in-notice-index",
+    "note": "Main source uses BSD-3-Clause-Clear, not plain BSD-3-Clause. Preserve LICENSE-BSD2.md, PATENTS.md and third-party licenses too.",
+    "evidence": [
+      "SVT-AV1-v4.2.0/LICENSE.md",
+      "SVT-AV1-v4.2.0/LICENSE-BSD2.md",
+      "SVT-AV1-v4.2.0/PATENTS.md"
+    ]
+  },
+  "pcre2-10.49": {
+    "status": "metadata-refined-in-notice-index",
+    "note": "Source specifies BSD-3-Clause WITH PCRE2-exception; JIT/sljit has a separate BSD-2-Clause notice. Both are preserved.",
+    "evidence": [
+      "pcre2-10.49/LICENCE.md",
+      "pcre2-10.49/deps/sljit/LICENSE"
+    ]
+  },
+  "graphite2-1.3.15": {
+    "status": "metadata-corrected-in-notice-index",
+    "note": "Source offers LGPL-2.1+, MPL-2.0, GPL-2.0+ or MIT for SIL-authored material; the recorded MPL-1.1+ label is stale. Preserve the full source LICENSE and file-specific exceptions.",
+    "evidence": [
+      "graphite2-1.3.15/LICENSE",
+      "graphite2-1.3.15/COPYING"
+    ]
+  },
+  "freetype-2.15.0": {
+    "status": "referenced-license-restored",
+    "note": "FTL selected; full docs/FTL.TXT and FreeType acknowledgement supplied. Root LICENSE.TXT alone was insufficient. GPL alternative and driver notices retained.",
+    "evidence": [
+      "freetype-2.15.0/LICENSE.TXT",
+      "freetype-2.15.0/docs/FTL.TXT",
+      "freetype-2.15.0/docs/GPLv2.TXT"
+    ]
+  },
+  "jpeg-turbo-3.2.0": {
+    "status": "referenced-license-restored",
+    "note": "README.ijg contains the IJG terms referenced by LICENSE.md. Both are preserved; Independent JPEG Group acknowledgement is in NOTICE.txt.",
+    "evidence": [
+      "libjpeg-turbo-3.2.0/LICENSE.md",
+      "libjpeg-turbo-3.2.0/README.ijg"
+    ]
+  },
+  "xz-5.8.4": {
+    "status": "shipped-library-scope-reviewed",
+    "note": "Shipped liblzma is 0BSD per source COPYING. GPL tools in the source archive are not shipped as executables; their notices remain in the source collection."
+  },
+  "lz4-1.10.0": {
+    "status": "shipped-library-scope-reviewed",
+    "note": "Shipped library uses BSD-2-Clause per source LICENSE; GPL command-line tool is not shipped."
+  },
+  "zstd-1.5.7_1": {
+    "status": "license-option-recorded",
+    "note": "BSD-3-Clause option selected for the dual-licensed library; preserve bundled BSD-2-Clause and MIT notices too. Do not select the GPL-2.0-only alternative for this GPLv3 bundle."
+  },
+  "libplacebo-7.387.0": {
+    "status": "static-input-attribution-unresolved",
+    "note": "LGPL source notice preserved; fast_float was substituted by Homebrew headers of unknown historical version. Complete attribution cannot yet be asserted."
+  },
+  "srt-1.5.7_1": {
+    "status": "secondary-license-conditions-reviewed",
+    "note": "MPL-2.0 retained; source text scan found no secondary-license exclusion notices. For combination with GPLv3 FFmpeg, additionally distribute covered source under GPLv3 per MPL section 3.3; original notices remain intact.",
+    "evidence": [
+      "extra-provenance/mpl-secondary-license-scan.json",
+      "https://www.mozilla.org/en-US/MPL/2.0/FAQ/#q14-may-i-combine-mpl-licensed-code-and-lgpl-licensed-code-in-the-same-executable-program"
+    ]
+  },
+  "zeromq-4.3.5_2": {
+    "status": "secondary-license-conditions-reviewed",
+    "note": "MPL-2.0 retained; source text scan found no secondary-license exclusion notices. For combination with GPLv3 FFmpeg, additionally distribute covered source under GPLv3 per MPL section 3.3; original notices remain intact.",
+    "evidence": [
+      "extra-provenance/mpl-secondary-license-scan.json",
+      "https://www.mozilla.org/en-US/MPL/2.0/FAQ/#q14-may-i-combine-mpl-licensed-code-and-lgpl-licensed-code-in-the-same-executable-program"
+    ]
+  }
+}

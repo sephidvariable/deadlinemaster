@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "id": "glib-patch-provenance",
+      "status": "resolved",
+      "reason": "Homebrew public history shows a single patch-path commit, 1cf441a09f572566b1b7c4695a4d169d1177248a (2025-10-15), predating the GLib bottle build. The patch fetched from that immutable commit matches the recorded SHA256. The current formula checksum difference does not change this patch provenance.",
+      "evidence": [
+        "extra-provenance/glib-patch-history.json",
+        "extra-provenance/glib-historical-patch.diff",
+        "DeadlineMaster-source/ThirdParty/FFmpeg/source-input-overrides.json"
+      ]
+    },
+    {
+      "id": "header-and-generated-source-provenance",
+      "status": "unresolved",
+      "reason": "Recovered xcb-proto 1.17.0 from installed xcb.pc; collected its verified source. Receipts/SBOMs identify Vulkan-Headers 1.4.363.0, Xorgproto 2026.1 and older Xorgproto 2025.1; all are collected. Historical fast_float version/notice used by libplacebo remains unknown. Historical xcb-proto recipe modifications have not been independently established. No affected components may be rebuilt under the current user instruction.",
+      "evidence": [
+        "extra-provenance/libxcb-1.17.0/xcb.pc",
+        "extra-provenance/xcb-proto-current.rb",
+        "extra-provenance/xorgproto-2025.1-announcement.html",
+        "DeadlineMaster-source/ThirdParty/FFmpeg/source-input-overrides.json"
+      ]
+    },
+    {
+      "id": "rav1e-resolved-dependencies",
+      "status": "resolved",
+      "reason": "The receipt identifies Homebrew b6167f6. Its archived std_cargo_args includes --locked. The recipe builds from the release source/lockfile, then cinstall uses the same unchanged workspace; all 271 registry crates in that lockfile are archived and verified. The earlier inference that cargo install was unlocked was incorrect.",
+      "evidence": [
+        "extra-provenance/homebrew-formula-b6167f6.rb:std_cargo_args",
+        "provenance/rav1e-0.8.1/.brew/rav1e.rb",
+        "DeadlineMaster-source/ThirdParty/FFmpeg/rav1e-Cargo.lock"
+      ]
+    },
+    {
+      "id": "license-review",
+      "status": "unresolved",
+      "reason": "Completed top-level source-notice review and mapping for all 82 shipped packages/282 binaries; corrected OpenMP, SVT-AV1, PCRE2 and Graphite2 labels and restored FreeType/JPEG referenced texts. Five missing crate notice sets recovered from exact recorded Git commits. Four supplementary crates (difflib, simd_helpers, two Windows target packages) still lack recovered historical license texts; their exact inclusion in the macOS binary is not asserted. Unknown fast_float input prevents complete static attribution. See license-reconciliation.json for precise coverage and findings.",
+      "evidence": [
+        "DeadlineMaster-source/ThirdParty/FFmpeg/license-reconciliation.json",
+        "license-supplements/index.json"
+      ]
+    },
+    {
+      "id": "rebuild-verification",
+      "status": "unresolved",
+      "reason": "Upstream FFmpeg/dependency source build has not been exercised and remains unverified; rebuilding affected components is explicitly excluded by the user. App compilation, reuse of existing FFmpeg binaries, runtime closure, capability retention and integration tests are exercised separately and do not establish source-build completeness.",
+      "evidence": [
+        "DeadlineMaster-source/docs/FFMPEG-VERIFICATION.md"
+      ]
+    }
+  ]
+}

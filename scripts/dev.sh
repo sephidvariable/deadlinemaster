@@ -4,7 +4,7 @@ cd "$(dirname "$0")/.."
 mkdir -p .cache/clang .cache/swiftpm .build
 export CLANG_MODULE_CACHE_PATH="$PWD/.cache/clang"
 export SWIFTPM_MODULECACHE_OVERRIDE="$PWD/.cache/clang"
-export DEADLINE_FFMPEG_ROOT="$PWD/build/FFmpegFull"
+export DEADLINE_FFMPEG_ROOT="${DEADLINE_FFMPEG_ROOT:-$PWD/build/FFmpegFull}"
 case "${1:-build}" in
   build) swift build --scratch-path .build --cache-path .cache/swiftpm --arch arm64 ;;
   test) swift test --scratch-path .build --cache-path .cache/swiftpm --arch arm64 ;;

@@ -4,10 +4,19 @@ See licenses/ for preserved notices and license texts, provenance/ for installed
 formulas, receipts, SBOMs, configuration and checksums, and capabilities/ for
 actual enabled functionality. FFmpeg is a trademark of Fabrice Bellard.
 This software is based in part on the work of the Independent JPEG Group.
-FFmpeg source code is not modified here; Mach-O load paths are relocated and
+This software uses the FreeType Project (https://freetype.org) under the
+FreeType License; its full license and copyright notices are preserved in
+licenses/source-notices/freetype-2.15.0/.
+SRT and ZeroMQ retain their Mozilla Public License 2.0 notices. For their
+combination with GPLv3 FFmpeg, their covered source is additionally made
+available under GPLv3 in accordance with MPL 2.0 section 3.3. Original license
+and copyright notices are preserved; this does not relicense unrelated code.
+Deadline Master adds no FFmpeg source patch; upstream Homebrew recipe changes
+are preserved in provenance/. Mach-O load paths are relocated and
 binaries ad-hoc signed by scripts/bundle-ffmpeg.py. No warranty is provided.
 
-DEVELOPMENT BUNDLE: corresponding source archive collection and dependency
-license review are not yet complete. Do not distribute this bundle until the
-release requirements in docs/FFMPEG.md have been completed. Source URLs alone
+DEVELOPMENT BUNDLE: inventoried sources and supplementary notices have been
+collected. Historical build-input provenance and component license review remain
+unresolved; this is not yet a cleared Corresponding Source distribution. Do not distribute this bundle until the
+release requirements in docs/FFMPEG-REDISTRIBUTION.md have been completed. Source URLs alone
 are not a substitute for providing Corresponding Source.

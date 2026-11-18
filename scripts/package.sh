@@ -2,10 +2,19 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 if [[ "${1:-}" == "--distribution" ]]; then
-  echo "Distribution blocked: complete the corresponding-source and license review in docs/FFMPEG.md first." >&2
+  python3 scripts/audit-ffmpeg-release.py --check
+  echo "FFmpeg source checks passed. Distribution still requires Developer ID signing/notarization; follow docs/FFMPEG-REDISTRIBUTION.md." >&2
   exit 1
 fi
-python3 scripts/bundle-ffmpeg.py
+case "${1:-}" in
+  --reuse-ffmpeg)
+    # Repackage the audited binaries; do not discover a new Homebrew runtime.
+    test -x build/FFmpegFull/bin/ffmpeg
+    test -f build/FFmpegFull/provenance/binary-sha256.json
+    ;;
+  "") python3 scripts/bundle-ffmpeg.py ;;
+  *) echo "Usage: $0 [--reuse-ffmpeg|--distribution]" >&2; exit 2 ;;
+esac
 ./scripts/dev.sh release
 app="$PWD/build/Deadline Master.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources" build/AppIcon.iconset

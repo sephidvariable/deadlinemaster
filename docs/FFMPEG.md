@@ -69,6 +69,18 @@ Before public distribution:
 5. Complete signing/notarization and clean-Mac verification, then remove the
    development-only notice and distribution gate as a reviewed release change.
 
+## Source collection and verification update (2026-11-18)
+
+The inventoried source inputs are now collected. Historical build-input and
+license-review blockers remain; see [the redistribution handoff](FFMPEG-REDISTRIBUTION.md)
+and `ThirdParty/FFmpeg/redistribution-audit.json`. A hash-verified source collection
+is not an automatic redistribution clearance. The current inventory has 82 main
+sources, 293 additional inputs and 282 runtime binaries. SDL3 is explicitly
+included for SDL2-compat's dynamic loading. All 281 previous binaries are unchanged.
+See [the verification record](FFMPEG-VERIFICATION.md) for the tested app build,
+44 integration/core/document tests and runtime checks. No FFmpeg components were
+rebuilt; that work is excluded by the user's current instruction.
+
 ## Development commands
 
     python3 scripts/bundle-ffmpeg.py
@@ -81,3 +93,6 @@ Development tests use DEADLINE_FFMPEG_ROOT=build/FFmpegFull; packaged apps alway
 use Contents/Resources/FFmpegFull, ignoring that override. Generated runtime
 and source archives live under ignored build/. Preserve them with any binary
 release rather than assuming git tracks them.
+
+Use `./scripts/package.sh --reuse-ffmpeg` to compile/package the Swift app with
+the already audited runtime. This avoids re-discovering Homebrew dependencies.

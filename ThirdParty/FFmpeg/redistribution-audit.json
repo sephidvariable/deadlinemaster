@@ -1,0 +1,14 @@
+{
+  "redistribution_ready": false,
+  "main_sources_verified": 82,
+  "additional_inputs_verified": 293,
+  "runtime_binaries_verified": 282,
+  "source_manifest_sha256": "dc407aa0b367aaabd067204c4b6116507bf8190c6c2d3e701ec7c5d75a73e3a1",
+  "additional_manifest_sha256": "e06fa91699985d4500e85ca69cae9392f41b18b7017eb27fc39245c33c15b506",
+  "binary_manifest_sha256": "806dd0ec60a98f1cf5e3cd6005e47205d705a0e14e175cf05b766864fae1dfab",
+  "blockers": [
+    "Recovered xcb-proto 1.17.0 from installed xcb.pc; collected its verified source. Receipts/SBOMs identify Vulkan-Headers 1.4.363.0, Xorgproto 2026.1 and older Xorgproto 2025.1; all are collected. Historical fast_float version/notice used by libplacebo remains unknown. Historical xcb-proto recipe modifications have not been independently established. No affected components may be rebuilt under the current user instruction.",
+    "Completed top-level source-notice review and mapping for all 82 shipped packages/282 binaries; corrected OpenMP, SVT-AV1, PCRE2 and Graphite2 labels and restored FreeType/JPEG referenced texts. Five missing crate notice sets recovered from exact recorded Git commits. Four supplementary crates (difflib, simd_helpers, two Windows target packages) still lack recovered historical license texts; their exact inclusion in the macOS binary is not asserted. Unknown fast_float input prevents complete static attribution. See license-reconciliation.json for precise coverage and findings.",
+    "Upstream FFmpeg/dependency source build has not been exercised and remains unverified; rebuilding affected components is explicitly excluded by the user. App compilation, reuse of existing FFmpeg binaries, runtime closure, capability retention and integration tests are exercised separately and do not establish source-build completeness."
+  ]
+}

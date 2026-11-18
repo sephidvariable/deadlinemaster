@@ -1,0 +1,3029 @@
+{
+  "redistribution_ready": false,
+  "scope": "Main component notice review and byte-verified source/binary mapping; unresolved static and supplementary attribution remains listed.",
+  "binary_manifest_sha256": "806dd0ec60a98f1cf5e3cd6005e47205d705a0e14e175cf05b766864fae1dfab",
+  "components": [
+    {
+      "package": "ffmpeg-full-9.0.2_1",
+      "recorded_license": "GPL-3.0-or-later",
+      "source_sha256": "8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e",
+      "binaries": [
+        "bin/aviocat",
+        "bin/crypto_bench",
+        "bin/cws2fws",
+        "bin/enc_recon_frame_test",
+        "bin/enum_options",
+        "bin/ffescape",
+        "bin/ffeval",
+        "bin/ffhash",
+        "bin/ffmpeg",
+        "bin/ffplay",
+        "bin/ffprobe",
+        "bin/fourcc2pixfmt",
+        "bin/graph2dot",
+        "bin/ismindex",
+        "bin/pktdumper",
+        "bin/probetest",
+        "bin/qt-faststart",
+        "bin/scale_slice_test",
+        "bin/seek_print",
+        "bin/sidxindex",
+        "bin/trasher",
+        "bin/uncoded_frame",
+        "bin/venc_data_dump",
+        "bin/zmqsend",
+        "lib/libavcodec.63.1.102.dylib",
+        "lib/libavdevice.63.1.102.dylib",
+        "lib/libavfilter.12.1.102.dylib",
+        "lib/libavformat.63.1.102.dylib",
+        "lib/libavutil.61.1.102.dylib",
+        "lib/libswresample.7.1.102.dylib",
+        "lib/libswscale.10.1.102.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "ffmpeg-full-9.0.2_1/ffmpeg-9.0.2/COPYING.LGPLv2.1",
+          "sha256": "246041b6ecf9bc32d718a62c57877c78b5eb397b6467e74ed7ae2626ab189c30"
+        },
+        {
+          "path": "ffmpeg-full-9.0.2_1/ffmpeg-9.0.2/COPYING.GPLv2",
+          "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+        },
+        {
+          "path": "ffmpeg-full-9.0.2_1/ffmpeg-9.0.2/COPYING.LGPLv3",
+          "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+        },
+        {
+          "path": "ffmpeg-full-9.0.2_1/ffmpeg-9.0.2/COPYING.GPLv3",
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+        },
+        {
+          "path": "ffmpeg-full-9.0.2_1/ffmpeg-9.0.2/doc/authors.texi",
+          "sha256": "fb5fac6dd8f7474033e933814491a8297d8723c52be4dcbcc82eef9c4f008dd2"
+        },
+        {
+          "path": "ffmpeg-full-9.0.2_1/ffmpeg-9.0.2/tests/checkasm/ext/src/html_data/LICENSE",
+          "sha256": "0fd2c601fb2ead2add56807b7e32664da8d973b9835a422464f210bfea997a52"
+        },
+        {
+          "path": "ffmpeg-full-9.0.2_1/ffmpeg-9.0.2/tests/checkasm/ext/LICENSE",
+          "sha256": "a2dc8194271e5989c0622531c645a7b41af5da92eeb2531e4f2a3ec31023bc52"
+        },
+        {
+          "path": "ffmpeg-full-9.0.2_1/ffmpeg-9.0.2/LICENSE.md",
+          "sha256": "2e1d16c72fd74e12063776371da757322f8b77589386532f4fd8634bde7de1af"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "sdl3-3.4.18",
+      "recorded_license": "Zlib",
+      "source_sha256": "9c75cf16330322c217dedd2e0609f1124f1b54b8633e763467b4684d0f4334a3",
+      "binaries": [
+        "lib/libSDL3.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/LICENSE.txt",
+          "sha256": "1c040b8271b37e5076359f8fd54240e371114112924d2df81ef87c7d6a1dfdfd"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/build-scripts/update-copyright.sh",
+          "sha256": "040e239c386bab95ebf206b2033768d5c37d8118c8330690fde8b94f5c391cc9"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/include/SDL3/SDL_copying.h",
+          "sha256": "b5113ee040521690fecda79e1e00d078166d2ec2632153a8ee498f3bcbf40886"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/src/hidapi/AUTHORS.txt",
+          "sha256": "38102075d829116ee23d7a1fe0cb53f0c6932a9275da0ca1a3885b44db1963b4"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/src/hidapi/LICENSE-bsd.txt",
+          "sha256": "30eb1bef29b46f8ba7ab8b416035dbd93cb034a45481dd97815b944284582cd2"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/src/hidapi/LICENSE-gpl3.txt",
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/src/hidapi/LICENSE-orig.txt",
+          "sha256": "fb5436aa63d1b71a8dfbf74ecaf1a5b4e1ec4df7f80074d11fec99284f69ca5f"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/src/hidapi/LICENSE.txt",
+          "sha256": "7d3b087c34f35d4d538e3bcddd1ff8f66e92f9ef336881999482800ddf840913"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/src/video/yuv2rgb/LICENSE",
+          "sha256": "f7d74004cc75778cae46c5f0139f244d67c07ef64cf51937e8272352197dcb18"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/test/COPYING",
+          "sha256": "d5a549e4a7b88cb696d0db15b21830061131ed361257ab399a33ca08ce0b33d5"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/test/LICENSE.txt",
+          "sha256": "129fbd972915047e54d88f6f1884a13bf6d79c18eeb40646193d7241c9270ae5"
+        },
+        {
+          "path": "sdl3-3.4.18/SDL3-3.4.18/test/unifont-15.1.05-license.txt",
+          "sha256": "b7e8b9d8656d5216a61f48c7e62704b8aec50e8af8ca410b28fb04ea32e0f220"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "frei0r-3.6.0",
+      "recorded_license": "GPL-2.0-or-later",
+      "source_sha256": "425ddc9358151c52775a00b14e9dbd4044fc1f3aa931beef2aa3633707ba1eb8",
+      "binaries": [
+        "plugins/3dflippo.so",
+        "plugins/3dperspective.so",
+        "plugins/B.so",
+        "plugins/G.so",
+        "plugins/IIRblur.so",
+        "plugins/R.so",
+        "plugins/RGB.so",
+        "plugins/addition.so",
+        "plugins/addition_alpha.so",
+        "plugins/aech0r.so",
+        "plugins/alpha0ps_alpha0ps.so",
+        "plugins/alpha0ps_alphagrad.so",
+        "plugins/alpha0ps_alphaspot.so",
+        "plugins/alphaatop.so",
+        "plugins/alphain.so",
+        "plugins/alphainjection.so",
+        "plugins/alphaout.so",
+        "plugins/alphaover.so",
+        "plugins/alphaxor.so",
+        "plugins/balanc0r.so",
+        "plugins/baltan.so",
+        "plugins/bgsubtract0r.so",
+        "plugins/blend.so",
+        "plugins/bluescreen0r.so",
+        "plugins/brightness.so",
+        "plugins/burn.so",
+        "plugins/bw0r.so",
+        "plugins/c0rners.so",
+        "plugins/camerashake.so",
+        "plugins/cartoon.so",
+        "plugins/cluster.so",
+        "plugins/colgate.so",
+        "plugins/color_only.so",
+        "plugins/coloradj_RGB.so",
+        "plugins/colordistance.so",
+        "plugins/colorenhance.so",
+        "plugins/colorhalftone.so",
+        "plugins/colorize.so",
+        "plugins/colortap.so",
+        "plugins/composition.so",
+        "plugins/contrast0r.so",
+        "plugins/curves.so",
+        "plugins/d90stairsteppingfix.so",
+        "plugins/darken.so",
+        "plugins/defish0r.so",
+        "plugins/delay0r.so",
+        "plugins/delaygrab.so",
+        "plugins/denoise_hqdn3d.so",
+        "plugins/difference.so",
+        "plugins/distort0r.so",
+        "plugins/dither.so",
+        "plugins/divide.so",
+        "plugins/dodge.so",
+        "plugins/edgeglow.so",
+        "plugins/elastic_scale.so",
+        "plugins/emboss.so",
+        "plugins/equaliz0r.so",
+        "plugins/euclid_eraser.so",
+        "plugins/filmgrain.so",
+        "plugins/flippo.so",
+        "plugins/gamma.so",
+        "plugins/gateweave.so",
+        "plugins/glitch0r.so",
+        "plugins/glow.so",
+        "plugins/grain_extract.so",
+        "plugins/grain_merge.so",
+        "plugins/hardlight.so",
+        "plugins/heatmap0r.so",
+        "plugins/hue.so",
+        "plugins/hueshift0r.so",
+        "plugins/invert0r.so",
+        "plugins/ising0r.so",
+        "plugins/kaleid0sc0pe.so",
+        "plugins/keyspillm0pup.so",
+        "plugins/lenscorrection.so",
+        "plugins/letterb0xed.so",
+        "plugins/levels.so",
+        "plugins/lighten.so",
+        "plugins/lightgraffiti.so",
+        "plugins/lissajous0r.so",
+        "plugins/luminance.so",
+        "plugins/mask0mate.so",
+        "plugins/measure_pr0be.so",
+        "plugins/measure_pr0file.so",
+        "plugins/medians.so",
+        "plugins/multiply.so",
+        "plugins/ndvi.so",
+        "plugins/nervous.so",
+        "plugins/nois0r.so",
+        "plugins/normaliz0r.so",
+        "plugins/nosync0r.so",
+        "plugins/ntsc.so",
+        "plugins/onecol0r.so",
+        "plugins/overlay.so",
+        "plugins/partik0l.so",
+        "plugins/perspective.so",
+        "plugins/pixeliz0r.so",
+        "plugins/pixels0rt.so",
+        "plugins/pixs0r.so",
+        "plugins/plasma.so",
+        "plugins/posterize.so",
+        "plugins/premultiply.so",
+        "plugins/primaries.so",
+        "plugins/rgbnoise.so",
+        "plugins/rgbsplit0r.so",
+        "plugins/saturat0r.so",
+        "plugins/saturation.so",
+        "plugins/scanline0r.so",
+        "plugins/screen.so",
+        "plugins/select0r.so",
+        "plugins/sharpness.so",
+        "plugins/sigmoidaltransfer.so",
+        "plugins/sleid0r_push-down.so",
+        "plugins/sleid0r_push-left.so",
+        "plugins/sleid0r_push-right.so",
+        "plugins/sleid0r_push-up.so",
+        "plugins/sleid0r_slide-down.so",
+        "plugins/sleid0r_slide-left.so",
+        "plugins/sleid0r_slide-right.so",
+        "plugins/sleid0r_slide-up.so",
+        "plugins/sleid0r_wipe-barn-door-h.so",
+        "plugins/sleid0r_wipe-barn-door-v.so",
+        "plugins/sleid0r_wipe-circle.so",
+        "plugins/sleid0r_wipe-down.so",
+        "plugins/sleid0r_wipe-left.so",
+        "plugins/sleid0r_wipe-rect.so",
+        "plugins/sleid0r_wipe-right.so",
+        "plugins/sleid0r_wipe-up.so",
+        "plugins/sobel.so",
+        "plugins/softglow.so",
+        "plugins/softlight.so",
+        "plugins/sopsat.so",
+        "plugins/spillsupress.so",
+        "plugins/squareblur.so",
+        "plugins/squigglevision.so",
+        "plugins/subtract.so",
+        "plugins/tehroxx0r.so",
+        "plugins/test_pat_B.so",
+        "plugins/test_pat_C.so",
+        "plugins/test_pat_G.so",
+        "plugins/test_pat_I.so",
+        "plugins/test_pat_L.so",
+        "plugins/test_pat_R.so",
+        "plugins/three_point_balance.so",
+        "plugins/threelay0r.so",
+        "plugins/threshold0r.so",
+        "plugins/timeout.so",
+        "plugins/tint0r.so",
+        "plugins/transparency.so",
+        "plugins/twolay0r.so",
+        "plugins/uvmap.so",
+        "plugins/value.so",
+        "plugins/vertigo.so",
+        "plugins/vignette.so",
+        "plugins/water.so",
+        "plugins/xfade0r.so"
+      ],
+      "source_notices": [
+        {
+          "path": "frei0r-3.6.0/frei0r-3.6.0/AUTHORS.md",
+          "sha256": "c80e235a2034de50768a4eb9e4e8e4a374b07a83a3aa0b4d7daca26604d2c879"
+        },
+        {
+          "path": "frei0r-3.6.0/frei0r-3.6.0/COPYING",
+          "sha256": "231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libbluray-1.5.0",
+      "recorded_license": "LGPL-2.1-or-later",
+      "source_sha256": "f676408e91a5d321abf8b8d4dfdae36205c297dab5c54c3ec519639025f474a2",
+      "binaries": [
+        "lib/libbluray.4.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libbluray-1.5.0/libbluray-1.5.0/COPYING",
+          "sha256": "b3aa400aca6d2ba1f0bd03bd98d03d1fe7489a3bbb26969d72016360af8a5c9d"
+        },
+        {
+          "path": "libbluray-1.5.0/libbluray-1.5.0/contrib/asm/LICENSE.txt",
+          "sha256": "293b6af371eee28b0ff16f0334ea19e20a3d5522143faa4b95b346855507879a"
+        },
+        {
+          "path": "libbluray-1.5.0/libbluray-1.5.0/contrib/libudfread/COPYING",
+          "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "gnutls-3.8.13_2",
+      "recorded_license": "LGPL-2.1-or-later AND GPL-3.0-only",
+      "source_sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e",
+      "binaries": [
+        "lib/libgnutls.30.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/AUTHORS",
+          "sha256": "79bca1136dc515b930f2f85975c0c4c687e7d430be27a9b59113637c33b8e7a3"
+        },
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/COPYING",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        },
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/COPYING.LESSERv2",
+          "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+        },
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/doc/cha-copying.texi",
+          "sha256": "02e34d9aef924707000316d10328f7d3350e4b2032cfcbb843cc24b473af235b"
+        },
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/doc/examples/tlsproxy/LICENSE",
+          "sha256": "b42dbe48110754b99f026ad30e69b1069f826fb07e7c616b526bd1090952fb1b"
+        },
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/lib/accelerated/x86/license.txt",
+          "sha256": "0c35a52bcfa4da2f0df4a1282a6034e211c976b8b6d43691a639eef9c8aebf7e"
+        },
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/lib/crau/LICENSE",
+          "sha256": "b3c9aed2f5750f6bf698c74916d675d1734e12455b96bfdf6f90e23ab01595cd"
+        },
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/lib/extras/licenses/CC0",
+          "sha256": "5c37e41135091a39821cfb306ad8516625b0bb49510ce56ad85c347bbc46df29"
+        },
+        {
+          "path": "gnutls-3.8.13_2/gnutls-3.8.13/lib/inih/LICENSE.txt",
+          "sha256": "9ae3b39e83e9158e44b67733baa3bb2d84e80efdcfb14a5820210a42c7abdf7f"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "librist-0.2.20",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "9e40eeb87f014790531ad41326cc271b930a65962e4b15231b301fc59b29fe31",
+      "binaries": [
+        "lib/librist.4.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "librist-0.2.20/librist-v0.2.20/COPYING",
+          "sha256": "b9841591a3452ee30033d8e3586c7b1244a0b2fc1dc6cb04576957c313cb2792"
+        },
+        {
+          "path": "librist-0.2.20/librist-v0.2.20/contrib/mbedtls/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "srt-1.5.7_1",
+      "recorded_license": "MPL-2.0",
+      "source_sha256": "017cd1e437ef2073a4dd10ddf7b55e86bc3d6ebac0393d13bd22f6a57055d32b",
+      "binaries": [
+        "lib/libsrt.1.5.7.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "srt-1.5.7_1/srt-1.5.7/LICENSE",
+          "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85"
+        }
+      ],
+      "review": {
+        "status": "secondary-license-conditions-reviewed",
+        "note": "MPL-2.0 retained; source text scan found no secondary-license exclusion notices. For combination with GPLv3 FFmpeg, additionally distribute covered source under GPLv3 per MPL section 3.3; original notices remain intact.",
+        "evidence": [
+          "extra-provenance/mpl-secondary-license-scan.json",
+          "https://www.mozilla.org/en-US/MPL/2.0/FAQ/#q14-may-i-combine-mpl-licensed-code-and-lgpl-licensed-code-in-the-same-executable-program"
+        ]
+      }
+    },
+    {
+      "package": "libssh-0.12.2_1",
+      "recorded_license": "LGPL-2.1-or-later",
+      "source_sha256": "49560f677d96e3706a904ac2de1116e25f3680937d51e5c92198fcba4a1c1e9f",
+      "binaries": [
+        "lib/libssh.4.12.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libssh-0.12.2_1/libssh-0.12.2/AUTHORS",
+          "sha256": "95b6a58ab69d7687d9486b4a859ebfc00fff25b0942cc51239ada2702ae69d1b"
+        },
+        {
+          "path": "libssh-0.12.2_1/libssh-0.12.2/COPYING",
+          "sha256": "1656186e951db1c010a8485481fa94587f7e53a26d24976bef97945ad0c4df5a"
+        },
+        {
+          "path": "libssh-0.12.2_1/libssh-0.12.2/cmake/Modules/COPYING-CMAKE-SCRIPTS",
+          "sha256": "46cde7dc11e64c78d650b4851b88f6704b4665ff60f22a1caf68ceb15e217e5b"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "zeromq-4.3.5_2",
+      "recorded_license": "MPL-2.0",
+      "source_sha256": "6653ef5910f17954861fe72332e68b03ca6e4d9c7160eb3a8de5a5a913bfab43",
+      "binaries": [
+        "lib/libzmq.5.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "zeromq-4.3.5_2/zeromq-4.3.5/LICENSE",
+          "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5"
+        },
+        {
+          "path": "zeromq-4.3.5_2/zeromq-4.3.5/AUTHORS",
+          "sha256": "9c7e32ac52c546ce6c9b328f348b2053ff6d56630cba06727e2e5abf644f4aed"
+        },
+        {
+          "path": "zeromq-4.3.5_2/zeromq-4.3.5/external/unity/license.txt",
+          "sha256": "3ed9b51da86f52c729c96cc99fdde6444b2297c788a9cf4ad1d3649dc34c4985"
+        },
+        {
+          "path": "zeromq-4.3.5_2/zeromq-4.3.5/external/wepoll/license.txt",
+          "sha256": "3e56262d2c0e9492f113089916ed624e98f88b31dfd6acae24ede59cdfda5a69"
+        }
+      ],
+      "review": {
+        "status": "secondary-license-conditions-reviewed",
+        "note": "MPL-2.0 retained; source text scan found no secondary-license exclusion notices. For combination with GPLv3 FFmpeg, additionally distribute covered source under GPLv3 per MPL section 3.3; original notices remain intact.",
+        "evidence": [
+          "extra-provenance/mpl-secondary-license-scan.json",
+          "https://www.mozilla.org/en-US/MPL/2.0/FAQ/#q14-may-i-combine-mpl-licensed-code-and-lgpl-licensed-code-in-the-same-executable-program"
+        ]
+      }
+    },
+    {
+      "package": "libvpx-1.17.0",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "1020f184046187baa2985dbde38e0691f49c44088bca7a1842b0236c6081dc0a",
+      "binaries": [
+        "lib/libvpx.12.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/AUTHORS",
+          "sha256": "8a98b560e5314713550e6d3ba2d8acf3ef54dfc870fc448bef08a7c57648a0bd"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/LICENSE",
+          "sha256": "8267348d5af1262c11d1a08de2f5afc77457755f1ac658627dd9acf71011d615"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/PATENTS",
+          "sha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/third_party/googletest/src/LICENSE",
+          "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/third_party/libwebm/AUTHORS.TXT",
+          "sha256": "3edb5f5496bfff3d6d4a62fa75fe996b814920d0d6e348c2e65c589e7ac5d177"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/third_party/libwebm/LICENSE.TXT",
+          "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/third_party/libwebm/PATENTS.TXT",
+          "sha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/third_party/libyuv/LICENSE",
+          "sha256": "2b2cc1180c7e6988328ad2033b04b80117419db9c4c584918bbb3cfec7e9364f"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/third_party/nalloc/LICENSE",
+          "sha256": "d7dd0396ec46975e1bf9093680068ef301bc0ed204603e623a6f7073ab922ab1"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/third_party/x86inc/LICENSE",
+          "sha256": "719d8fa235f2068e0ae6d6a7dceb0a7720d7840f0f0ebed29957989e6ded3cd8"
+        },
+        {
+          "path": "libvpx-1.17.0/libvpx-1.17.0/tools/gen_authors.sh",
+          "sha256": "9d7f93502b6efe87eb27b9ee8af95f9faa220b6e7b3d6c12f4b288c87cb777fd"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "webp-1.6.0",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564",
+      "binaries": [
+        "lib/libsharpyuv.0.1.2.dylib",
+        "lib/libwebp.7.2.0.dylib",
+        "lib/libwebpmux.3.1.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "webp-1.6.0/libwebp-1.6.0/PATENTS",
+          "sha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c"
+        },
+        {
+          "path": "webp-1.6.0/libwebp-1.6.0/COPYING",
+          "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf"
+        },
+        {
+          "path": "webp-1.6.0/libwebp-1.6.0/AUTHORS",
+          "sha256": "f251be89fd442bd9d701360730aea163cc8e2076ff03528f59267dc2c4f8b60a"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "xz-5.8.4",
+      "recorded_license": "0BSD AND GPL-2.0-or-later",
+      "source_sha256": "0014c7886930454fe8bd4228665b51af55eeae560ea135c9c4cd33f55b2591d9",
+      "binaries": [
+        "lib/liblzma.5.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "xz-5.8.4/xz-5.8.4/AUTHORS",
+          "sha256": "01e6df90d71d591f4307db3f397a5a4fac93b18533f5a3862156f1a0a7dc8610"
+        },
+        {
+          "path": "xz-5.8.4/xz-5.8.4/COPYING",
+          "sha256": "616a3ad264ce29b8f1cb97e53037b139d406899ca8d1f799651e17bfa09830b8"
+        },
+        {
+          "path": "xz-5.8.4/xz-5.8.4/COPYING.0BSD",
+          "sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1"
+        },
+        {
+          "path": "xz-5.8.4/xz-5.8.4/COPYING.GPLv2",
+          "sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6"
+        },
+        {
+          "path": "xz-5.8.4/xz-5.8.4/COPYING.GPLv3",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        },
+        {
+          "path": "xz-5.8.4/xz-5.8.4/COPYING.LGPLv2.1",
+          "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+        },
+        {
+          "path": "xz-5.8.4/xz-5.8.4/build-aux/license-check.sh",
+          "sha256": "2b3fa1d23cb2ab084f3d919908159473cc0e1eed059d106e2a2857c0ec8af98a"
+        }
+      ],
+      "review": {
+        "status": "shipped-library-scope-reviewed",
+        "note": "Shipped liblzma is 0BSD per source COPYING. GPL tools in the source archive are not shipped as executables; their notices remain in the source collection."
+      }
+    },
+    {
+      "package": "aribb24-1.0.4",
+      "recorded_license": "LGPL-3.0-only",
+      "source_sha256": "88b58dd760609372701087e25557ada9f7c6d973306c017067c5dcaf9e2c9710",
+      "binaries": [
+        "lib/libaribb24.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "aribb24-1.0.4/aribb24-v1.0.4/COPYING",
+          "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "dav1d-1.5.4",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "2abfb0c89212e6e4733a54e0ae509ec00a5b845a6360946f918806e14aedb011",
+      "binaries": [
+        "lib/libdav1d.7.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "dav1d-1.5.4/dav1d-1.5.4/COPYING",
+          "sha256": "dd92c3c2247c5651606fc23a5e2d6a1ebc5ace9a3e49cbde0e12f05ad1cb1ee5"
+        },
+        {
+          "path": "dav1d-1.5.4/dav1d-1.5.4/doc/PATENTS",
+          "sha256": "335eca574598bf4ca181b12f708d6669e5a5e78c8e1513e5b35fa1f03901484b"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "opencore-amr-0.1.6",
+      "recorded_license": "Apache-2.0",
+      "source_sha256": "483eb4061088e2b34b358e47540b5d495a96cd468e361050fae615b1809dc4a1",
+      "binaries": [
+        "lib/libopencore-amrnb.0.dylib",
+        "lib/libopencore-amrwb.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "opencore-amr-0.1.6/opencore-amr-0.1.6/LICENSE",
+          "sha256": "8b3f1762349248d444ab9acbafe73941254e36e1064954da56bb9ddbd5873ddb"
+        },
+        {
+          "path": "opencore-amr-0.1.6/opencore-amr-0.1.6/opencore/NOTICE",
+          "sha256": "d106802b5e406073c1d10fbe9f638234c6973ebce37df71773179642085eb489"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "snappy-1.3.1",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "893f708a0bf4b5529d555ffcee390e940e932fcf90261f682604475a76cd0247",
+      "binaries": [
+        "lib/libsnappy.1.3.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "snappy-1.3.1/snappy-1.3.1/AUTHORS",
+          "sha256": "710c0a3a4681c8c40f5a59eb794f61093fa142935c647c92f46ea595f0591833"
+        },
+        {
+          "path": "snappy-1.3.1/snappy-1.3.1/COPYING",
+          "sha256": "55172044f7e241207117448a4d9d6ba1d0925c8ad66b5d4c08c70adfa9cc3de6"
+        },
+        {
+          "path": "snappy-1.3.1/snappy-1.3.1/COPYING.notestdata",
+          "sha256": "5221a36a801b981fbdfda7b87db64cff231a3b88223a066c325411b539df796f"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "aom-3.15.2",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "6af50f59b1431fbbd18a46852fdd6425c1607f1c1be3839569b49b5c66ce9eca",
+      "binaries": [
+        "lib/libaom.3.15.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "aom-3.15.2/aom-3.15.2/AUTHORS",
+          "sha256": "c31b80ca48fde06ca03aef2f3dec15413fe0c2661fe6b56e86ccd69dbc6f9a1d"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/LICENSE",
+          "sha256": "4764a286d8b2faeaf42f4418e7d7a28d58fc8fd4d00a3d0a7f44b0a4099de7f2"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/PATENTS",
+          "sha256": "661fb8e504744e95587b556b94a58343448300606a41bea8c7a9b97125696e61"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/fastfeat/LICENSE",
+          "sha256": "499041ddee5227b6f29ca06c17803e5fe24d60f243c69635cd76b7ba08d0ddd5"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/googletest/src/LICENSE",
+          "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/highway/LICENSE-BSD3",
+          "sha256": "d25e82e26acd42ca3ccc9993622631163425b869b9e16284226d534cff6470f2"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/libwebm/AUTHORS.TXT",
+          "sha256": "3edb5f5496bfff3d6d4a62fa75fe996b814920d0d6e348c2e65c589e7ac5d177"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/libwebm/LICENSE.TXT",
+          "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/libwebm/PATENTS.TXT",
+          "sha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/libyuv/LICENSE",
+          "sha256": "2b2cc1180c7e6988328ad2033b04b80117419db9c4c584918bbb3cfec7e9364f"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/vector/LICENSE",
+          "sha256": "ff6c857ce2708e87701323078aef115c1872a1f80a9649f86dc899b48083bc60"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/third_party/x86inc/LICENSE",
+          "sha256": "719d8fa235f2068e0ae6d6a7dceb0a7720d7840f0f0ebed29957989e6ded3cd8"
+        },
+        {
+          "path": "aom-3.15.2/aom-3.15.2/tools/gen_authors.sh",
+          "sha256": "45c9424801e8f2e7b6476b34013c9430eff58c642a588c747dcc3d7636424500"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libvmaf-3.2.1",
+      "recorded_license": "BSD-2-Clause-Patent",
+      "source_sha256": "5df7386911bc15fd1ca783132528748d219768ae4fc5f8e0b61184f041648092",
+      "binaries": [
+        "lib/libvmaf.3.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libvmaf-3.2.1/vmaf-3.2.1/LICENSE",
+          "sha256": "a6fdb51d02b9dfe198e55534bb8047fe6d756eda117f4ff83de98f92c1952710"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "jpeg-xl-0.12.0_1",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "03e9be69a30be4011f559da75328b6d7cea8ad921fabfbd551ce10bf45cdc992",
+      "binaries": [
+        "lib/libjxl.0.12.0.dylib",
+        "lib/libjxl_cms.0.12.0.dylib",
+        "lib/libjxl_threads.0.12.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "jpeg-xl-0.12.0_1/libjxl-0.12.0/AUTHORS",
+          "sha256": "c987f35e1e87c45aeef0c7d204f0003eb4cb9652c6f1aad45f5521e8a22d8bdd"
+        },
+        {
+          "path": "jpeg-xl-0.12.0_1/libjxl-0.12.0/LICENSE",
+          "sha256": "8405932022a556380c2d8c272eff154a923feb197233f348ce5f7334fb0a5ede"
+        },
+        {
+          "path": "jpeg-xl-0.12.0_1/libjxl-0.12.0/PATENTS",
+          "sha256": "91915f8ae056a68a3c5bdf05d9f6f78bb6903e27a8ca3a8434c9e4ac87300575"
+        },
+        {
+          "path": "jpeg-xl-0.12.0_1/libjxl-0.12.0/debian/copyright",
+          "sha256": "ec6f5bc1043fba8ffa648157b5beee8915865a54f25c5f3201b0e910cd09ebde"
+        },
+        {
+          "path": "jpeg-xl-0.12.0_1/libjxl-0.12.0/lib/extras/LICENSE.apngdis",
+          "sha256": "4319c422c3bf10168877a83cd9ff848684b9e53dce9a68de0a3f454a825933f6"
+        },
+        {
+          "path": "jpeg-xl-0.12.0_1/libjxl-0.12.0/third_party/HEVCSoftware/cfg/LICENSE",
+          "sha256": "44a2c5f2ce34d00a30554a44d3e51377852f84bc183dc1b9fb2b48ece976ebef"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "lame-4.0",
+      "recorded_license": "LGPL-2.0-or-later",
+      "source_sha256": "3df5124d5ad3a98312ffd7ba6a9b36230e4f8a3e66d3ce0f425e336c32d216eb",
+      "binaries": [
+        "lib/libmp3lame.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "lame-4.0/lame-4.0/LICENSE",
+          "sha256": "5c1f8d44f1eacbea3e1c31ff6ee11a4e1690ccbed4ee4af16de3b6eb61dc69a8"
+        },
+        {
+          "path": "lame-4.0/lame-4.0/COPYING",
+          "sha256": "e64f9c5a18f56828c10a575df13ade641aa3af4512a7afe6c411256943b57aaf"
+        },
+        {
+          "path": "lame-4.0/lame-4.0/mpglib/AUTHORS",
+          "sha256": "d8ecf9556aafa8c653796d6be3dc43deea374257680e21c30109a5c3c4484263"
+        },
+        {
+          "path": "lame-4.0/lame-4.0/debian/copyright",
+          "sha256": "eb2efb4511f3c5d5e4747b6f3a0da1dd5649975082284e12889b6892ededd53d"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "openjpeg-2.5.4_1",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "a695fbe19c0165f295a8531b1e4e855cd94d0875d2f88ec4b61080677e27188a",
+      "binaries": [
+        "lib/libopenjp2.2.5.4.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "openjpeg-2.5.4_1/openjpeg-2.5.4/AUTHORS.md",
+          "sha256": "cf22e984f9fbb9be7550e9a94120595ba8c4a7de0d63f47d3725f4b2e28a4387"
+        },
+        {
+          "path": "openjpeg-2.5.4_1/openjpeg-2.5.4/LICENSE",
+          "sha256": "a6af136f3e15038a666b61f376612a07d9a4e48cb7c01adbf3e33b3f14ab49b6"
+        },
+        {
+          "path": "openjpeg-2.5.4_1/openjpeg-2.5.4/src/bin/wx/OPJViewer/source/license.txt",
+          "sha256": "8081c33f6953950dcf424aa844714658b73ada0fcaea16e4487f5fa07ef0960d"
+        },
+        {
+          "path": "openjpeg-2.5.4_1/openjpeg-2.5.4/thirdparty/astyle/LICENSE.md",
+          "sha256": "2e8480e753b7a1d100c80920f4250b1bc9f93a18c6a5953c42b11445218cd0fb"
+        },
+        {
+          "path": "openjpeg-2.5.4_1/openjpeg-2.5.4/thirdparty/liblcms2/COPYING",
+          "sha256": "c725daac91a9259ce5e195683c0eeb797d345035c36ac5ba114c9fa80e11639a"
+        },
+        {
+          "path": "openjpeg-2.5.4_1/openjpeg-2.5.4/thirdparty/libpng/LICENSE",
+          "sha256": "7317e078e2d3b5d7ba5a6159e650945153262b44b76f6700f8e9edb261c5143e"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "opus-1.6.1",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1",
+      "binaries": [
+        "lib/libopus.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "opus-1.6.1/opus-1.6.1/AUTHORS",
+          "sha256": "f9fd849e652219ce98e008303370b352d37663d0ffb27b8dc514ad93c9c7438b"
+        },
+        {
+          "path": "opus-1.6.1/opus-1.6.1/COPYING",
+          "sha256": "01e1167d54a096d123cf6dfbbeb19587278845c6481d2d66d545669846079551"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "rav1e-0.8.1",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "06d1523955fb6ed9cf9992eace772121067cca7e8926988a1ee16492febbe01e",
+      "binaries": [
+        "lib/librav1e.0.8.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "rav1e-0.8.1/rav1e-0.8.1/LICENSE",
+          "sha256": "2dd0a109751e939dec3f80ddcfbc1ba91553f18c574399e85c159632182a2c0a"
+        },
+        {
+          "path": "rav1e-0.8.1/rav1e-0.8.1/PATENTS",
+          "sha256": "7b14a70c194b19dbd0625e7eac839a63200f67484521ce5e8d8244b127e8907a"
+        },
+        {
+          "path": "rav1e-0.8.1/rav1e-0.8.1/ivf/LICENSE",
+          "sha256": "5d3c397a3aeeecbc417962e4df8e8432af8219fda8a56ebe601a638a1e76c522"
+        },
+        {
+          "path": "rav1e-0.8.1/rav1e-0.8.1/license_template.txt",
+          "sha256": "5097df781d1759aabea7eeaa308a591e9b6e0e4389eff515fdab458c4b4389ac"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "speex-1.2.1",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "4b44d4f2b38a370a2d98a78329fefc56a0cf93d1c1be70029217baae6628feea",
+      "binaries": [
+        "lib/libspeex.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "speex-1.2.1/speex-1.2.1/AUTHORS",
+          "sha256": "6e5a9d92c5f9ccd28fe0b15ad59443fbf435bfc6ab2221f532006d3717ddf642"
+        },
+        {
+          "path": "speex-1.2.1/speex-1.2.1/COPYING",
+          "sha256": "2654a4264b2bfe298dedc508748d140111840c315cc8eb646a3a68c13fa75b01"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "svt-av1-4.2.0",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "512f2ea5649e3e76c2dddcc25c2556fb67a9582baaab207c9c96161c94659dad",
+      "binaries": [
+        "lib/libSvtAv1Enc.4.2.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "svt-av1-4.2.0/SVT-AV1-v4.2.0/LICENSE-BSD2.md",
+          "sha256": "c582fcbeb9cf972a60d298bfaf41dc5adff2dd14208946edcb9bb56a281e8438"
+        },
+        {
+          "path": "svt-av1-4.2.0/SVT-AV1-v4.2.0/LICENSE.md",
+          "sha256": "0acc2fcb27472bdc9aaf8b71f37055bbdac4f54671b7d922f241bd7fcd0dd3e6"
+        },
+        {
+          "path": "svt-av1-4.2.0/SVT-AV1-v4.2.0/PATENTS.md",
+          "sha256": "20678ab10402659106dc4c147c97b2a6e94b5c0695415e15a8f195ebc3547922"
+        },
+        {
+          "path": "svt-av1-4.2.0/SVT-AV1-v4.2.0/third_party/fastfeat/LICENSE",
+          "sha256": "043dcfd059386f9facd376351b2bd79325778744aa442177390cdfcca54babed"
+        },
+        {
+          "path": "svt-av1-4.2.0/SVT-AV1-v4.2.0/third_party/safestringlib/LICENSE",
+          "sha256": "c0f99a208799ca20c9ccf31a30533d49334eb458dca5a3d14f9afe3e884e5d7d"
+        }
+      ],
+      "review": {
+        "status": "metadata-corrected-in-notice-index",
+        "note": "Main source uses BSD-3-Clause-Clear, not plain BSD-3-Clause. Preserve LICENSE-BSD2.md, PATENTS.md and third-party licenses too.",
+        "evidence": [
+          "SVT-AV1-v4.2.0/LICENSE.md",
+          "SVT-AV1-v4.2.0/LICENSE-BSD2.md",
+          "SVT-AV1-v4.2.0/PATENTS.md"
+        ]
+      }
+    },
+    {
+      "package": "theora-1.2.0",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "279327339903b544c28a92aeada7d0dcfd0397b59c2f368cc698ac56f515906e",
+      "binaries": [
+        "lib/libtheoradec.2.dylib",
+        "lib/libtheoraenc.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "theora-1.2.0/libtheora-1.2.0/LICENSE",
+          "sha256": "2c902950c73a63cd285dc0c36573de9c5fefe66d49312949c51d941f33e92932"
+        },
+        {
+          "path": "theora-1.2.0/libtheora-1.2.0/COPYING",
+          "sha256": "8417fad7da775735564e209484a2e011e0fa201e94f01fdbee6e4977e478e6fc"
+        },
+        {
+          "path": "theora-1.2.0/libtheora-1.2.0/AUTHORS",
+          "sha256": "ef0ba8da05924cf4e2f9acf782076892ed477c01a6d4cc9f5d107652cf84da8c"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libogg-1.3.6",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "83e6704730683d004d20e21b8f7f55dcb3383cdf84c0daedf30bde175f774638",
+      "binaries": [
+        "lib/libogg.0.8.6.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libogg-1.3.6/libogg-1.3.6/COPYING",
+          "sha256": "d2ab5758336489da61c12cc5bb757da5339c4ae9001f9bb0562b4370249af814"
+        },
+        {
+          "path": "libogg-1.3.6/libogg-1.3.6/AUTHORS",
+          "sha256": "6fcb33d0cdd60b5054e7df820916388b590427514288c2bab01c626bb8ae9506"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libvorbis-1.3.7",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "b33cc4934322bcbf6efcbacf49e3ca01aadbea4114ec9589d1b1e9d20f72954b",
+      "binaries": [
+        "lib/libvorbis.0.dylib",
+        "lib/libvorbisenc.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libvorbis-1.3.7/libvorbis-1.3.7/COPYING",
+          "sha256": "ec1815db59fcd302846df949d7424876cb2e2dc5ed1606c5fb0b36787b1cf43a"
+        },
+        {
+          "path": "libvorbis-1.3.7/libvorbis-1.3.7/AUTHORS",
+          "sha256": "f5cab9f16035f770f50299f85cf2938c06dc3a9a30425961067788102ec896d3"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "x264-r3222",
+      "recorded_license": "GPL-2.0-or-later",
+      "source_sha256": "57c38960792d110a84b2620b98f71fadadbcb767e0b99a61ae398a95a81f46b6",
+      "binaries": [
+        "lib/libx264.165.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "x264-r3222/x264-r3222/AUTHORS",
+          "sha256": "783150c1bef404fc7140924f3006eff27c940ea73ef38b3bc76fcb9c173229a5"
+        },
+        {
+          "path": "x264-r3222/x264-r3222/COPYING",
+          "sha256": "32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "x265-4.3",
+      "recorded_license": "GPL-2.0-or-later",
+      "source_sha256": "83c53e4c8bbb8f1e33ed59e10a7d621d1d7801ca853910c3eb41f038b8ffb121",
+      "binaries": [
+        "lib/libx265.217.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "x265-4.3/x265_4.3/COPYING",
+          "sha256": "d8afb1bcc7a2cfc603683b168d6987ef0a48e59e0da3693bf55c5d33b67e2b49"
+        },
+        {
+          "path": "x265-4.3/x265_4.3/source/dynamicHDR10/LICENSE.txt",
+          "sha256": "47f15d63e82eb8a4de6e46471d5f96cf6d052fd5355944a002c3157880248b69"
+        },
+        {
+          "path": "x265-4.3/x265_4.3/source/dynamicHDR10/json11/LICENSE.txt",
+          "sha256": "950e288a2548cb33f6a90d23958806b0803f510ab17c600d661619a73ae3a6c8"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "xvid-1.3.7",
+      "recorded_license": "GPL-2.0-or-later",
+      "source_sha256": "aeeaae952d4db395249839a3bd03841d6844843f5a4f84c271ff88f7aa1acff7",
+      "binaries": [
+        "lib/libxvidcore.4.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "xvid-1.3.7/xvidcore/AUTHORS",
+          "sha256": "c6fc2bbc06918472097224a9d7096cf47d8337643afd3b9b9b281cb17711b29e"
+        },
+        {
+          "path": "xvid-1.3.7/xvidcore/LICENSE",
+          "sha256": "2ab06d2335f9781f1a485c78a557e6c61b6c24e118caad4d4210c46426bbce95"
+        },
+        {
+          "path": "xvid-1.3.7/xvidcore/dshow/authors.txt",
+          "sha256": "a9818b7ab3c79f3250da933369ab71b806410cf5c683b2ef78a6517001e8e224"
+        },
+        {
+          "path": "xvid-1.3.7/xvidcore/vfw/LICENSE",
+          "sha256": "40a8c1ea469c6813413443df59115ecc781421cc7d184839ccc7c9f54057a283"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libsoxr-0.1.3",
+      "recorded_license": "LGPL-2.1-or-later",
+      "source_sha256": "b111c15fdc8c029989330ff559184198c161100a59312f5dc19ddeb9b5a15889",
+      "binaries": [
+        "lib/libsoxr.0.1.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libsoxr-0.1.3/soxr-0.1.3-Source/AUTHORS",
+          "sha256": "e5d53cd6c716dfeabe47a9f3613a8c6815aa4a67f0f77900787c59445396aeff"
+        },
+        {
+          "path": "libsoxr-0.1.3/soxr-0.1.3-Source/LICENCE",
+          "sha256": "dc98676341fdcd29d9f279c9679d6a75288785b174ded8d1b2e316c366166135"
+        },
+        {
+          "path": "libsoxr-0.1.3/soxr-0.1.3-Source/COPYING.LGPL",
+          "sha256": "f2f118b9029ec1871b953639ecc46651b2fc7b62e295e6cf3ef2ac4c9a058b33"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libx11-1.8.14",
+      "recorded_license": "MIT",
+      "source_sha256": "ebb8a58549ddde50aa2e742b3b256557f451053d173be8dbfc2e8ac078eee1d6",
+      "binaries": [
+        "lib/libX11.6.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libx11-1.8.14/libX11-1.8.14/COPYING",
+          "sha256": "eda0c2ed1cae0280c7fe79762eaad8ad31c044afc64e71e92ef2c6f3cd7bc395"
+        },
+        {
+          "path": "libx11-1.8.14/libX11-1.8.14/AUTHORS",
+          "sha256": "cb356a611127b9e2267be82c79db15b6ad87a6038f91f55cf5ae2b585fb879f2"
+        },
+        {
+          "path": "libx11-1.8.14/libX11-1.8.14/src/xlibi18n/lcUniConv/COPYRIGHT",
+          "sha256": "b7492b0e0cb9117d13dc928130ca8303185008f7231bc91a9a2071b381f5f490"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libxcb-1.17.0",
+      "recorded_license": "MIT",
+      "source_sha256": "599ebf9996710fea71622e6e184f3a8ad5b43d0e5fa8c4e407123c88a59a6d55",
+      "binaries": [
+        "lib/libxcb-shape.0.0.0.dylib",
+        "lib/libxcb-shm.0.0.0.dylib",
+        "lib/libxcb-xfixes.0.0.0.dylib",
+        "lib/libxcb.1.1.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libxcb-1.17.0/libxcb-1.17.0/COPYING",
+          "sha256": "c5ffbfeaa501071ceeb97b7de2c0d703fdaa35de01c0fb6cbac1c28453a3e9fd"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "rubberband-4.0.0",
+      "recorded_license": "GPL-2.0-or-later",
+      "source_sha256": "af050313ee63bc18b35b2e064e5dce05b276aaf6d1aa2b8a82ced1fe2f8028e9",
+      "binaries": [
+        "lib/librubberband.3.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "rubberband-4.0.0/rubberband-4.0.0/COPYING",
+          "sha256": "cedd4c1885d75991bf1077cc6e33359103cf04fbc996f20d30ab043d5fc5fcc5"
+        },
+        {
+          "path": "rubberband-4.0.0/rubberband-4.0.0/src/ext/kissfft/COPYING",
+          "sha256": "a2840585f8411be8e6826a31ef15ae65c950bd74a2437a73b013398a934ad0c6"
+        },
+        {
+          "path": "rubberband-4.0.0/rubberband-4.0.0/src/ext/speex/COPYING",
+          "sha256": "b3da65c2cff5522b5a22438afb1fa99873e6567a2aebb17b198c58b15b09d5f3"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libsamplerate-0.2.2",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "16e881487f184250deb4fcb60432d7556ab12cb58caea71ef23960aec6c0405a",
+      "binaries": [
+        "lib/libsamplerate.0.2.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libsamplerate-0.2.2/libsamplerate-0.2.2/AUTHORS",
+          "sha256": "1407129d9cf9ee8444e0a397577fa384c945646d74beb3c66aab626024418230"
+        },
+        {
+          "path": "libsamplerate-0.2.2/libsamplerate-0.2.2/COPYING",
+          "sha256": "2c1f76ce2effdddb425018405d5690c0b1ab4e6976e35296b0a6db65c5e1a55d"
+        },
+        {
+          "path": "libsamplerate-0.2.2/libsamplerate-0.2.2/docs/license.md",
+          "sha256": "9722032e4b5684f0ecd399480183a9029623636add1e9515621defaf8dbcf3ed"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "ggml-0.27.0",
+      "recorded_license": "MIT",
+      "source_sha256": "a4bec5021627a204984f8abd34781eb3bf5dee586b6337246c952d2103d7ef45",
+      "binaries": [
+        "lib/libggml-base.0.27.0.dylib",
+        "lib/libggml.0.27.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "ggml-0.27.0/ggml-0.27.0/AUTHORS",
+          "sha256": "922076fa7d30acba9058abe144b9fe22815d26ac2ec3241e02977a20dd5df218"
+        },
+        {
+          "path": "ggml-0.27.0/ggml-0.27.0/LICENSE",
+          "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+        },
+        {
+          "path": "ggml-0.27.0/ggml-0.27.0/scripts/gen-authors.sh",
+          "sha256": "3d9f4568c55cfb5d79e2388f33a3da91dcca5c797a72fd5737ee1a5bf450acef"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "whisper.cpp-1.9.5",
+      "recorded_license": "MIT",
+      "source_sha256": "ff1a9053feb509ff9d7729703355541ae9690073a6b1c40eb692c962e0dc1720",
+      "binaries": [
+        "lib/libwhisper.1.9.5.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "whisper.cpp-1.9.5/whisper.cpp-1.9.5/AUTHORS",
+          "sha256": "09800c8c5bdf54bcfd65d869c85ea1b1756016f15798bef9e706ca390ab04f12"
+        },
+        {
+          "path": "whisper.cpp-1.9.5/whisper.cpp-1.9.5/LICENSE",
+          "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+        },
+        {
+          "path": "whisper.cpp-1.9.5/whisper.cpp-1.9.5/bindings/go/LICENSE",
+          "sha256": "3fa8d70be1f0deb5fb971a9c36cfbdcdc904fa46646560f9ac859494b40248b6"
+        },
+        {
+          "path": "whisper.cpp-1.9.5/whisper.cpp-1.9.5/examples/wchess/wchess.wasm/chessboardjs-1.0.0/js/chessboard-1.0.0/LICENSE.md",
+          "sha256": "d33e835c372360941e425214c06c2063f7058d850b9a0153d5a624c1cab9bf31"
+        },
+        {
+          "path": "whisper.cpp-1.9.5/whisper.cpp-1.9.5/scripts/gen-authors.sh",
+          "sha256": "3d9f4568c55cfb5d79e2388f33a3da91dcca5c797a72fd5737ee1a5bf450acef"
+        },
+        {
+          "path": "whisper.cpp-1.9.5/whisper.cpp-1.9.5/tests/earnings21/normalizers/LICENSE",
+          "sha256": "fff3c2ad5a861a1dedc227f08afca28a12bd6fd80a11e0095901262c4fe61d16"
+        },
+        {
+          "path": "whisper.cpp-1.9.5/whisper.cpp-1.9.5/tests/librispeech-parakeet/normalizers/LICENSE",
+          "sha256": "fff3c2ad5a861a1dedc227f08afca28a12bd6fd80a11e0095901262c4fe61d16"
+        },
+        {
+          "path": "whisper.cpp-1.9.5/whisper.cpp-1.9.5/tests/librispeech/normalizers/LICENSE",
+          "sha256": "fff3c2ad5a861a1dedc227f08afca28a12bd6fd80a11e0095901262c4fe61d16"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "harfbuzz-15.0.0_1",
+      "recorded_license": "MIT",
+      "source_sha256": "968536e9abd782f07f7954044c0c4020199fcdd39b41d221ec42d2a3be4a44df",
+      "binaries": [
+        "lib/libharfbuzz.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "harfbuzz-15.0.0_1/harfbuzz-15.0.0/AUTHORS",
+          "sha256": "19bfe8f5ed100636cd24ab0c90a3f71c21d8b02d9ba00719447a0faab364d49f"
+        },
+        {
+          "path": "harfbuzz-15.0.0_1/harfbuzz-15.0.0/COPYING",
+          "sha256": "ba8f810f2455c2f08e2d56bb49b72f37fcf68f1f4fade38977cfd7372050ad64"
+        },
+        {
+          "path": "harfbuzz-15.0.0_1/harfbuzz-15.0.0/perf/texts/COPYING",
+          "sha256": "cf977e70247d5fa9d44955e4d8ed23b503c31f78570f62136756278c2cfcb3c3"
+        },
+        {
+          "path": "harfbuzz-15.0.0_1/harfbuzz-15.0.0/src/ms-use/COPYING",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        },
+        {
+          "path": "harfbuzz-15.0.0_1/harfbuzz-15.0.0/test/COPYING",
+          "sha256": "9b35b8485f69cd298fccbb3c40a827dc06cf1185553bef827903497d2944a8d7"
+        },
+        {
+          "path": "harfbuzz-15.0.0_1/harfbuzz-15.0.0/test/shape/data/aots/COPYING",
+          "sha256": "f55f74bf740db07bb032a90aa74af4307adea3d489c1ccba12453cf0c0a764cb"
+        },
+        {
+          "path": "harfbuzz-15.0.0_1/harfbuzz-15.0.0/test/shape/data/text-rendering-tests/COPYING",
+          "sha256": "d24039e4d22c9bc72096f6174374539d92a3d6e1163938546ec59179fe095e6f"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libplacebo-7.387.0",
+      "recorded_license": "LGPL-2.1-or-later",
+      "source_sha256": "14ceeeb14d1c08fcdb1a782a06129da11f842c6fddbf3a43c1c4061406ad03d2",
+      "binaries": [
+        "lib/libplacebo.387.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libplacebo-7.387.0/libplacebo-v7.387.0/LICENSE",
+          "sha256": "b3aa400aca6d2ba1f0bd03bd98d03d1fe7489a3bbb26969d72016360af8a5c9d"
+        },
+        {
+          "path": "libplacebo-7.387.0/libplacebo-v7.387.0/demos/LICENSE",
+          "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+        }
+      ],
+      "review": {
+        "status": "static-input-attribution-unresolved",
+        "note": "LGPL source notice preserved; fast_float was substituted by Homebrew headers of unknown historical version. Complete attribution cannot yet be asserted."
+      }
+    },
+    {
+      "package": "tesseract-5.5.3_1",
+      "recorded_license": "Apache-2.0",
+      "source_sha256": "9218e62793116d42a9f6d14cd9348518b27f382096eea3d0f2d1a24616bb5884",
+      "binaries": [
+        "lib/libtesseract.5.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "tesseract-5.5.3_1/tesseract-5.5.3/AUTHORS",
+          "sha256": "720862b7253993b348fe15f37ed6e0d4feb0fc8df8324284d75975d54dd29923"
+        },
+        {
+          "path": "tesseract-5.5.3_1/tesseract-5.5.3/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libarchive-3.8.10",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "56cad765459d5ee25a3b761f90c47d99379d28297fbfb72d908880d6b875fb96",
+      "binaries": [
+        "lib/libarchive.13.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libarchive-3.8.10/libarchive-3.8.10/COPYING",
+          "sha256": "30e556b3959e3985d66efefec5eaac51d4995053caa1d3cffe6eb916f146f229"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libass-0.17.5_1",
+      "recorded_license": "ISC",
+      "source_sha256": "2dca25c0e0c837ddf00b52011b3f82cac1e4ddd3ad018227806b0c2288864acc",
+      "binaries": [
+        "lib/libass.9.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libass-0.17.5_1/libass-0.17.5/COPYING",
+          "sha256": "f7e30699d02798351e7f839e3d3bfeb29ce65e44efa7735c225464c4fd7dfe9c"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libvidstab-1.1.2",
+      "recorded_license": "GPL-2.0-or-later",
+      "source_sha256": "96db34d48a9e3aa13736a48744b56dfb76731ac9bb5193c716de8534c9fd709d",
+      "binaries": [
+        "lib/libvidstab.1.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libvidstab-1.1.2/vid.stab-1.1.2/LICENSE",
+          "sha256": "03f095c5c70ea18ffb2b89dd58e4ee57e4f613d04632993f90c890f4cc125b99"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "zimg-3.0.6",
+      "recorded_license": "WTFPL",
+      "source_sha256": "be89390f13a5c9b2388ce0f44a5e89364a20c1c57ce46d382b1fcc3967057577",
+      "binaries": [
+        "lib/libzimg.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "zimg-3.0.6/zimg-release-3.0.6/COPYING",
+          "sha256": "7637386b5f81e8a719ca336233149005e5fa28b5e6054ea7b67de49355b0ad40"
+        },
+        {
+          "path": "zimg-3.0.6/zimg-release-3.0.6/test/extra/musl-libm/COPYRIGHT",
+          "sha256": "15d9afbf84041872b4d840ed7d165d3eee786ff3f97e703b10467c259ff4e7d9"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "qrencode-4.1.1_1",
+      "recorded_license": "LGPL-2.1-or-later",
+      "source_sha256": "5385bc1b8c2f20f3b91d258bf8ccc8cf62023935df2d2676b5b67049f31a049c",
+      "binaries": [
+        "lib/libqrencode.4.1.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "qrencode-4.1.1_1/libqrencode-4.1.1/COPYING",
+          "sha256": "a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "fontconfig-2.18.3",
+      "recorded_license": "HPND-sell-variant AND Unicode-3.0 AND MIT-Modern-Variant AND MIT AND LicenseRef-Homebrew-public-domain",
+      "source_sha256": "9ae01e1d53acdef56010c5451cd34aa41d325b2faccd8606448d8fa01b2496b3",
+      "binaries": [
+        "lib/libfontconfig.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "fontconfig-2.18.3/fontconfig-2.18.3/AUTHORS",
+          "sha256": "db6d73a160bb2de10268f88ef60aae91771fefdeee4992b791c76ce6592a4a4b"
+        },
+        {
+          "path": "fontconfig-2.18.3/fontconfig-2.18.3/COPYING",
+          "sha256": "51a51aa9823704fd90bccc616cdd17ebabb5b2b3e9cbde886ca02c7002288067"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "freetype-2.15.0",
+      "recorded_license": "FTL",
+      "source_sha256": "93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5",
+      "binaries": [
+        "lib/libfreetype.6.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "freetype-2.15.0/freetype-2.15.0/docs/GPLv2.TXT",
+          "sha256": "c4120c6752c910c299e3bd9cb3a46ff262c268303ca2069b61f92f10a5656c18"
+        },
+        {
+          "path": "freetype-2.15.0/freetype-2.15.0/docs/FTL.TXT",
+          "sha256": "5a5ee54c5001bbad1cdc1a57cc3dd4c42199b2da09d39c7ee41fab002d02967f"
+        },
+        {
+          "path": "freetype-2.15.0/freetype-2.15.0/src/tools/no-copyright",
+          "sha256": "3e2c8db4e09e12e9a138ba7ba8c0b762eff36802c6c1273d73ac049d4949a298"
+        },
+        {
+          "path": "freetype-2.15.0/freetype-2.15.0/src/tools/update-copyright-year",
+          "sha256": "f3e4b6f122dce96b6ba85c3d600fd19a766ab5e0fd0cbdeee785d0d88f111d3a"
+        },
+        {
+          "path": "freetype-2.15.0/freetype-2.15.0/src/tools/update-copyright",
+          "sha256": "ae5b05f1d3f5235eb91ce41518be95022443f68bce5d200b6e1cc1fb57a5017e"
+        },
+        {
+          "path": "freetype-2.15.0/freetype-2.15.0/LICENSE.TXT",
+          "sha256": "bd36c8b474855fa294c2ec5c184544478ef3720aad37d65a6296a4f264fd2d3b"
+        }
+      ],
+      "review": {
+        "status": "referenced-license-restored",
+        "note": "FTL selected; full docs/FTL.TXT and FreeType acknowledgement supplied. Root LICENSE.TXT alone was insufficient. GPL alternative and driver notices retained.",
+        "evidence": [
+          "freetype-2.15.0/LICENSE.TXT",
+          "freetype-2.15.0/docs/FTL.TXT",
+          "freetype-2.15.0/docs/GPLv2.TXT"
+        ]
+      }
+    },
+    {
+      "package": "sdl2-compat-2.32.74",
+      "recorded_license": "Zlib",
+      "source_sha256": "ec68abde77e2e459c8abc4f9587b8976b5d2a657b2bfda2fb3a079b0f8924588",
+      "binaries": [
+        "lib/libSDL2-2.0.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "sdl2-compat-2.32.74/sdl2-compat-2.32.74/LICENSE.txt",
+          "sha256": "0164aec3168ca9606c1f6066e879b4e8c7f2e46a838391f284348ab0aa1eabf2"
+        },
+        {
+          "path": "sdl2-compat-2.32.74/sdl2-compat-2.32.74/include/SDL2/SDL_copying.h",
+          "sha256": "9ffcfd798ec40121bd85b12780a83b4638b7bd4e382d554aa243e870d352bdf5"
+        },
+        {
+          "path": "sdl2-compat-2.32.74/sdl2-compat-2.32.74/test/COPYING",
+          "sha256": "d5a549e4a7b88cb696d0db15b21830061131ed361257ab399a33ca08ce0b33d5"
+        },
+        {
+          "path": "sdl2-compat-2.32.74/sdl2-compat-2.32.74/test/unifont-13.0.06-license.txt",
+          "sha256": "b7e8b9d8656d5216a61f48c7e62704b8aec50e8af8ca410b28fb04ea32e0f220"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libudfread-1.2.0",
+      "recorded_license": "LGPL-2.1-or-later",
+      "source_sha256": "bb477cbd4cfbfc7787d9d05b71ee5e70430f5cfebf1297497f7e83547958050f",
+      "binaries": [
+        "lib/libudfread.3.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libudfread-1.2.0/libudfread-1.2.0/COPYING",
+          "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "gettext-1.0",
+      "recorded_license": "GPL-3.0-or-later AND LGPL-2.1-or-later",
+      "source_sha256": "85d99b79c981a404874c02e0342176cf75c7698e2b51fe41031cf6526d974f1a",
+      "binaries": [
+        "lib/libintl.8.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "gettext-1.0/gettext-1.0/AUTHORS",
+          "sha256": "167b04ed012e59c2d2cfc87d420d8c8a8f5c528ef1fd068598b36d57f39db203"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-runtime/AUTHORS",
+          "sha256": "136ea88816ec1990c2fc060970013b9e94c875ba8b387f9bb3d62e77c90bc9b4"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-runtime/intl/AUTHORS",
+          "sha256": "4bd9e2cd15ab6d68b30965512b63a1d4aae95f4c1dd040657a4d1300252a695f"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-runtime/libasprintf/AUTHORS",
+          "sha256": "590f1c4aa72c2c14dd52b0e230bf652e2109d00099fc7bb272e4594b800913d0"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/AUTHORS",
+          "sha256": "4027705b723299dd8e6153939ab73395e22685503994cc8de92fa2ebaa432a49"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/libtextstyle/AUTHORS",
+          "sha256": "71c0580cb05d28848b341e5a4da2761d4a8eb482592358d646dab104648a8303"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/COPYING",
+          "sha256": "e79e9c8a0c85d735ff98185918ec94ed7d175efc377012787aebcf3b80f0d90b"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-runtime/COPYING",
+          "sha256": "7ef2cdfe58e0c0460657b6598b49af29d4e03c1e41cbaf0e1da1eb8ad74b95d0"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-runtime/libasprintf/COPYING",
+          "sha256": "03133addae5b99a6148c538300e6d97074453089be1423b741bd081f18e2b298"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/COPYING",
+          "sha256": "5d4cff30d5038f82a0edc79798456049b61e1752fdb7e9ab1f4bfb9fae3a7303"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/gnulib-lib/libxml/COPYING",
+          "sha256": "c5c63674f8a83c4d2e385d96d1c670a03cb871ba2927755467017317878574bd"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gnulib-local/lib/libxml/COPYING",
+          "sha256": "c5c63674f8a83c4d2e385d96d1c670a03cb871ba2927755467017317878574bd"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/libtextstyle/COPYING",
+          "sha256": "e79e9c8a0c85d735ff98185918ec94ed7d175efc377012787aebcf3b80f0d90b"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/libtextstyle/lib/libxml/COPYING",
+          "sha256": "c5c63674f8a83c4d2e385d96d1c670a03cb871ba2927755467017317878574bd"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-runtime/intl/COPYING.LIB",
+          "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-runtime/libasprintf/COPYING.LIB",
+          "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/tree-sitter-0.23.2/LICENSE",
+          "sha256": "5f9cf9fb6acb1972b35ae29119ce563bb60ec097656bc4b69b9bac2d04c7a147"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/tree-sitter-0.23.2/lib/src/unicode/LICENSE",
+          "sha256": "6a18c5fac70d7860b57f5b72b4e2c9a1ba6b3d2741eef7ff9767c5379364f10d"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/tree-sitter-d-0.8.2/LICENSE",
+          "sha256": "ecf206b1a27e8e4ea07f1e1529cb111b4be5ce8420bd27b8269981d9c0c389f8"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/tree-sitter-go-0.23.4/LICENSE",
+          "sha256": "2e0110e07abef7c2548b26ec9d6969775617ca539a0dc8dbeeb14d6452c711d1"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/tree-sitter-ocaml-0.23.2/LICENSE",
+          "sha256": "f977a20805dd6e275f14bc090a5f8e638401dad4df366841c1060f12c75b74ae"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/tree-sitter-rust-0.23.2/LICENSE",
+          "sha256": "31d5b6f4243d5c7c6e1c4ebbbb9f6407bd1457a08bcc4f706521710341acba36"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/gettext-tools/tree-sitter-typescript-0.23.2/LICENSE",
+          "sha256": "49bf33cf78ef5897e4e161ce1517df7de1ae5042a65b6bcfd44401e0fc606559"
+        },
+        {
+          "path": "gettext-1.0/gettext-1.0/check-copyright-headers",
+          "sha256": "ab4debce24b500a2a56d22d2850e521a0630dc7fa4b22d65fb0ce0f9b4ec4a1a"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "p11-kit-0.26.5",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "f2cc09111e44bf3fea58f023180b33acea90aa82d042d6fbb623fbc5ba033bb7",
+      "binaries": [
+        "lib/libp11-kit.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "p11-kit-0.26.5/p11-kit-0.26.5/AUTHORS",
+          "sha256": "cde5ccbf5083e28d1b38333b5817be06c158fb3218f21ee5594b6125a9372591"
+        },
+        {
+          "path": "p11-kit-0.26.5/p11-kit-0.26.5/COPYING",
+          "sha256": "2e1ba993904df807a10c3eda1e5c272338edc35674b679773a8b3ad460731054"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libidn2-2.3.8",
+      "recorded_license": "(GPL-2.0-or-later OR LGPL-3.0-or-later) AND (Unicode-TOU AND Unicode-DFS-2016) AND GPL-3.0-or-later AND LGPL-2.1-or-later AND FSFAP-no-warranty-disclaimer",
+      "source_sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a",
+      "binaries": [
+        "lib/libidn2.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libidn2-2.3.8/libidn2-2.3.8/AUTHORS",
+          "sha256": "7719304df806ca5cd68c1f1c7e0139e0c11ed14fede560ae192d3c4d1989e839"
+        },
+        {
+          "path": "libidn2-2.3.8/libidn2-2.3.8/COPYING",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        },
+        {
+          "path": "libidn2-2.3.8/libidn2-2.3.8/COPYING.LESSERv3",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        },
+        {
+          "path": "libidn2-2.3.8/libidn2-2.3.8/COPYING.unicode",
+          "sha256": "01d621eef165cf4d3d3dbb737aa0699178d94c6f18cf87e9dde6db3ca7790f46"
+        },
+        {
+          "path": "libidn2-2.3.8/libidn2-2.3.8/build-aux/update-copyright",
+          "sha256": "1abd3f23319daaa0d4f2e597bb2d706c0eff24567789052dbfae4341cfc2ec56"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libunistring-1.5",
+      "recorded_license": "GPL-2.0-or-later OR LGPL-3.0-or-later",
+      "source_sha256": "5b0ecd46cbf225375f20ab4056197e66a7ac590e2684c069af407ae3383c9d81",
+      "binaries": [
+        "lib/libunistring.5.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libunistring-1.5/libunistring-1.5/COPYING.LIB",
+          "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+        },
+        {
+          "path": "libunistring-1.5/libunistring-1.5/AUTHORS",
+          "sha256": "9877ee5d24b5fa059fcc3ff2f4af36918f7c5676de000b9cb5ec11efa6aac149"
+        },
+        {
+          "path": "libunistring-1.5/libunistring-1.5/COPYING",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libtasn1-4.21.0",
+      "recorded_license": "LGPL-2.1-or-later",
+      "source_sha256": "1d8a444a223cc5464240777346e125de51d8e6abf0b8bac742ac84609167dc87",
+      "binaries": [
+        "lib/libtasn1.6.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libtasn1-4.21.0/libtasn1-4.21.0/AUTHORS",
+          "sha256": "34384e8860c713e31e9339a5d4eb0727a9a93d2a5bb74b36053d9a66920bff9e"
+        },
+        {
+          "path": "libtasn1-4.21.0/libtasn1-4.21.0/COPYING",
+          "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+        },
+        {
+          "path": "libtasn1-4.21.0/libtasn1-4.21.0/COPYING.LESSERv2",
+          "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+        },
+        {
+          "path": "libtasn1-4.21.0/libtasn1-4.21.0/build-aux/update-copyright",
+          "sha256": "bf091b6567233a12d9dbd9c2668e07915741199b0815a05b8be74353f58033d4"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "nettle-4.0",
+      "recorded_license": "GPL-2.0-or-later OR LGPL-3.0-or-later",
+      "source_sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094",
+      "binaries": [
+        "lib/libhogweed.7.0.dylib",
+        "lib/libnettle.9.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "nettle-4.0/nettle-4.0/AUTHORS",
+          "sha256": "6fd91e60caa0c33dd22888b710fcfa36532bbbef00d85c78de385dcd97f7b9ee"
+        },
+        {
+          "path": "nettle-4.0/nettle-4.0/COPYING.LESSERv3",
+          "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "gmp-6.3.0",
+      "recorded_license": "LGPL-3.0-or-later OR GPL-2.0-or-later",
+      "source_sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898",
+      "binaries": [
+        "lib/libgmp.10.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "gmp-6.3.0/gmp-6.3.0/COPYING",
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+        },
+        {
+          "path": "gmp-6.3.0/gmp-6.3.0/COPYING.LESSERv3",
+          "sha256": "a853c2ffec17057872340eee242ae4d96cbf2b520ae27d903e1b2fef1a5f9d1c"
+        },
+        {
+          "path": "gmp-6.3.0/gmp-6.3.0/AUTHORS",
+          "sha256": "da5870e2f0482c5dc15b4cfed8bbfb51ce1279c8f8fc52bdb8c13c7cee949c32"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "cjson-1.7.19",
+      "recorded_license": "MIT",
+      "source_sha256": "7fa616e3046edfa7a28a32d5f9eacfd23f92900fe1f8ccd988c1662f30454562",
+      "binaries": [
+        "lib/libcjson.1.7.19.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "cjson-1.7.19/cJSON-1.7.19/LICENSE",
+          "sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c"
+        },
+        {
+          "path": "cjson-1.7.19/cJSON-1.7.19/tests/unity/docs/license.txt",
+          "sha256": "3ed9b51da86f52c729c96cc99fdde6444b2297c788a9cf4ad1d3649dc34c4985"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "lz4-1.10.0",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "537512904744b35e232912055ccf8ec66d768639ff3abe5788d90d792ec5f48b",
+      "binaries": [
+        "lib/liblz4.1.10.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "lz4-1.10.0/lz4-1.10.0/LICENSE",
+          "sha256": "4bc9c403f6b679cc076dee210e0e21c27b4e8f6d3fb43d85364c76657bfaaac5"
+        },
+        {
+          "path": "lz4-1.10.0/lz4-1.10.0/contrib/debian/copyright",
+          "sha256": "4f6ef9d0e844bf432d6a0abb2623f5a61175ae40f7f0e3665490311d89e3af87"
+        },
+        {
+          "path": "lz4-1.10.0/lz4-1.10.0/contrib/djgpp/LICENSE",
+          "sha256": "d011d1e02cb32b71c1ce2922ab41a2e2ad30f4ecf8de22c078d53618205abc05"
+        },
+        {
+          "path": "lz4-1.10.0/lz4-1.10.0/examples/COPYING",
+          "sha256": "609b910ef05c9c855ecc1da155a36ed0f57514eac452cf93446530b5ea4b3bc3"
+        },
+        {
+          "path": "lz4-1.10.0/lz4-1.10.0/lib/LICENSE",
+          "sha256": "8b58c446121a109ccf32edc094bba3010a3d85e4ee3702950db55e4d3e87736c"
+        },
+        {
+          "path": "lz4-1.10.0/lz4-1.10.0/programs/COPYING",
+          "sha256": "609b910ef05c9c855ecc1da155a36ed0f57514eac452cf93446530b5ea4b3bc3"
+        },
+        {
+          "path": "lz4-1.10.0/lz4-1.10.0/tests/COPYING",
+          "sha256": "609b910ef05c9c855ecc1da155a36ed0f57514eac452cf93446530b5ea4b3bc3"
+        }
+      ],
+      "review": {
+        "status": "shipped-library-scope-reviewed",
+        "note": "Shipped library uses BSD-2-Clause per source LICENSE; GPL command-line tool is not shipped."
+      }
+    },
+    {
+      "package": "openssl@4-4.1.0",
+      "recorded_license": "Apache-2.0",
+      "source_sha256": "50c17baf54cb008f6ce42d50deb4b28050a1aad711636cabd4b241c7e90cc2fd",
+      "binaries": [
+        "lib/libcrypto.4.dylib",
+        "lib/libssl.4.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "openssl_4-4.1.0/openssl-4.1.0/AUTHORS.md",
+          "sha256": "b9f638dfc06b59c2d3b808186c3b30f713805a5db390f5b77b1703ac58acb83e"
+        },
+        {
+          "path": "openssl_4-4.1.0/openssl-4.1.0/LICENSE.txt",
+          "sha256": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a"
+        },
+        {
+          "path": "openssl_4-4.1.0/openssl-4.1.0/external/perl/Text-Template-1.56/LICENSE",
+          "sha256": "9837f05336ef3cbacb6a96e1672a0426d81ad01191f214b8d48e22ca62338181"
+        },
+        {
+          "path": "openssl_4-4.1.0/openssl-4.1.0/util/perl/OpenSSL/copyright.pm",
+          "sha256": "3bcbc1f6a60606607b9dfbd1694cafa603b1ba7dd62d21dde1466c131df7e06d"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libsodium-1.0.22",
+      "recorded_license": "ISC",
+      "source_sha256": "adbdd8f16149e81ac6078a03aca6fc03b592b89ef7b5ed83841c086191be3349",
+      "binaries": [
+        "lib/libsodium.26.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libsodium-1.0.22/libsodium-1.0.22/AUTHORS",
+          "sha256": "ecd364ba590239cbd29d051e73a0a8b4bbd719137a0a64a41409e21f3e7a3035"
+        },
+        {
+          "path": "libsodium-1.0.22/libsodium-1.0.22/LICENSE",
+          "sha256": "508a76d186356c0dd807a670ef510964f8724557024796a2c426c6c0e19ab683"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libpng-1.6.59",
+      "recorded_license": "libpng-2.0",
+      "source_sha256": "d80dd2a38a37f803cb9b6ac7b14bd6e74ddc3b654780a8380bdf93523fdb4389",
+      "binaries": [
+        "lib/libpng16.16.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/AUTHORS",
+          "sha256": "b55efa9a0bb709187cfb609860e926535b462a28bbf61b4294bc2e724747cb8e"
+        },
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/LICENSE",
+          "sha256": "bdb0a645ea18c60507d0368379b1ac5474b92255fcc2d115e07486a7672ba526"
+        },
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/LICENSES/MIT-0.txt",
+          "sha256": "8876cdca96eb380d16d5ea32bf4529d85e87dedc7765ae2861a9bec7f34acbed"
+        },
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/LICENSES/MIT.txt",
+          "sha256": "508a77d2e7b51d98adeed32648ad124b7b30241a8e70b2e72c99f92d8e5874d1"
+        },
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/contrib/gregbook/COPYING",
+          "sha256": "d6cb0e9e560f51085556949a84af12b79a00f10ab8b66c752537faf7cd665572"
+        },
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/contrib/gregbook/LICENSE",
+          "sha256": "b6a03c1803eb58ffb1f1278d5c7d4096c4c116e66dce8a7553e8c77d163c3438"
+        },
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/contrib/pngexif/LICENSE_MIT.txt",
+          "sha256": "508a77d2e7b51d98adeed32648ad124b7b30241a8e70b2e72c99f92d8e5874d1"
+        },
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/contrib/pngminus/LICENSE.txt",
+          "sha256": "1806f1f10d393e9e377b3a8d1b968452b54f1a90378f14eeef45426946ace330"
+        },
+        {
+          "path": "libpng-1.6.59/libpng-1.6.59/scripts/cmake/AUTHORS.md",
+          "sha256": "041eb1a61714e564f39735695377093c4e8eace8f7b460be2d4ce8876e4a6466"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "highway-1.4.0",
+      "recorded_license": "Apache-2.0 OR BSD-3-Clause",
+      "source_sha256": "e72241ac9524bb653ae52ced768b508045d4438726a303f10181a38f764a453c",
+      "binaries": [
+        "lib/libhwy.1.4.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "highway-1.4.0/highway-1.4.0/LICENSE",
+          "sha256": "e340270d4f64384569a91d546acb5b094d69ce47f0c015db77abb74dc6f815af"
+        },
+        {
+          "path": "highway-1.4.0/highway-1.4.0/debian/copyright",
+          "sha256": "6e4ecf1cae052b678ea3178dd4b3652d581ee66a82d58db8800dd7d80dd6de76"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "brotli-1.2.1",
+      "recorded_license": "MIT",
+      "source_sha256": "98d35d11a78dc453aebb7d10c3748f3f73ff78c8267c0dc697b8631f67bf7e8f",
+      "binaries": [
+        "lib/libbrotlicommon.1.2.1.dylib",
+        "lib/libbrotlidec.1.2.1.dylib",
+        "lib/libbrotlienc.1.2.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "brotli-1.2.1/brotli-1.2.1/LICENSE",
+          "sha256": "3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "mpg123-1.33.7",
+      "recorded_license": "LGPL-2.1-only",
+      "source_sha256": "31d0e35a4ca567ec9b5ebda6c3062bb4435d6d3eacd6ef0d95cadd7854dc03ee",
+      "binaries": [
+        "lib/libmpg123.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "mpg123-1.33.7/mpg123-1.33.7/AUTHORS",
+          "sha256": "fb18c9abae864a20f691e949e4c7871c79f5f0861b3a3dcaf5881c3c02cf5cc2"
+        },
+        {
+          "path": "mpg123-1.33.7/mpg123-1.33.7/COPYING",
+          "sha256": "c22482728a634a8dfdb4ff72a96d4c1ed64cd8f3e79335c401751ac591609366"
+        },
+        {
+          "path": "mpg123-1.33.7/mpg123-1.33.7/doc/PATENTS",
+          "sha256": "a16db5483cc2ab07a81b152fe9147f0ef196d38d26477c7b8c803aff6522e8bc"
+        },
+        {
+          "path": "mpg123-1.33.7/mpg123-1.33.7/doc/LICENSE",
+          "sha256": "cca79ea6fc0a7715e52450df2d86311f990e85067dd13f4d7f5a88d4fd23a07c"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libxau-1.0.12",
+      "recorded_license": "MIT",
+      "source_sha256": "74d0e4dfa3d39ad8939e99bda37f5967aba528211076828464d2777d477fc0fb",
+      "binaries": [
+        "lib/libXau.6.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libxau-1.0.12/libXau-1.0.12/AUTHORS",
+          "sha256": "151282e906d23afcd2e40762782124616083d81de5205be74f668714b9bf168b"
+        },
+        {
+          "path": "libxau-1.0.12/libXau-1.0.12/COPYING",
+          "sha256": "56abe29bb1d9806a9e04fa9f80fed2c0f18027594df3f098148d814aef6bddfa"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libxdmcp-1.1.5",
+      "recorded_license": "MIT",
+      "source_sha256": "d8a5222828c3adab70adf69a5583f1d32eb5ece04304f7f8392b6a353aa2228c",
+      "binaries": [
+        "lib/libXdmcp.6.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libxdmcp-1.1.5/libXdmcp-1.1.5/COPYING",
+          "sha256": "8a3c3f35b0dbcb60a4e242b9e4394a352a65bb27deb2938ea1e2e62a626e16e9"
+        },
+        {
+          "path": "libxdmcp-1.1.5/libXdmcp-1.1.5/AUTHORS",
+          "sha256": "81b60a90982e139aaa3e71beaefdf00a5b7d6dbd3efe3d9724eac5d0992cc68f"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libomp-23.1.4",
+      "recorded_license": "MIT",
+      "source_sha256": "819ecf7351f1a66f76b2d701d8942faaf5faeb324cb90c9d5b090de142434bb2",
+      "binaries": [
+        "lib/libomp.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/LICENSE.TXT",
+          "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/bolt/LICENSE.TXT",
+          "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/clang-tools-extra/LICENSE.TXT",
+          "sha256": "ebcd9bbf783a73d05c53ba4d586b8d5813dcdf3bbec50265860ccc885e606f47"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/clang-tools-extra/clang-tidy/cert/LICENSE.TXT",
+          "sha256": "d8e09a37202601346ed9f3962c843cf60d985570111602399a9b845c44a654ba"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/clang/LICENSE.TXT",
+          "sha256": "ebcd9bbf783a73d05c53ba4d586b8d5813dcdf3bbec50265860ccc885e606f47"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/clang/test/CodeGen/PowerPC/pragma-comment-copyright-modules.cpp",
+          "sha256": "2237dcb442282a40cb1b7eb7ec1f75682337572add96130cc9dfd72b0e783415"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/compiler-rt/LICENSE.TXT",
+          "sha256": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/cross-project-tests/debuginfo-tests/dexter/LICENSE.txt",
+          "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/flang-rt/LICENSE.TXT",
+          "sha256": "94b301bb652ae351f5941655bf533f1a136300ad1396be7452c8a04ff2c91374"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/flang/LICENSE.TXT",
+          "sha256": "94b301bb652ae351f5941655bf533f1a136300ad1396be7452c8a04ff2c91374"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/flang/test/Semantics/OpenMP/copying.f90",
+          "sha256": "8ee630d873d892103b1298e8fbeb2360c86f374e13eb34b2e9916c9424fb53dc"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libc/LICENSE.TXT",
+          "sha256": "ebcd9bbf783a73d05c53ba4d586b8d5813dcdf3bbec50265860ccc885e606f47"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libclc/LICENSE.TXT",
+          "sha256": "3c536c052db9afd997809e38785c9f2a9e54e2892330fa7c5b438e18a7413479"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libcxx/LICENSE.TXT",
+          "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libcxx/test/libcxx-03/algorithms/robust_against_copying_comparators.pass.cpp",
+          "sha256": "b5c019419710c478f92d9fd50935aa541c592f1c49c44ceba630a1d0f476fb7b"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libcxx/test/libcxx/algorithms/ranges_robust_against_copying_comparators.pass.cpp",
+          "sha256": "d2ce7fa574a94c49e92e8023739360a7efeacb5afff88b7d80feb3e3dc9ae15e"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libcxx/test/libcxx/algorithms/ranges_robust_against_copying_projections.pass.cpp",
+          "sha256": "75abf3eb20f808dd691dd3a1ae9ffe769168d8fc87243efd0b179dcee3273f02"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libcxx/test/libcxx/algorithms/robust_against_copying_comparators.pass.cpp",
+          "sha256": "d951cf2be0d210595c103c7ee6dee0c8e4441ed046456504ed25271ec7b42328"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libcxxabi/LICENSE.TXT",
+          "sha256": "e2b35be49f7284a45b7baca8fc7b3ab7440e7902392b2528a457816b5bb2a15c"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libsycl/LICENSE.txt",
+          "sha256": "3340babe8ac7bc6ae294d93aa01c310a250d43d5b760e5c12954882d4e5c83c7"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/libunwind/LICENSE.TXT",
+          "sha256": "b5efebcaca80879234098e52d1725e6d9eb8fb96a19fce625d39184b705f7b6d"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/lld/LICENSE.TXT",
+          "sha256": "f7891568956e34643eb6a0db1462db30820d40d7266e2a78063f2fe233ece5a0"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/lldb/LICENSE.TXT",
+          "sha256": "76be4deddeef87f6fa9940f4992a9506c7bb222af60eb3b2a47cf65719528bbe"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/lldb/source/Plugins/Highlighter/TreeSitter/Rust/tree-sitter-rust/LICENSE",
+          "sha256": "31d5b6f4243d5c7c6e1c4ebbbb9f6407bd1457a08bcc4f706521710341acba36"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/lldb/source/Plugins/Highlighter/TreeSitter/Swift/tree-sitter-swift/LICENSE",
+          "sha256": "3533cec129bb4bba015c0d61d86dd7c3b7e82110e4d2ff7837a01eff5bad5ccc"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/lldb/tools/lldb-dap/extension/LICENSE.TXT",
+          "sha256": "94b301bb652ae351f5941655bf533f1a136300ad1396be7452c8a04ff2c91374"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/llvm/LICENSE.TXT",
+          "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/llvm/include/llvm/Support/LICENSE.TXT",
+          "sha256": "54cbc326a78b9400065bfc5830a57fdcdaf808286d4ac35d8a9e324aa77b7241"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/llvm/lib/Support/BLAKE3/LICENSE",
+          "sha256": "6a94bedb8b707ed97f6e310d0d015ab14e0683ffa0a612b02958581b9cc9fc0e"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/llvm/lib/Support/COPYRIGHT.regex",
+          "sha256": "0424e57d4303164dc59a8509c20dae0518b853692e5c2b0e98b11816fdbc97c7"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/llvm/test/YAMLParser/LICENSE.txt",
+          "sha256": "d0d8b09800a45cd982e9568fc7669d9c1a4c330e275a821bbe24d54366d16fe9"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/llvm/utils/lit/LICENSE.TXT",
+          "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/mlir/LICENSE.TXT",
+          "sha256": "94b301bb652ae351f5941655bf533f1a136300ad1396be7452c8a04ff2c91374"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/openmp/LICENSE.TXT",
+          "sha256": "fdad1758a9e1f9d5a81e18879b3406772115edc92c24bfa36b70c654f325e8e4"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/openmp/runtime/src/thirdparty/ittnotify/LICENSE.txt",
+          "sha256": "cf48cdd9ed87c2031b68fb1b9f4cfb55d00dcf815b21a30bf8304aa1e5e6f76a"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/orc-rt/LICENSE.TXT",
+          "sha256": "94b301bb652ae351f5941655bf533f1a136300ad1396be7452c8a04ff2c91374"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/polly/LICENSE.TXT",
+          "sha256": "eef85b40250d830eb76577fb44933cc5d81a8650f3848e5f3d89229e6995ffd3"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/polly/lib/External/isl/AUTHORS",
+          "sha256": "b32faff016b6e7ed7a8887672cdb2ec5607964193a5e03590db4cea48c1d3ca8"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/polly/lib/External/isl/LICENSE",
+          "sha256": "3a2c398103f6bca0f50a9a9465deca9230b370b0212af5fdf31ed88a36215c30"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/polly/lib/External/isl/imath/LICENSE",
+          "sha256": "4556b2d9e53920d10c972b2a4a78fbbb3aedb510686f2a1cd8d41e6a8adf24e5"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/third-party/benchmark/AUTHORS",
+          "sha256": "7ba6f34ad92df42a79c85c117be3689fd58f1caca11f43aaab413d20df1f9f0e"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/third-party/benchmark/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/third-party/boost-math/LICENSE",
+          "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/third-party/unittest/googlemock/LICENSE.txt",
+          "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+        },
+        {
+          "path": "libomp-23.1.4/llvm-project-23.1.4.src/third-party/unittest/googletest/LICENSE.TXT",
+          "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+        }
+      ],
+      "review": {
+        "status": "metadata-corrected-in-notice-index",
+        "note": "OpenMP source specifies Apache-2.0 WITH LLVM-exception, not the SBOM's MIT label. Preserve openmp/LICENSE.TXT and runtime/src/thirdparty/ittnotify/LICENSE.txt; source includes legacy notices as well.",
+        "evidence": [
+          "llvm-project-23.1.4.src/openmp/LICENSE.TXT",
+          "llvm-project-23.1.4.src/openmp/runtime/src/thirdparty/ittnotify/LICENSE.txt"
+        ]
+      }
+    },
+    {
+      "package": "glib-2.90.1",
+      "recorded_license": "LGPL-2.1-or-later",
+      "source_sha256": "93c941aa17d5eb1d53fe838365f29a8b4e539c222a256d974ec8f30fc413e396",
+      "binaries": [
+        "lib/libglib-2.0.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/AFL-2.0.txt",
+          "sha256": "7ecc7db84298adb05d2cf10339c63a5315a1c5c270a68d97d7d40a53b508ccde"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/Apache-2.0.txt",
+          "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/CC-BY-SA-3.0.txt",
+          "sha256": "3f941b3b89cf7b8370ceb83cc76d2120d471b58735d8ca60238a751a48d7f72f"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/CC0-1.0.txt",
+          "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/GPL-2.0-or-later.txt",
+          "sha256": "aaf135472f81c5b4a0dca9367e5bb5e9750032b5bebe5442b36e4c0a47430df3"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/LGPL-2.1-only.txt",
+          "sha256": "fa6f36630bb1e0c571d34b2bbdf188d08495c9dbf58f28cac112f303fc1f58fb"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/LGPL-2.1-or-later.txt",
+          "sha256": "fa6f36630bb1e0c571d34b2bbdf188d08495c9dbf58f28cac112f303fc1f58fb"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/LLVM-exception.txt",
+          "sha256": "e34c58338bd89d43e709e226610d8f32b3e3c47f4ad9a99a8dc1d4ac7842488e"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/LicenseRef-old-glib-tests.txt",
+          "sha256": "fb261b2d5dbe76c4850f90da763210bc385e52428df6bbfd7b06295ac8a32914"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/MIT.txt",
+          "sha256": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/LICENSES/MPL-1.1.txt",
+          "sha256": "6214f8b1300bb9f37b16ebc146f8f61af0187e0025042ff95c8b3030744a8795"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/docs/reference/AUTHORS",
+          "sha256": "b4f60a02b2b1f82764f8295b2eafbfcd4c33f596d70abcf5cb3c3623b1cfbc6d"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/docs/reference/COPYING",
+          "sha256": "b1ec1d0e5947f81e815d8771f7d4d90671a94bb10a42dc687fb566de461a57aa"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/gmodule/AUTHORS",
+          "sha256": "28073c8c65c072387b778ba00b6c24a2ff1b573ca4415e151aa91fab5a6454be"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/subprojects/gvdb/COPYING",
+          "sha256": "bdbcdaa7858872393e9d6b216bbdc8a23e99d98dd6cdb7cda19458025b9e19fc"
+        },
+        {
+          "path": "glib-2.90.1/glib-2.90.1/subprojects/gvdb/LICENSES/LGPL-2.1-or-later.txt",
+          "sha256": "5749785c8bdefafcb5d798270ed0a967036fe2ca63dcedade1627565dfef81d2"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "graphite2-1.3.15",
+      "recorded_license": "GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1+",
+      "source_sha256": "c6bc8b4252724665297f7cad0c55897285c673f9b8e6db3522ace833593fe0b1",
+      "binaries": [
+        "lib/libgraphite2.3.3.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "graphite2-1.3.15/graphite2-1.3.15/COPYING",
+          "sha256": "2c272829ff23f182c8bf7ea12fedea69b0ae148663123ed5240c117cb129c9c1"
+        },
+        {
+          "path": "graphite2-1.3.15/graphite2-1.3.15/LICENSE",
+          "sha256": "cab46cd45adbfea4b1d0f14b033c70062c73074fa0b56532c2f351576ddf455e"
+        },
+        {
+          "path": "graphite2-1.3.15/graphite2-1.3.15/debian-src/copyright",
+          "sha256": "88f17179e66c9efcdd88316a0294499bd5e221e8ccb14523c389fccc491bfb3a"
+        },
+        {
+          "path": "graphite2-1.3.15/graphite2-1.3.15/site/LICENSE",
+          "sha256": "d33679dceb70f30adc7d184ab009dc92e7b03385a606e544feb7465357e078d3"
+        }
+      ],
+      "review": {
+        "status": "metadata-corrected-in-notice-index",
+        "note": "Source offers LGPL-2.1+, MPL-2.0, GPL-2.0+ or MIT for SIL-authored material; the recorded MPL-1.1+ label is stale. Preserve the full source LICENSE and file-specific exceptions.",
+        "evidence": [
+          "graphite2-1.3.15/LICENSE",
+          "graphite2-1.3.15/COPYING"
+        ]
+      }
+    },
+    {
+      "package": "shaderc-2026.4",
+      "recorded_license": "Apache-2.0",
+      "source_sha256": "f06ce5bcca94e5df7f34e115743597d0ad2e13c5fe9213c67dc8c76031241947",
+      "binaries": [
+        "lib/libshaderc_shared.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "shaderc-2026.4/shaderc-2026.4/AUTHORS",
+          "sha256": "9fb4b067e4c9a1f91ea1c26465b3d1c6b515cb24860e0dbb719879925a5a1248"
+        },
+        {
+          "path": "shaderc-2026.4/shaderc-2026.4/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "path": "shaderc-2026.4/shaderc-2026.4/license-checker.cfg",
+          "sha256": "ff39f110e4b17c6a2e24eacc14a32674c2c1f2385828bdc23a0399d3475fffc8"
+        },
+        {
+          "path": "shaderc-2026.4/shaderc-2026.4/third_party/LICENSE.glslang",
+          "sha256": "b5a00e94f058edc87e05978329b55730d8689abe61205d9018443d03de4f07da"
+        },
+        {
+          "path": "shaderc-2026.4/shaderc-2026.4/third_party/LICENSE.spirv-tools",
+          "sha256": "47e20ce182bc68fab1a0cfb129b03c326aaf4f2b6b7905aa9d376d31018bd29f"
+        },
+        {
+          "path": "shaderc-2026.4/shaderc-2026.4/utils/add_copyright.py",
+          "sha256": "1e8e10e83cf8c1b9ab7dd9df9c77bbec01dc627b993486798a69b964fcc726aa"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "vulkan-loader-1.4.363.0",
+      "recorded_license": "Apache-2.0",
+      "source_sha256": "941eff558fc74f248745fb7df367640cf89a8457f216dae498a74ae14b6ba6f7",
+      "binaries": [
+        "lib/libvulkan.1.4.363.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "vulkan-loader-1.4.363.0/Vulkan-Loader-vulkan-sdk-1.4.363.0/LICENSE.txt",
+          "sha256": "43c0a37e6a0fa7ff3c843b3ec5a4fac84b712558ddac103fbd4c1649662a9ece"
+        },
+        {
+          "path": "vulkan-loader-1.4.363.0/Vulkan-Loader-vulkan-sdk-1.4.363.0/LICENSES/Apache-2.0.txt",
+          "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff"
+        },
+        {
+          "path": "vulkan-loader-1.4.363.0/Vulkan-Loader-vulkan-sdk-1.4.363.0/LICENSES/CC-BY-4.0.txt",
+          "sha256": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744"
+        },
+        {
+          "path": "vulkan-loader-1.4.363.0/Vulkan-Loader-vulkan-sdk-1.4.363.0/LICENSES/HPND-Kevlin-Henney.txt",
+          "sha256": "9c73641270f020fce60e4b6aa93f56754763916517cd72d21a73527696ccd3ed"
+        },
+        {
+          "path": "vulkan-loader-1.4.363.0/Vulkan-Loader-vulkan-sdk-1.4.363.0/LICENSES/MIT-Khronos-old.txt",
+          "sha256": "fbeaca472f4f70e276dd1106ca5097435967a22ad6c1d8200aef7ad9f70aaf3f"
+        },
+        {
+          "path": "vulkan-loader-1.4.363.0/Vulkan-Loader-vulkan-sdk-1.4.363.0/LICENSES/MIT.txt",
+          "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "little-cms2-2.19.1",
+      "recorded_license": "MIT",
+      "source_sha256": "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8",
+      "binaries": [
+        "lib/liblcms2.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "little-cms2-2.19.1/lcms2-2.19.1/LICENSE",
+          "sha256": "6dbd60437f8ef91d8de1f08ad75882547fd4931bfcc3566a0735f28db1484d31"
+        },
+        {
+          "path": "little-cms2-2.19.1/lcms2-2.19.1/plugins/fast_float/COPYING.GPL3",
+          "sha256": "c53a65c2fd561c87eaabf1072ef5dcab8653042bc15308465f52413585eb6271"
+        },
+        {
+          "path": "little-cms2-2.19.1/lcms2-2.19.1/plugins/threaded/COPYING.GPL3",
+          "sha256": "c53a65c2fd561c87eaabf1072ef5dcab8653042bc15308465f52413585eb6271"
+        },
+        {
+          "path": "little-cms2-2.19.1/lcms2-2.19.1/utils/jpgicc/LICENSE_iccjpeg",
+          "sha256": "8baac37d14eed89b82ffcb041677dd701164eb5cc0f26e165fe47eb11afa0dca"
+        },
+        {
+          "path": "little-cms2-2.19.1/lcms2-2.19.1/AUTHORS",
+          "sha256": "4847d97cd41e980794939b1d2694bd8f67b92856ec80e95c2fcfc34066f0df93"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "leptonica-1.87.0",
+      "recorded_license": "BSD-2-Clause",
+      "source_sha256": "c73363397f96eb1295602bf44d708a994ad42046c791bf03ea0505d829bdb6a7",
+      "binaries": [
+        "lib/libleptonica.6.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "leptonica-1.87.0/leptonica-1.87.0/leptonica-license.txt",
+          "sha256": "87829abb5bbb00b55a107365da89e9a33f86c4250169e5a1e5588505be7d5806"
+        },
+        {
+          "path": "leptonica-1.87.0/leptonica-1.87.0/prog/leptonica-license.txt",
+          "sha256": "87829abb5bbb00b55a107365da89e9a33f86c4250169e5a1e5588505be7d5806"
+        },
+        {
+          "path": "leptonica-1.87.0/leptonica-1.87.0/src/leptonica-license.txt",
+          "sha256": "87829abb5bbb00b55a107365da89e9a33f86c4250169e5a1e5588505be7d5806"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "zstd-1.5.7_1",
+      "recorded_license": "(BSD-3-Clause OR GPL-2.0-only) AND BSD-2-Clause AND MIT",
+      "source_sha256": "37d7284556b20954e56e1ca85b80226768902e2edabd3b649e9e72c0c9012ee3",
+      "binaries": [
+        "lib/libzstd.1.5.7.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "zstd-1.5.7_1/zstd-1.5.7/COPYING",
+          "sha256": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505"
+        },
+        {
+          "path": "zstd-1.5.7_1/zstd-1.5.7/LICENSE",
+          "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8"
+        },
+        {
+          "path": "zstd-1.5.7_1/zstd-1.5.7/build/LICENSE",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "zstd-1.5.7_1/zstd-1.5.7/tests/test-license.py",
+          "sha256": "a0bd1837d89c90e45722ff2c109530f2d280fa8296732b1a86adea2054f08ee9"
+        }
+      ],
+      "review": {
+        "status": "license-option-recorded",
+        "note": "BSD-3-Clause option selected for the dual-licensed library; preserve bundled BSD-2-Clause and MIT notices too. Do not select the GPL-2.0-only alternative for this GPLv3 bundle."
+      }
+    },
+    {
+      "package": "libb2-0.98.1",
+      "recorded_license": "CC0-1.0",
+      "source_sha256": "53626fddce753c454a3fea581cbbc7fe9bbcf0bc70416d48fdbbf5d87ef6c72e",
+      "binaries": [
+        "lib/libb2.1.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libb2-0.98.1/libb2-0.98.1/COPYING",
+          "sha256": "6a1ee543e5282cd9061881edf462e6fdab181f328da71fc2c9a6950a80e94d01"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "fribidi-1.0.17",
+      "recorded_license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "source_sha256": "6949dcde27d41cebad1fd741fcafc36d55a1020d2d872d4a6eb3914caabbada2",
+      "binaries": [
+        "lib/libfribidi.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "fribidi-1.0.17/fribidi-1.0.17/AUTHORS",
+          "sha256": "cb173f55c9514c8f38f4647ac3fedd5f8611358d331e65ab955da931e826861c"
+        },
+        {
+          "path": "fribidi-1.0.17/fribidi-1.0.17/COPYING",
+          "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libunibreak-8.0",
+      "recorded_license": "Zlib",
+      "source_sha256": "9c4fad6e517338a098373acc9f35579ae2c325e6446666fb9ac2666ba15ceba4",
+      "binaries": [
+        "lib/libunibreak.8.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libunibreak-8.0/libunibreak-8.0/AUTHORS",
+          "sha256": "34e46e31651a6fe15d1a802d7aaa0f349a0529b84d7cf03eb00c96c9f07f789a"
+        },
+        {
+          "path": "libunibreak-8.0/libunibreak-8.0/LICENCE",
+          "sha256": "0c57e2ec42ece17791a75d2f9b2f8e0663181be008667a507f765b3ef22522db"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "pcre2-10.49",
+      "recorded_license": "BSD-3-Clause",
+      "source_sha256": "53c156e1ba416a20da8e65395daa132da0d80e76910424caca3fcdae7831d384",
+      "binaries": [
+        "lib/libpcre2-8.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "pcre2-10.49/pcre2-10.49/AUTHORS.md",
+          "sha256": "412ace3355a4d6a4d835c350a7df172903811eafda7b13500dacf58429ee757e"
+        },
+        {
+          "path": "pcre2-10.49/pcre2-10.49/COPYING",
+          "sha256": "99272c55f3dcfa07a8a7e15a5c1a33096e4727de74241d65fa049fccfdd59507"
+        },
+        {
+          "path": "pcre2-10.49/pcre2-10.49/deps/sljit/LICENSE",
+          "sha256": "5f216505c0f6ea3273caec89e766eef93cdeb7bbb0c429f9360116d7c938feeb"
+        },
+        {
+          "path": "pcre2-10.49/pcre2-10.49/cmake/COPYING-CMAKE-SCRIPTS",
+          "sha256": "c666ec2313dba24523ccad88f4c04ea4b24fad6545263a35b1d4ab2b08efe50a"
+        },
+        {
+          "path": "pcre2-10.49/pcre2-10.49/LICENCE.md",
+          "sha256": "197d8a73ffee0d6b09adba2f9c677b5f5aede24edf89258a68e48248d010d811"
+        }
+      ],
+      "review": {
+        "status": "metadata-refined-in-notice-index",
+        "note": "Source specifies BSD-3-Clause WITH PCRE2-exception; JIT/sljit has a separate BSD-2-Clause notice. Both are preserved.",
+        "evidence": [
+          "pcre2-10.49/LICENCE.md",
+          "pcre2-10.49/deps/sljit/LICENSE"
+        ]
+      }
+    },
+    {
+      "package": "jpeg-turbo-3.2.0",
+      "recorded_license": "IJG AND Zlib AND BSD-3-Clause",
+      "source_sha256": "6f30092cef9fb839779646608f4ee14ae3cbac989c47fa05e841b0841f09878e",
+      "binaries": [
+        "lib/libjpeg.8.3.2.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "jpeg-turbo-3.2.0/libjpeg-turbo-3.2.0/LICENSE.md",
+          "sha256": "ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579"
+        },
+        {
+          "path": "jpeg-turbo-3.2.0/libjpeg-turbo-3.2.0/README.ijg",
+          "sha256": "75815e3bf6484201a3c3d17a1bbf10f2e8e3237f84df10a2357ea896db2a81d6"
+        },
+        {
+          "path": "jpeg-turbo-3.2.0/libjpeg-turbo-3.2.0/release/License.rtf",
+          "sha256": "d26120ab237f87dea10aa4fa7fd4243cadffd26e54eb2f3903d5fb0f8ed336b2"
+        },
+        {
+          "path": "jpeg-turbo-3.2.0/libjpeg-turbo-3.2.0/src/spng/LICENSE",
+          "sha256": "0622b0794d0fecde47d743f1bb70a03e6fdf082be8e71f39de672ed995d96ff9"
+        },
+        {
+          "path": "jpeg-turbo-3.2.0/libjpeg-turbo-3.2.0/src/spng/libpng-LICENSE.txt",
+          "sha256": "4f52a606ef0eb8a1bedee6088364f483df777611c0d554b090bf9b0f7cd3e798"
+        },
+        {
+          "path": "jpeg-turbo-3.2.0/libjpeg-turbo-3.2.0/src/spng/zlib/LICENSE",
+          "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+        },
+        {
+          "path": "jpeg-turbo-3.2.0/libjpeg-turbo-3.2.0/testimages/LICENSE.txt",
+          "sha256": "1c4d5dfc985d5061ba11180a8ffb541cc1778bccf87fd9f0fb92cbae69d8a9cc"
+        }
+      ],
+      "review": {
+        "status": "referenced-license-restored",
+        "note": "README.ijg contains the IJG terms referenced by LICENSE.md. Both are preserved; Independent JPEG Group acknowledgement is in NOTICE.txt.",
+        "evidence": [
+          "libjpeg-turbo-3.2.0/LICENSE.md",
+          "libjpeg-turbo-3.2.0/README.ijg"
+        ]
+      }
+    },
+    {
+      "package": "giflib-6.1.3",
+      "recorded_license": "MIT",
+      "source_sha256": "b65b66b99f0424b93525f987386f22fc5efb9da2bfc92ad4a532249aaffbab0e",
+      "binaries": [
+        "lib/libgif.7.2.0.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "giflib-6.1.3/giflib-6.1.3/COPYING",
+          "sha256": "ed5d90cb4a041bddad679470a071302ab05ae5d0ec2cf8f9c97ad7b2708751e6"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    },
+    {
+      "package": "libtiff-4.7.2",
+      "recorded_license": "libtiff",
+      "source_sha256": "672bd7d10aee4606171afb864f3570b83340f6a33e2c186dc0512f7145ffdf6a",
+      "binaries": [
+        "lib/libtiff.6.dylib"
+      ],
+      "source_notices": [
+        {
+          "path": "libtiff-4.7.2/tiff-4.7.2/doc/html-prebuilt/_sources/project/license.rst.txt",
+          "sha256": "02e86af3b805e0f2075ebb5ac512831f6ab2a97ddeb186de076c418956418ba1"
+        },
+        {
+          "path": "libtiff-4.7.2/tiff-4.7.2/doc/html-prebuilt/project/license.html",
+          "sha256": "6c9436f8e9f58a79e044949e360291b9c910715fad31cdaed66bc61b0dcf33e6"
+        },
+        {
+          "path": "libtiff-4.7.2/tiff-4.7.2/doc/project/license.rst",
+          "sha256": "02e86af3b805e0f2075ebb5ac512831f6ab2a97ddeb186de076c418956418ba1"
+        },
+        {
+          "path": "libtiff-4.7.2/tiff-4.7.2/LICENSE.md",
+          "sha256": "0e27c2382d7b8147972bbb746e04059a1152c8d0fda9d03ef1399d1a433c4ade"
+        }
+      ],
+      "review": {
+        "status": "top-level-notices-reviewed",
+        "note": "Original source notices retained. This is not a per-file license conclusion or proof of static dependency completeness."
+      }
+    }
+  ],
+  "supplemental_notices": [
+    {
+      "package": "rav1e-crate--anes-0.1.6",
+      "source_sha256": "4b46cbb362ab8752921c97e041f5e366ee6297bd428a31275b9fcf1e380f7299",
+      "declared_license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/zrzka/anes-rs",
+      "commit": "378ac7461ecac29fde9e10df7b08359d1315a9ad",
+      "notices": [
+        {
+          "path": "rav1e-crate--anes-0.1.6/LICENSE-MIT",
+          "url": "https://raw.githubusercontent.com/zrzka/anes-rs/378ac7461ecac29fde9e10df7b08359d1315a9ad/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+        },
+        {
+          "path": "rav1e-crate--anes-0.1.6/LICENSE-APACHE",
+          "url": "https://raw.githubusercontent.com/zrzka/anes-rs/378ac7461ecac29fde9e10df7b08359d1315a9ad/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+        }
+      ],
+      "status": "historical-notice-recovered"
+    },
+    {
+      "package": "rav1e-crate--difflib-0.4.0",
+      "source_sha256": "6184e33543162437515c2e2b48714794e37845ec9851711914eec9d308f6ebe8",
+      "declared_license": "MIT",
+      "repository": "https://github.com/DimaKudosh/difflib",
+      "commit": null,
+      "notices": [],
+      "status": "unresolved"
+    },
+    {
+      "package": "rav1e-crate--profiling-1.0.16",
+      "source_sha256": "afbdc74edc00b6f6a218ca6a5364d6226a259d4b8ea1af4a0ea063f27e179f4d",
+      "declared_license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/aclysma/profiling",
+      "commit": "0ba524064aae5b4972e6be3424a2acb316f93ba3",
+      "notices": [
+        {
+          "path": "rav1e-crate--profiling-1.0.16/LICENSE-MIT",
+          "url": "https://raw.githubusercontent.com/aclysma/profiling/0ba524064aae5b4972e6be3424a2acb316f93ba3/LICENSE-MIT",
+          "sha256": "c8167fdeeed46d3f244d3f85c5bf998ce889343691c32be2c61a8bc4b5c08333"
+        },
+        {
+          "path": "rav1e-crate--profiling-1.0.16/LICENSE-APACHE",
+          "url": "https://raw.githubusercontent.com/aclysma/profiling/0ba524064aae5b4972e6be3424a2acb316f93ba3/LICENSE-APACHE",
+          "sha256": "10d30a673cd5e9349bdc02aeb48f14b3386d27d0da32df8f0a555d4aa16aa551"
+        }
+      ],
+      "status": "historical-notice-recovered"
+    },
+    {
+      "package": "rav1e-crate--profiling-procmacros-1.0.16",
+      "source_sha256": "a65f2e60fbf1063868558d69c6beacf412dc755f9fc020f514b7955fc914fe30",
+      "declared_license": "MIT OR Apache-2.0",
+      "repository": "https://github.com/aclysma/profiling",
+      "commit": "0ba524064aae5b4972e6be3424a2acb316f93ba3",
+      "notices": [
+        {
+          "path": "rav1e-crate--profiling-procmacros-1.0.16/LICENSE-MIT",
+          "url": "https://raw.githubusercontent.com/aclysma/profiling/0ba524064aae5b4972e6be3424a2acb316f93ba3/LICENSE-MIT",
+          "sha256": "c8167fdeeed46d3f244d3f85c5bf998ce889343691c32be2c61a8bc4b5c08333"
+        },
+        {
+          "path": "rav1e-crate--profiling-procmacros-1.0.16/LICENSE-APACHE",
+          "url": "https://raw.githubusercontent.com/aclysma/profiling/0ba524064aae5b4972e6be3424a2acb316f93ba3/LICENSE-APACHE",
+          "sha256": "10d30a673cd5e9349bdc02aeb48f14b3386d27d0da32df8f0a555d4aa16aa551"
+        }
+      ],
+      "status": "historical-notice-recovered"
+    },
+    {
+      "package": "rav1e-crate--simd_helpers-0.1.0",
+      "source_sha256": "95890f873bec569a0362c235787f3aca6e1e887302ba4840839bcc6459c42da6",
+      "declared_license": "MIT",
+      "repository": "https://github.com/lu-zero/simd_helpers",
+      "commit": "ca1a2f84aa386d758e98f8a609d990263932fb85",
+      "notices": [],
+      "status": "unresolved"
+    },
+    {
+      "package": "rav1e-crate--valuable-0.1.1",
+      "source_sha256": "ba73ea9cf16a25df0c8caa16c51acb937d5712a8429db78a3ee29d5dcacd3a65",
+      "declared_license": "MIT",
+      "repository": "https://github.com/tokio-rs/valuable",
+      "commit": "9efc29b6e58cef28f6566a47aa7e142a55fead77",
+      "notices": [
+        {
+          "path": "rav1e-crate--valuable-0.1.1/LICENSE",
+          "url": "https://raw.githubusercontent.com/tokio-rs/valuable/9efc29b6e58cef28f6566a47aa7e142a55fead77/LICENSE",
+          "sha256": "ed60d479b8fd1f64e9cbc3de449a16a53ac1b3d1b6aeb9bf9d190a8e93061b44"
+        }
+      ],
+      "status": "historical-notice-recovered"
+    },
+    {
+      "package": "rav1e-crate--winapi-i686-pc-windows-gnu-0.4.0",
+      "source_sha256": "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6",
+      "declared_license": "MIT/Apache-2.0",
+      "repository": "https://github.com/retep998/winapi-rs",
+      "commit": null,
+      "notices": [],
+      "status": "unresolved"
+    },
+    {
+      "package": "rav1e-crate--winapi-x86_64-pc-windows-gnu-0.4.0",
+      "source_sha256": "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f",
+      "declared_license": "MIT/Apache-2.0",
+      "repository": "https://github.com/retep998/winapi-rs",
+      "commit": null,
+      "notices": [],
+      "status": "unresolved"
+    },
+    {
+      "package": "rav1e-crate--wit-bindgen-rt-0.39.0",
+      "source_sha256": "6f42320e61fe2cfd34354ecb597f86f413484a798ba44a8ca1165c58d42da6c1",
+      "declared_license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "repository": "https://github.com/bytecodealliance/wit-bindgen",
+      "commit": "f2393e6e98fa5f9236cac580db8a3fc9de6a4b70",
+      "notices": [
+        {
+          "path": "rav1e-crate--wit-bindgen-rt-0.39.0/LICENSE-MIT",
+          "url": "https://raw.githubusercontent.com/bytecodealliance/wit-bindgen/f2393e6e98fa5f9236cac580db8a3fc9de6a4b70/LICENSE-MIT",
+          "sha256": "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
+        },
+        {
+          "path": "rav1e-crate--wit-bindgen-rt-0.39.0/LICENSE-APACHE",
+          "url": "https://raw.githubusercontent.com/bytecodealliance/wit-bindgen/f2393e6e98fa5f9236cac580db8a3fc9de6a4b70/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2"
+        }
+      ],
+      "status": "historical-notice-recovered"
+    }
+  ],
+  "unresolved_supplemental_packages": [
+    "rav1e-crate--difflib-0.4.0",
+    "rav1e-crate--simd_helpers-0.1.0",
+    "rav1e-crate--winapi-i686-pc-windows-gnu-0.4.0",
+    "rav1e-crate--winapi-x86_64-pc-windows-gnu-0.4.0"
+  ],
+  "unresolved_static_dependency": "Historical fast_float version used by libplacebo remains unknown."
+}

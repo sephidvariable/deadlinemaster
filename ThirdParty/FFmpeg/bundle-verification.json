@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "ffmpeg_components_rebuilt": false,
+  "runtime": "/Users/jameschang/Works/Project Master/DeadlineMaster/build/Deadline Master.app/Contents/Resources/FFmpegFull",
+  "binary_manifest_sha256": "806dd0ec60a98f1cf5e3cd6005e47205d705a0e14e175cf05b766864fae1dfab",
+  "binaries_hash_architecture_signature_linkage_verified": 282,
+  "original_binaries_unchanged": 281,
+  "added_binaries": [
+    "lib/libSDL3.0.dylib"
+  ],
+  "capability_listings_unchanged": [
+    "buildconf",
+    "decoders",
+    "devices",
+    "encoders",
+    "filters",
+    "formats",
+    "protocols"
+  ],
+  "audio_encode_decode_smoke_tests": [
+    "pcm_f32le",
+    "flac",
+    "libmp3lame",
+    "libvorbis",
+    "libopus",
+    "aac"
+  ],
+  "ffplay_loaded_bundled_sdl3": true,
+  "frei0r_plugin_smoke_test": true,
+  "preserved_notice_hashes_verified": 994,
+  "limits": [
+    "Same-Mac tests; not a clean second-Mac test.",
+    "Capability inventory retention does not exercise every codec, device, plugin or network protocol.",
+    "No upstream component rebuild or distribution clearance."
+  ]
+}

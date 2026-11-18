@@ -1,0 +1,33 @@
+{
+  "vulkan-headers-1.4.363.0": {
+    "kind": "header-build-input",
+    "url": "https://github.com/KhronosGroup/Vulkan-Headers/archive/refs/tags/vulkan-sdk-1.4.363.0.tar.gz",
+    "sha256": "4a078be12bef21cfebc09d878b77a63cff9d68f899254a0b00d0e37ef73e7f7e",
+    "evidence": "Installed libplacebo and vulkan-loader receipts and SBOMs both identify 1.4.363.0; source checksum in extra-provenance/vulkan-headers-1.4.363.0/sbom.spdx.json"
+  },
+  "xorgproto-2026.1": {
+    "kind": "header-build-input",
+    "url": "https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2026.1.tar.gz",
+    "sha256": "7fa90e48cbaca6bc4c99d176e88c5c147ab0ed42358e14a0869ee9c8a610ae7e",
+    "evidence": "Installed libx11 and FFmpeg receipts identify 2026.1; source checksum in extra-provenance/xorgproto-2026.1/sbom.spdx.json. Older libxau/libxdmcp receipts identify 2025.1, collected separately."
+  },
+  "glib-2.90.1--patch-1": {
+    "url": "https://raw.githubusercontent.com/Homebrew/homebrew-core/1cf441a09f572566b1b7c4695a4d169d1177248a/Patches/glib/hardcoded-paths.diff",
+    "sha256": "d846efd0bf62918350da94f850db33b0f8727fece9bfaf8164566e3094e80c97",
+    "kind": "patch",
+    "provenance_status": "resolved",
+    "evidence": "extra-provenance/glib-patch-history.json and glib-historical-patch.diff; only recorded patch change is commit 1cf441a09f572566b1b7c4695a4d169d1177248a (2025-10-15), predating installed GLib build; pinned bytes match collected checksum."
+  },
+  "xorgproto-2025.1": {
+    "kind": "header-build-input",
+    "url": "https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2025.1.tar.xz",
+    "sha256": "56898c716c0578df8a2d828c9c3e5c528277705c0484381a81960fe1a67668e8",
+    "evidence": "provenance/libxau-1.0.12 and libxdmcp-1.1.5 INSTALL_RECEIPT.json; extra-provenance/xorgproto-2025.1-announcement.html"
+  },
+  "xcb-proto-1.17.0": {
+    "kind": "generator-input",
+    "url": "https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.17.0.tar.xz",
+    "sha256": "2c1bacd2110f4799f74de6ebb714b94cf6f80fb112316b1219480fd22562148c",
+    "evidence": "extra-provenance/libxcb-1.17.0/xcb.pc explicitly records xcbproto_version=1.17.0; checksum preserved in extra-provenance/xcb-proto-current.rb; historical recipe modifications still need confirmation"
+  }
+}
